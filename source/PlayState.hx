@@ -1551,18 +1551,8 @@ class PlayState extends MusicBeatState
 		private function keyShit():Void
 			{
 				var holdArray:Array<Bool> = [controls.LEFT, controls.DOWN, controls.UP, controls.RIGHT];
-				var pressArray:Array<Bool> = [
-					controls.LEFT_P,
-					controls.DOWN_P,
-					controls.UP_P,
-					controls.RIGHT_P
-				];
-				var releaseArray:Array<Bool> = [
-					controls.LEFT_R,
-					controls.DOWN_R,
-					controls.UP_R,
-					controls.RIGHT_R
-				];
+				var pressArray:Array<Bool> = [controls.LEFT_P, controls.DOWN_P, controls.UP_P, controls.RIGHT_P];
+				var releaseArray:Array<Bool> = [controls.LEFT_R, controls.DOWN_R, controls.UP_R, controls.RIGHT_R];
 				if(FlxG.save.data.botplay)
 				{
 					holdArray = [false, false, false, false];
@@ -1710,15 +1700,6 @@ class PlayState extends MusicBeatState
 						spr.animation.play('pressed');
 					if (!holdArray[spr.ID])
 						spr.animation.play('static');
-		 
-					if (spr.animation.curAnim.name == 'confirm')
-					{
-						spr.centerOffsets();
-						spr.offset.x -= 13;
-						spr.offset.y -= 13;
-					}
-					else
-						spr.centerOffsets();
 				});
 			}
 

@@ -22,15 +22,12 @@ class Character extends FlxSprite
 		animOffsets = new Map<String, Array<Dynamic>>();
 		curCharacter = character;
 		this.isPlayer = isPlayer;
-
-		var tex:FlxAtlasFrames;
 		antialiasing = true;
 
 		switch (curCharacter)
 		{
 			case 'gf':
-				tex = Paths.getSparrowAtlas('characters/GF_assets');
-				frames = tex;
+				frames = Paths.getSparrowAtlas('characters/GF_assets');
 				animation.addByPrefix('cheer', 'GF Cheer', 24, false);
 				animation.addByPrefix('singLEFT', 'GF left note', 24, false);
 				animation.addByPrefix('singRIGHT', 'GF Right Note', 24, false);
@@ -60,8 +57,7 @@ class Character extends FlxSprite
 				playAnim('danceRight');
 			case 'dad':
 				// DAD ANIMATION LOADING CODE
-				tex = Paths.getSparrowAtlas('characters/DADDY_DEAREST', 'shared');
-				frames = tex;
+				frames = Paths.getSparrowAtlas('characters/DADDY_DEAREST', 'shared');
 				animation.addByPrefix('idle', 'Dad idle dance', 24);
 				animation.addByPrefix('singUP', 'Dad Sing Note UP', 24);
 				animation.addByPrefix('singRIGHT', 'Dad Sing Note RIGHT', 24);
@@ -76,10 +72,7 @@ class Character extends FlxSprite
 
 				playAnim('idle');
 			case 'bf':
-				var tex = Paths.getSparrowAtlas('characters/BOYFRIEND', 'shared');
-				frames = tex;
-
-				trace(tex.frames.length);
+				frames = Paths.getSparrowAtlas('characters/BOYFRIEND', 'shared');
 
 				animation.addByPrefix('idle', 'BF idle dance', 24, false);
 				animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
@@ -120,51 +113,32 @@ class Character extends FlxSprite
 
 		dance();
 
-		if (isPlayer)
-		{
+		if (isPlayer && !curCharacter.startsWith('bf'))
 			flipX = !flipX;
-
-			if (!curCharacter.startsWith('bf'))
-			{
-				var oldRight = animation.getByName('singRIGHT').frames;
-				animation.getByName('singRIGHT').frames = animation.getByName('singLEFT').frames;
-				animation.getByName('singLEFT').frames = oldRight;
-				if (animation.getByName('singRIGHTmiss') != null)
-				{
-					var oldMiss = animation.getByName('singRIGHTmiss').frames;
-					animation.getByName('singRIGHTmiss').frames = animation.getByName('singLEFTmiss').frames;
-					animation.getByName('singLEFTmiss').frames = oldMiss;
-				}
-			}
-		}
 	}
 
 	override function update(elapsed:Float)
 	{
-		if (!curCharacter.startsWith('bf'))
+		if (!debugMode && animation.curAnim != null && !isPlayer)
 		{
 			if (animation.curAnim.name.startsWith('sing'))
-			{
 				holdTimer += elapsed;
-			}
 
-			var dadVar:Float = 4;
-
-			if (curCharacter == 'dad')
-				dadVar = 6.1;
-			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001)
+			if (holdTimer >= Conductor.stepCrochet * 0.004)
 			{
-				trace('dance');
-				dance();
 				holdTimer = 0;
+				dance();
 			}
 		}
-
-		switch (curCharacter)
+		else if (!debugMode && animation.curAnim != null && isPlayer)
 		{
-			case 'gf':
-				if (animation.curAnim.name == 'hairFall' && animation.curAnim.finished)
-					playAnim('danceRight');
+			if (animation.curAnim.name.startsWith('sing'))
+				holdTimer += elapsed;
+			else
+				holdTimer = 0;
+
+			if (animation.curAnim.name.endsWith('miss') && animation.curAnim.finished && !debugMode)
+				playAnim('idle', true, false, animation.getByName('idle').numFrames - 1);
 		}
 
 		super.update(elapsed);
@@ -177,15 +151,12 @@ class Character extends FlxSprite
 		switch (curCharacter)
 		{
 			case 'gf':
-				if (!animation.curAnim.name.startsWith('hair'))
-				{
-					danced = !danced;
+				danced = !danced;
 
-					if (danced)
-						playAnim('danceRight');
-					else
-						playAnim('danceLeft');
-				}
+				if (danced)
+					playAnim('danceRight');
+				else
+					playAnim('danceLeft');
 			default:
 				playAnim('idle');
 		}
