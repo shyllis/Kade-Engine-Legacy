@@ -174,23 +174,20 @@ class Character extends FlxSprite
 
 	public function dance()
 	{
-		if (!debugMode)
+		switch (curCharacter)
 		{
-			switch (curCharacter)
-			{
-				case 'gf':
-					if (!animation.curAnim.name.startsWith('hair'))
-					{
-						danced = !danced;
+			case 'gf':
+				if (!animation.curAnim.name.startsWith('hair'))
+				{
+					danced = !danced;
 
-						if (danced)
-							playAnim('danceRight');
-						else
-							playAnim('danceLeft');
-					}
-				default:
-					playAnim('idle');
-			}
+					if (danced)
+						playAnim('danceRight');
+					else
+						playAnim('danceLeft');
+				}
+			default:
+				playAnim('idle');
 		}
 	}
 
