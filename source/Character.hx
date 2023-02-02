@@ -5,8 +5,7 @@ import flixel.graphics.frames.FlxAtlasFrames;
 
 using StringTools;
 
-class Character extends FlxSprite
-{
+class Character extends FlxSprite {
 	public var animOffsets:Map<String, Array<Dynamic>>;
 	public var debugMode:Bool = false;
 
@@ -15,8 +14,7 @@ class Character extends FlxSprite
 
 	public var holdTimer:Float = 0;
 
-	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false)
-	{
+	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false) {
 		super(x, y);
 
 		animOffsets = new Map<String, Array<Dynamic>>();
@@ -24,10 +22,9 @@ class Character extends FlxSprite
 		this.isPlayer = isPlayer;
 		antialiasing = true;
 
-		switch (curCharacter)
-		{
+		switch (curCharacter) {
 			case 'gf':
-				frames = Paths.getSparrowAtlas('characters/GF_assets');
+				frames = Paths.getSparrowAtlas('characters/GF_assets', 'shared');
 				animation.addByPrefix('cheer', 'GF Cheer', 24, false);
 				animation.addByPrefix('singLEFT', 'GF left note', 24, false);
 				animation.addByPrefix('singRIGHT', 'GF Right Note', 24, false);
@@ -113,87 +110,70 @@ class Character extends FlxSprite
 
 		dance();
 
-		if (isPlayer && !curCharacter.startsWith('bf'))
+		if (isPlayer)
 			flipX = !flipX;
 	}
 
-	override function update(elapsed:Float)
-	{
-		if (!debugMode && animation.curAnim != null && !isPlayer)
-		{
-			if (animation.curAnim.name.startsWith('sing'))
+	override function update(elapsed:Float) {
+		if (!curCharacter.startsWith('bf')) {
+			if (animation.curAnim.name.startsWith('sing')) {
 				holdTimer += elapsed;
+			}
 
-			if (holdTimer >= Conductor.stepCrochet * 0.004)
-			{
-				holdTimer = 0;
+			var dadVar:Float = 4;
+
+			if (curCharacter == 'dad')
+				dadVar = 6.1;
+			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001) {
+				trace('dance');
 				dance();
+				holdTimer = 0;
 			}
 		}
-		else if (!debugMode && animation.curAnim != null && isPlayer)
-		{
-			if (animation.curAnim.name.startsWith('sing'))
-				holdTimer += elapsed;
-			else
-				holdTimer = 0;
-
-			if (animation.curAnim.name.endsWith('miss') && animation.curAnim.finished && !debugMode)
-				playAnim('idle', true, false, animation.getByName('idle').numFrames - 1);
-		}
-
 		super.update(elapsed);
 	}
 
 	private var danced:Bool = false;
 
-	public function dance()
-	{
-		switch (curCharacter)
-		{
+	public function dance() {
+		switch (curCharacter) {
 			case 'gf':
-				danced = !danced;
+				if (!animation.curAnim.name.startsWith('hair')) {
+					danced = !danced;
 
-				if (danced)
-					playAnim('danceRight');
-				else
-					playAnim('danceLeft');
+					if (danced)
+						playAnim('danceRight');
+					else
+						playAnim('danceLeft');
+				}
 			default:
 				playAnim('idle');
 		}
 	}
 
-	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void
-	{
+	public function playAnim(AnimName:String, Force:Bool = false, Reversed:Bool = false, Frame:Int = 0):Void {
 		animation.play(AnimName, Force, Reversed, Frame);
 
 		var daOffset = animOffsets.get(AnimName);
-		if (animOffsets.exists(AnimName))
-		{
+		if (animOffsets.exists(AnimName)) {
 			offset.set(daOffset[0], daOffset[1]);
-		}
-		else
+		} else
 			offset.set(0, 0);
 
-		if (curCharacter == 'gf')
-		{
-			if (AnimName == 'singLEFT')
-			{
+		if (curCharacter == 'gf') {
+			if (AnimName == 'singLEFT') {
 				danced = true;
-			}
-			else if (AnimName == 'singRIGHT')
-			{
+			} else if (AnimName == 'singRIGHT') {
 				danced = false;
 			}
 
-			if (AnimName == 'singUP' || AnimName == 'singDOWN')
-			{
+			if (AnimName == 'singUP' || AnimName == 'singDOWN') {
 				danced = !danced;
 			}
 		}
 	}
 
-	public function addOffset(name:String, x:Float = 0, y:Float = 0)
-	{
+	public function addOffset(name:String, x:Float = 0, y:Float = 0) {
 		animOffsets[name] = [x, y];
 	}
 }

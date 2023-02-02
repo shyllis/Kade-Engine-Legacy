@@ -3,15 +3,13 @@ package;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 
-class CharacterSetting
-{
+class CharacterSetting {
 	public var x(default, null):Int;
 	public var y(default, null):Int;
 	public var scale(default, null):Float;
 	public var flipped(default, null):Bool;
 
-	public function new(x:Int = 0, y:Int = 0, scale:Float = 1.0, flipped:Bool = false)
-	{
+	public function new(x:Int = 0, y:Int = 0, scale:Float = 1.0, flipped:Bool = false) {
 		this.x = x;
 		this.y = y;
 		this.scale = scale;
@@ -19,8 +17,7 @@ class CharacterSetting
 	}
 }
 
-class MenuCharacter extends FlxSprite
-{
+class MenuCharacter extends FlxSprite {
 	private static var settings:Map<String, CharacterSetting> = [
 		'bf' => new CharacterSetting(0, -20, 1.0, true),
 		'gf' => new CharacterSetting(50, 80, 1.5, true),
@@ -34,8 +31,7 @@ class MenuCharacter extends FlxSprite
 
 	private var flipped:Bool = false;
 
-	public function new(x:Int, y:Int, scale:Float, flipped:Bool)
-	{
+	public function new(x:Int, y:Int, scale:Float, flipped:Bool) {
 		super(x, y);
 		this.flipped = flipped;
 
@@ -44,6 +40,7 @@ class MenuCharacter extends FlxSprite
 		frames = Paths.getSparrowAtlas('campaign_menu_UI_characters');
 
 		animation.addByPrefix('bf', "BF idle dance white", 24);
+		animation.addByPrefix('bfConfirm', 'BF HEY!!', 24, false);
 		animation.addByPrefix('gf', "GF Dancing Beat WHITE", 24);
 		animation.addByPrefix('dad', "Dad idle dance BLACK LINE", 24);
 
@@ -51,15 +48,11 @@ class MenuCharacter extends FlxSprite
 		updateHitbox();
 	}
 
-	public function setCharacter(character:String):Void
-	{
-		if (character == '')
-		{
+	public function setCharacter(character:String):Void {
+		if (character == '') {
 			visible = false;
 			return;
-		}
-		else
-		{
+		} else {
 			visible = true;
 		}
 

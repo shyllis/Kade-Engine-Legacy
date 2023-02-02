@@ -23,8 +23,7 @@ import flixel.input.FlxKeyManager;
 
 using StringTools;
 
-class KeyBindMenu extends FlxSubState
-{
+class KeyBindMenu extends FlxSubState {
 	var keyTextDisplay:FlxText;
 	var keyWarning:FlxText;
 	var warningTween:FlxTween;
@@ -47,10 +46,8 @@ class KeyBindMenu extends FlxSubState
 
 	var state:String = "select";
 
-	override function create()
-	{
-		for (i in 0...keys.length)
-		{
+	override function create() {
+		for (i in 0...keys.length) {
 			var k = keys[i];
 			if (k == null)
 				keys[i] = defaultKeys[i];
@@ -91,34 +88,25 @@ class KeyBindMenu extends FlxSubState
 		super.create();
 	}
 
-	override function update(elapsed:Float)
-	{
-		switch (state)
-		{
+	override function update(elapsed:Float) {
+		switch (state) {
 			case "select":
-				if (FlxG.keys.justPressed.UP)
-				{
+				if (FlxG.keys.justPressed.UP) {
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					changeItem(-1);
 				}
 
-				if (FlxG.keys.justPressed.DOWN)
-				{
+				if (FlxG.keys.justPressed.DOWN) {
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					changeItem(1);
 				}
 
-				if (FlxG.keys.justPressed.ENTER)
-				{
+				if (FlxG.keys.justPressed.ENTER) {
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					state = "input";
-				}
-				else if (FlxG.keys.justPressed.ESCAPE)
-				{
+				} else if (FlxG.keys.justPressed.ESCAPE) {
 					quit();
-				}
-				else if (FlxG.keys.justPressed.BACKSPACE)
-				{
+				} else if (FlxG.keys.justPressed.BACKSPACE) {
 					reset();
 				}
 
@@ -129,20 +117,15 @@ class KeyBindMenu extends FlxSubState
 				state = "waiting";
 
 			case "waiting":
-				if (FlxG.keys.justPressed.ESCAPE)
-				{
+				if (FlxG.keys.justPressed.ESCAPE) {
 					keys[curSelected] = tempKey;
 					state = "select";
 					FlxG.sound.play(Paths.sound('confirmMenu'));
-				}
-				else if (FlxG.keys.justPressed.ENTER)
-				{
+				} else if (FlxG.keys.justPressed.ENTER) {
 					addKey(defaultKeys[curSelected]);
 					save();
 					state = "select";
-				}
-				else if (FlxG.keys.justPressed.ANY)
-				{
+				} else if (FlxG.keys.justPressed.ANY) {
 					addKey(FlxG.keys.getIsDown()[0].ID.toString());
 					save();
 					state = "select";
@@ -160,12 +143,10 @@ class KeyBindMenu extends FlxSubState
 		super.update(elapsed);
 	}
 
-	function textUpdate()
-	{
+	function textUpdate() {
 		keyTextDisplay.text = "\n\n";
 
-		for (i in 0...4)
-		{
+		for (i in 0...4) {
 			var textStart = (i == curSelected) ? "> " : "  ";
 			keyTextDisplay.text += textStart + keyText[i] + ": " + ((keys[i] != keyText[i]) ? (keys[i] + " / ") : "") + keyText[i] + " ARROW\n";
 		}
@@ -173,8 +154,7 @@ class KeyBindMenu extends FlxSubState
 		keyTextDisplay.screenCenter();
 	}
 
-	function save()
-	{
+	function save() {
 		FlxG.save.data.upBind = keys[2];
 		FlxG.save.data.downBind = keys[1];
 		FlxG.save.data.leftBind = keys[0];
@@ -185,17 +165,14 @@ class KeyBindMenu extends FlxSubState
 		PlayerSettings.player1.controls.loadKeyBinds();
 	}
 
-	function reset()
-	{
-		for (i in 0...5)
-		{
+	function reset() {
+		for (i in 0...5) {
 			keys[i] = defaultKeys[i];
 		}
 		quit();
 	}
 
-	function quit()
-	{
+	function quit() {
 		state = "exiting";
 
 		save();
@@ -203,28 +180,27 @@ class KeyBindMenu extends FlxSubState
 		OptionsMenu.instance.acceptInput = true;
 
 		FlxTween.tween(keyTextDisplay, {alpha: 0}, 1, {ease: FlxEase.expoInOut});
-		FlxTween.tween(blackBox, {alpha: 0}, 1.1, {ease: FlxEase.expoInOut, onComplete: function(flx:FlxTween)
-		{
-			close();
-		}});
+		FlxTween.tween(blackBox, {alpha: 0}, 1.1, {
+			ease: FlxEase.expoInOut,
+			onComplete: function(flx:FlxTween) {
+				close();
+			}
+		});
 		FlxTween.tween(infoText, {alpha: 0}, 1, {ease: FlxEase.expoInOut});
 	}
 
-	function addKey(r:String)
-	{
+	function addKey(r:String) {
 		var shouldReturn:Bool = true;
 
 		var notAllowed:Array<String> = [];
 
-		for (x in blacklist)
-		{
+		for (x in blacklist) {
 			notAllowed.push(x);
 		}
 
 		trace(notAllowed);
 
-		for (x in 0...keys.length)
-		{
+		for (x in 0...keys.length) {
 			var oK = keys[x];
 			if (oK == r)
 				keys[x] = null;
@@ -232,13 +208,10 @@ class KeyBindMenu extends FlxSubState
 				return;
 		}
 
-		if (shouldReturn)
-		{
+		if (shouldReturn) {
 			keys[curSelected] = r;
 			FlxG.sound.play(Paths.sound('scrollMenu'));
-		}
-		else
-		{
+		} else {
 			keys[curSelected] = tempKey;
 			FlxG.sound.play(Paths.sound('scrollMenu'));
 			keyWarning.alpha = 1;
@@ -247,8 +220,7 @@ class KeyBindMenu extends FlxSubState
 		}
 	}
 
-	function changeItem(_amount:Int = 0)
-	{
+	function changeItem(_amount:Int = 0) {
 		curSelected += _amount;
 
 		if (curSelected > 3)

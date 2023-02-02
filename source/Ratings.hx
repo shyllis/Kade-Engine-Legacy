@@ -1,9 +1,7 @@
 import flixel.FlxG;
 
-class Ratings
-{
-	public static function GenerateLetterRank(accuracy:Float)
-	{
+class Ratings {
+	public static function GenerateLetterRank(accuracy:Float) {
 		var ranking:String = "N/A";
 		if (FlxG.save.data.botplay)
 			ranking = "BotPlay";
@@ -24,13 +22,10 @@ class Ratings
 			accuracy >= 99, accuracy >= 96.50, accuracy >= 93, accuracy >= 90, accuracy >= 85, accuracy >= 80, accuracy >= 70, accuracy >= 60, accuracy < 60
 		];
 
-		for (i in 0...wifeConditions.length)
-		{
+		for (i in 0...wifeConditions.length) {
 			var b = wifeConditions[i];
-			if (b)
-			{
-				switch (i)
-				{
+			if (b) {
+				switch (i) {
 					case 0:
 						ranking += " AAAAA";
 					case 1:
@@ -76,8 +71,7 @@ class Ratings
 		return ranking;
 	}
 
-	public static function CalculateRating(noteDiff:Float, ?customSafeZone:Float):String
-	{
+	public static function CalculateRating(noteDiff:Float, ?customSafeZone:Float):String {
 		var customTimeScale = Conductor.timeScale;
 
 		if (customSafeZone != null)
@@ -105,8 +99,7 @@ class Ratings
 		return "sick";
 	}
 
-	public static function CalculateRanking(score:Int, scoreDef:Int, nps:Int, maxNPS:Int, accuracy:Float):String
-	{
+	public static function CalculateRanking(score:Int, scoreDef:Int, nps:Int, maxNPS:Int, accuracy:Float):String {
 		return (FlxG.save.data.npsDisplay ? "NPS: " + nps + " (Max " + maxNPS + ")" + (!FlxG.save.data.botplay ? " | " : "") : "")
 			+ (!FlxG.save.data.botplay ? // NPS Toggle
 				"Score:"

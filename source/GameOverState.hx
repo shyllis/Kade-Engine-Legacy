@@ -7,21 +7,18 @@ import flixel.input.gamepad.FlxGamepad;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 
-class GameOverState extends FlxTransitionableState
-{
+class GameOverState extends FlxTransitionableState {
 	var bfX:Float = 0;
 	var bfY:Float = 0;
 
-	public function new(x:Float, y:Float)
-	{
+	public function new(x:Float, y:Float) {
 		super();
 
 		bfX = x;
 		bfY = y;
 	}
 
-	override function create()
-	{
+	override function create() {
 		var loser:FlxSprite = new FlxSprite(100, 100);
 		var loseTex = Paths.getSparrowAtlas('lose');
 		loser.frames = loseTex;
@@ -52,25 +49,21 @@ class GameOverState extends FlxTransitionableState
 
 	private var fading:Bool = false;
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		var pressed:Bool = FlxG.keys.justPressed.ANY;
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
 
-		if (gamepad != null)
-		{
+		if (gamepad != null) {
 			if (gamepad.justPressed.ANY)
 				pressed = true;
 		}
 
 		pressed = false;
 
-		if (pressed && !fading)
-		{
+		if (pressed && !fading) {
 			fading = true;
-			FlxG.sound.music.fadeOut(0.5, 0, function(twn:FlxTween)
-			{
+			FlxG.sound.music.fadeOut(0.5, 0, function(twn:FlxTween) {
 				FlxG.sound.music.stop();
 				FlxG.switchState(new PlayState());
 			});

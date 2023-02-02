@@ -6,10 +6,8 @@ import discord_rpc.DiscordRpc;
 
 using StringTools;
 
-class DiscordClient
-{
-	public function new()
-	{
+class DiscordClient {
+	public function new() {
 		trace("Discord Client starting...");
 		DiscordRpc.start({
 			clientID: "557069829501091850",
@@ -19,8 +17,7 @@ class DiscordClient
 		});
 		trace("Discord Client started.");
 
-		while (true)
-		{
+		while (true) {
 			DiscordRpc.process();
 			sleep(2);
 		}
@@ -28,13 +25,11 @@ class DiscordClient
 		DiscordRpc.shutdown();
 	}
 
-	public static function shutdown()
-	{
+	public static function shutdown() {
 		DiscordRpc.shutdown();
 	}
 
-	static function onReady()
-	{
+	static function onReady() {
 		DiscordRpc.presence({
 			details: "In the Menus",
 			state: null,
@@ -43,31 +38,25 @@ class DiscordClient
 		});
 	}
 
-	static function onError(_code:Int, _message:String)
-	{
+	static function onError(_code:Int, _message:String) {
 		trace('Error! $_code : $_message');
 	}
 
-	static function onDisconnected(_code:Int, _message:String)
-	{
+	static function onDisconnected(_code:Int, _message:String) {
 		trace('Disconnected! $_code : $_message');
 	}
 
-	public static function initialize()
-	{
-		var DiscordDaemon = sys.thread.Thread.create(() ->
-		{
+	public static function initialize() {
+		var DiscordDaemon = sys.thread.Thread.create(() -> {
 			new DiscordClient();
 		});
 		trace("Discord Client initialized");
 	}
 
-	public static function changePresence(details:String, state:Null<String>, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float)
-	{
+	public static function changePresence(details:String, state:Null<String>, ?smallImageKey:String, ?hasStartTimestamp:Bool, ?endTimestamp:Float) {
 		var startTimestamp:Float = if (hasStartTimestamp) Date.now().getTime() else 0;
 
-		if (endTimestamp > 0)
-		{
+		if (endTimestamp > 0) {
 			endTimestamp = startTimestamp + endTimestamp;
 		}
 

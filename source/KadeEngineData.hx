@@ -1,10 +1,8 @@
 import openfl.Lib;
 import flixel.FlxG;
 
-class KadeEngineData
-{
-	public static function initSave()
-	{
+class KadeEngineData {
+	public static function initSave() {
 		if (FlxG.save.data.newInput == null)
 			FlxG.save.data.newInput = true;
 
@@ -26,8 +24,7 @@ class KadeEngineData
 		if (FlxG.save.data.fps == null)
 			FlxG.save.data.fps = false;
 
-		if (FlxG.save.data.changedHit == null)
-		{
+		if (FlxG.save.data.changedHit == null) {
 			FlxG.save.data.changedHitX = -1;
 			FlxG.save.data.changedHitY = -1;
 			FlxG.save.data.changedHit = false;

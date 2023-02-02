@@ -9,10 +9,8 @@ import flixel.input.gamepad.FlxGamepadButton;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
 
-class KeyBinds
-{
-	public static function resetBinds():Void
-	{
+class KeyBinds {
+	public static function resetBinds():Void {
 		FlxG.save.data.upBind = "W";
 		FlxG.save.data.downBind = "S";
 		FlxG.save.data.leftBind = "A";
@@ -21,30 +19,24 @@ class KeyBinds
 		PlayerSettings.player1.controls.loadKeyBinds();
 	}
 
-	public static function keyCheck():Void
-	{
-		if (FlxG.save.data.upBind == null)
-		{
+	public static function keyCheck():Void {
+		if (FlxG.save.data.upBind == null) {
 			FlxG.save.data.upBind = "W";
 			trace("No UP");
 		}
-		if (FlxG.save.data.downBind == null)
-		{
+		if (FlxG.save.data.downBind == null) {
 			FlxG.save.data.downBind = "S";
 			trace("No DOWN");
 		}
-		if (FlxG.save.data.leftBind == null)
-		{
+		if (FlxG.save.data.leftBind == null) {
 			FlxG.save.data.leftBind = "A";
 			trace("No LEFT");
 		}
-		if (FlxG.save.data.rightBind == null)
-		{
+		if (FlxG.save.data.rightBind == null) {
 			FlxG.save.data.rightBind = "D";
 			trace("No RIGHT");
 		}
-		if (FlxG.save.data.killBind == null)
-		{
+		if (FlxG.save.data.killBind == null) {
 			FlxG.save.data.killBind = "R";
 			trace("No KILL");
 		}

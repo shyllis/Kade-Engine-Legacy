@@ -16,8 +16,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
 
-class OptionsMenu extends MusicBeatState
-{
+class OptionsMenu extends MusicBeatState {
 	public static var instance:OptionsMenu;
 
 	var selector:FlxText;
@@ -66,8 +65,7 @@ class OptionsMenu extends MusicBeatState
 	var currentSelectedCat:OptionCategory;
 	var blackBorder:FlxSprite;
 
-	override function create()
-	{
+	override function create() {
 		instance = this;
 		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image("menuDesat"));
 
@@ -81,8 +79,7 @@ class OptionsMenu extends MusicBeatState
 		grpControls = new FlxTypedGroup<Alphabet>();
 		add(grpControls);
 
-		for (i in 0...options.length)
-		{
+		for (i in 0...options.length) {
 			var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, options[i].getName(), true, false, true);
 			controlLabel.isMenuItem = true;
 			controlLabel.targetY = i;
@@ -116,20 +113,16 @@ class OptionsMenu extends MusicBeatState
 
 	var isCat:Bool = false;
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (acceptInput)
-		{
+		if (acceptInput) {
 			if (controls.BACK && !isCat)
 				FlxG.switchState(new MainMenuState());
-			else if (controls.BACK)
-			{
+			else if (controls.BACK) {
 				isCat = false;
 				grpControls.clear();
-				for (i in 0...options.length)
-				{
+				for (i in 0...options.length) {
 					var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, options[i].getName(), true, false);
 					controlLabel.isMenuItem = true;
 					controlLabel.targetY = i;
@@ -143,35 +136,26 @@ class OptionsMenu extends MusicBeatState
 			if (controls.DOWN_P)
 				changeSelection(1);
 
-			if (isCat)
-			{
-				if (currentSelectedCat.getOptions()[curSelected].getAccept())
-				{
-					if (FlxG.keys.pressed.SHIFT)
-					{
+			if (isCat) {
+				if (currentSelectedCat.getOptions()[curSelected].getAccept()) {
+					if (FlxG.keys.pressed.SHIFT) {
 						if (FlxG.keys.pressed.RIGHT)
 							currentSelectedCat.getOptions()[curSelected].right();
 						if (FlxG.keys.pressed.LEFT)
 							currentSelectedCat.getOptions()[curSelected].left();
-					}
-					else
-					{
+					} else {
 						if (FlxG.keys.justPressed.RIGHT)
 							currentSelectedCat.getOptions()[curSelected].right();
 						if (FlxG.keys.justPressed.LEFT)
 							currentSelectedCat.getOptions()[curSelected].left();
 					}
-				}
-				else
-				{
-					if (FlxG.keys.pressed.SHIFT)
-					{
+				} else {
+					if (FlxG.keys.pressed.SHIFT) {
 						if (FlxG.keys.justPressed.RIGHT)
 							FlxG.save.data.offset += 0.1;
 						else if (FlxG.keys.justPressed.LEFT)
 							FlxG.save.data.offset -= 0.1;
-					}
-					else if (FlxG.keys.pressed.RIGHT)
+					} else if (FlxG.keys.pressed.RIGHT)
 						FlxG.save.data.offset += 0.1;
 					else if (FlxG.keys.pressed.LEFT)
 						FlxG.save.data.offset -= 0.1;
@@ -181,17 +165,13 @@ class OptionsMenu extends MusicBeatState
 				else
 					versionShit.text = "Offset (Left, Right, Shift for slow): " + HelperFunctions.truncateFloat(FlxG.save.data.offset, 2)
 						+ " - Description - " + currentDescription;
-			}
-			else
-			{
-				if (FlxG.keys.pressed.SHIFT)
-				{
+			} else {
+				if (FlxG.keys.pressed.SHIFT) {
 					if (FlxG.keys.justPressed.RIGHT)
 						FlxG.save.data.offset += 0.1;
 					else if (FlxG.keys.justPressed.LEFT)
 						FlxG.save.data.offset -= 0.1;
-				}
-				else if (FlxG.keys.pressed.RIGHT)
+				} else if (FlxG.keys.pressed.RIGHT)
 					FlxG.save.data.offset += 0.1;
 				else if (FlxG.keys.pressed.LEFT)
 					FlxG.save.data.offset -= 0.1;
@@ -200,25 +180,19 @@ class OptionsMenu extends MusicBeatState
 			if (controls.RESET)
 				FlxG.save.data.offset = 0;
 
-			if (controls.ACCEPT)
-			{
-				if (isCat)
-				{
-					if (currentSelectedCat.getOptions()[curSelected].press())
-					{
+			if (controls.ACCEPT) {
+				if (isCat) {
+					if (currentSelectedCat.getOptions()[curSelected].press()) {
 						grpControls.remove(grpControls.members[curSelected]);
 						var ctrl:Alphabet = new Alphabet(0, (70 * curSelected) + 30, currentSelectedCat.getOptions()[curSelected].getDisplay(), true, false);
 						ctrl.isMenuItem = true;
 						grpControls.add(ctrl);
 					}
-				}
-				else
-				{
+				} else {
 					currentSelectedCat = options[curSelected];
 					isCat = true;
 					grpControls.clear();
-					for (i in 0...currentSelectedCat.getOptions().length)
-					{
+					for (i in 0...currentSelectedCat.getOptions().length) {
 						var controlLabel:Alphabet = new Alphabet(0, (70 * i) + 30, currentSelectedCat.getOptions()[i].getDisplay(), true, false);
 						controlLabel.isMenuItem = true;
 						controlLabel.targetY = i;
@@ -234,8 +208,7 @@ class OptionsMenu extends MusicBeatState
 
 	var isSettingControl:Bool = false;
 
-	function changeSelection(change:Int = 0)
-	{
+	function changeSelection(change:Int = 0) {
 		#if !switch
 		// NGio.logEvent("Fresh");
 		#end
@@ -253,31 +226,27 @@ class OptionsMenu extends MusicBeatState
 			currentDescription = currentSelectedCat.getOptions()[curSelected].getDescription();
 		else
 			currentDescription = "Please select a category";
-		if (isCat)
-		{
+		if (isCat) {
 			if (currentSelectedCat.getOptions()[curSelected].getAccept())
 				versionShit.text = currentSelectedCat.getOptions()[curSelected].getValue() + " - Description - " + currentDescription;
 			else
 				versionShit.text = "Offset (Left, Right, Shift for slow): " + HelperFunctions.truncateFloat(FlxG.save.data.offset, 2) + " - Description - "
 					+ currentDescription;
-		}
-		else
+		} else
 			versionShit.text = "Offset (Left, Right, Shift for slow): " + HelperFunctions.truncateFloat(FlxG.save.data.offset, 2) + " - Description - "
 				+ currentDescription;
 		// selector.y = (70 * curSelected) + 30;
 
 		var bullShit:Int = 0;
 
-		for (item in grpControls.members)
-		{
+		for (item in grpControls.members) {
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
 			item.alpha = 0.6;
 			// item.setGraphicSize(Std.int(item.width * 0.8));
 
-			if (item.targetY == 0)
-			{
+			if (item.targetY == 0) {
 				item.alpha = 1;
 				// item.setGraphicSize(Std.int(item.width));
 			}

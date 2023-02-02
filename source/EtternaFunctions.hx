@@ -1,5 +1,4 @@
-class EtternaFunctions
-{
+class EtternaFunctions {
 	public static var a1 = 0.254829592;
 	public static var a2 = -0.284496736;
 	public static var a3 = 1.421413741;
@@ -7,8 +6,7 @@ class EtternaFunctions
 	public static var a5 = 1.061405429;
 	public static var p = 0.3275911;
 
-	public static function erf(x:Float):Float
-	{
+	public static function erf(x:Float):Float {
 		var sign = 1;
 		if (x < 0)
 			sign = -1;
@@ -20,13 +18,10 @@ class EtternaFunctions
 		return sign * y;
 	}
 
-	public static function getNotes():Int
-	{
+	public static function getNotes():Int {
 		var notes:Int = 0;
-		for (i in 0...PlayState.SONG.notes.length)
-		{
-			for (ii in 0...PlayState.SONG.notes[i].sectionNotes.length)
-			{
+		for (i in 0...PlayState.SONG.notes.length) {
+			for (ii in 0...PlayState.SONG.notes[i].sectionNotes.length) {
 				var n = PlayState.SONG.notes[i].sectionNotes[ii];
 				if (n[1] <= 0)
 					notes++;
@@ -35,14 +30,11 @@ class EtternaFunctions
 		return notes;
 	}
 
-	public static function getHolds():Int
-	{
+	public static function getHolds():Int {
 		var notes:Int = 0;
-		for (i in 0...PlayState.SONG.notes.length)
-		{
+		for (i in 0...PlayState.SONG.notes.length) {
 			trace(PlayState.SONG.notes[i]);
-			for (ii in 0...PlayState.SONG.notes[i].sectionNotes.length)
-			{
+			for (ii in 0...PlayState.SONG.notes[i].sectionNotes.length) {
 				var n = PlayState.SONG.notes[i].sectionNotes[ii];
 				trace(n);
 				if (n[1] > 0)
@@ -52,13 +44,11 @@ class EtternaFunctions
 		return notes;
 	}
 
-	public static function getMapMaxScore():Int
-	{
+	public static function getMapMaxScore():Int {
 		return (getNotes() * 350);
 	}
 
-	public static function wife3(maxms:Float, ts:Float)
-	{
+	public static function wife3(maxms:Float, ts:Float) {
 		var max_points = 1.0;
 		var miss_weight = -5.5;
 		var ridic = 5 * ts;

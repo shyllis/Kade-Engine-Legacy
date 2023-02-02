@@ -4,8 +4,7 @@ import Controls;
 import flixel.FlxG;
 import flixel.util.FlxSignal;
 
-class PlayerSettings
-{
+class PlayerSettings {
 	static public var numPlayers(default, null) = 0;
 	static public var numAvatars(default, null) = 0;
 	static public var player1(default, null):PlayerSettings;
@@ -27,28 +26,23 @@ class PlayerSettings
 	public var controls:Controls;
 	#end
 
-	function new(id, scheme)
-	{
+	function new(id, scheme) {
 		this.id = id;
 		this.controls = new Controls('player$id', scheme);
 	}
 
-	public function setKeyboardScheme(scheme)
-	{
+	public function setKeyboardScheme(scheme) {
 		controls.setKeyboardScheme(scheme);
 	}
 
-	static public function init():Void
-	{
-		if (player1 == null)
-		{
+	static public function init():Void {
+		if (player1 == null) {
 			player1 = new PlayerSettings(0, Solo);
 			++numPlayers;
 		}
 
 		var numGamepads = FlxG.gamepads.numActiveGamepads;
-		if (numGamepads > 0)
-		{
+		if (numGamepads > 0) {
 			var gamepad = FlxG.gamepads.getByID(0);
 			if (gamepad == null)
 				throw 'Unexpected null gamepad. id:0';
@@ -56,10 +50,8 @@ class PlayerSettings
 			player1.controls.addDefaultGamepad(0);
 		}
 
-		if (numGamepads > 1)
-		{
-			if (player2 == null)
-			{
+		if (numGamepads > 1) {
+			if (player2 == null) {
 				player2 = new PlayerSettings(1, None);
 				++numPlayers;
 			}
@@ -72,8 +64,7 @@ class PlayerSettings
 		}
 	}
 
-	static public function reset()
-	{
+	static public function reset() {
 		player1 = null;
 		player2 = null;
 		numPlayers = 0;

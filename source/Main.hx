@@ -13,8 +13,7 @@ import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
 
-class Main extends Sprite
-{
+class Main extends Sprite {
 	var gameWidth:Int = 1280;
 	var gameHeight:Int = 720;
 	var initialState:Class<FlxState> = TitleState;
@@ -25,42 +24,33 @@ class Main extends Sprite
 
 	public static var watermarks = true;
 
-	public static function main():Void
-	{
+	public static function main():Void {
 		Lib.current.addChild(new Main());
 	}
 
-	public function new()
-	{
+	public function new() {
 		super();
 
-		if (stage != null)
-		{
+		if (stage != null) {
 			init();
-		}
-		else
-		{
+		} else {
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
 	}
 
-	private function init(?E:Event):Void
-	{
-		if (hasEventListener(Event.ADDED_TO_STAGE))
-		{
+	private function init(?E:Event):Void {
+		if (hasEventListener(Event.ADDED_TO_STAGE)) {
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 		}
 
 		setupGame();
 	}
 
-	private function setupGame():Void
-	{
+	private function setupGame():Void {
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 
-		if (zoom == -1)
-		{
+		if (zoom == -1) {
 			var ratioX:Float = stageWidth / gameWidth;
 			var ratioY:Float = stageHeight / gameHeight;
 			zoom = Math.min(ratioX, ratioY);
@@ -87,28 +77,23 @@ class Main extends Sprite
 
 	var fpsCounter:FPS;
 
-	public function toggleFPS(fpsEnabled:Bool):Void
-	{
+	public function toggleFPS(fpsEnabled:Bool):Void {
 		fpsCounter.visible = fpsEnabled;
 	}
 
-	public function changeFPSColor(color:FlxColor)
-	{
+	public function changeFPSColor(color:FlxColor) {
 		fpsCounter.textColor = color;
 	}
 
-	public function setFPSCap(cap:Float)
-	{
+	public function setFPSCap(cap:Float) {
 		openfl.Lib.current.stage.frameRate = cap;
 	}
 
-	public function getFPSCap():Float
-	{
+	public function getFPSCap():Float {
 		return openfl.Lib.current.stage.frameRate;
 	}
 
-	public function getFPS():Float
-	{
+	public function getFPS():Float {
 		return fpsCounter.currentFPS;
 	}
 }

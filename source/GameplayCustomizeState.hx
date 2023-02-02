@@ -14,8 +14,7 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.FlxSprite;
 import flixel.FlxG;
 
-class GameplayCustomizeState extends MusicBeatState
-{
+class GameplayCustomizeState extends MusicBeatState {
 	var defaultX:Float = FlxG.width * 0.55 - 135;
 	var defaultY:Float = FlxG.height / 2 - 50;
 
@@ -36,8 +35,7 @@ class GameplayCustomizeState extends MusicBeatState
 	var playerStrums:FlxTypedGroup<FlxSprite>;
 	private var camHUD:FlxCamera;
 
-	public override function create()
-	{
+	public override function create() {
 		#if windows
 		DiscordClient.changePresence("Customizing Gameplay", null);
 		#end
@@ -121,8 +119,7 @@ class GameplayCustomizeState extends MusicBeatState
 		FlxTween.tween(text, {y: FlxG.height - 18}, 2, {ease: FlxEase.elasticInOut});
 		FlxTween.tween(blackBorder, {y: FlxG.height - 18}, 2, {ease: FlxEase.elasticInOut});
 
-		if (!FlxG.save.data.changedHit)
-		{
+		if (!FlxG.save.data.changedHit) {
 			FlxG.save.data.changedHitX = defaultX;
 			FlxG.save.data.changedHitY = defaultY;
 		}
@@ -133,8 +130,7 @@ class GameplayCustomizeState extends MusicBeatState
 		FlxG.mouse.visible = true;
 	}
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 
@@ -143,8 +139,7 @@ class GameplayCustomizeState extends MusicBeatState
 		FlxG.camera.zoom = FlxMath.lerp(0.9, FlxG.camera.zoom, 0.95);
 		camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, 0.95);
 
-		if (FlxG.mouse.overlaps(sick) && FlxG.mouse.pressed)
-		{
+		if (FlxG.mouse.overlaps(sick) && FlxG.mouse.pressed) {
 			sick.x = FlxG.mouse.x - sick.width / 2;
 			sick.y = FlxG.mouse.y - sick.height;
 		}
@@ -154,15 +149,13 @@ class GameplayCustomizeState extends MusicBeatState
 		for (i in strumLineNotes)
 			i.y = strumLine.y;
 
-		if (FlxG.mouse.overlaps(sick) && FlxG.mouse.justReleased)
-		{
+		if (FlxG.mouse.overlaps(sick) && FlxG.mouse.justReleased) {
 			FlxG.save.data.changedHitX = sick.x;
 			FlxG.save.data.changedHitY = sick.y;
 			FlxG.save.data.changedHit = true;
 		}
 
-		if (FlxG.keys.justPressed.R)
-		{
+		if (FlxG.keys.justPressed.R) {
 			sick.x = defaultX;
 			sick.y = defaultY;
 			FlxG.save.data.changedHitX = sick.x;
@@ -170,16 +163,14 @@ class GameplayCustomizeState extends MusicBeatState
 			FlxG.save.data.changedHit = false;
 		}
 
-		if (controls.BACK)
-		{
+		if (controls.BACK) {
 			FlxG.mouse.visible = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			FlxG.switchState(new OptionsMenu());
 		}
 	}
 
-	override function beatHit()
-	{
+	override function beatHit() {
 		super.beatHit();
 
 		bf.playAnim('idle');
@@ -191,10 +182,8 @@ class GameplayCustomizeState extends MusicBeatState
 		trace('beat');
 	}
 
-	private function generateStaticArrows(player:Int):Void
-	{
-		for (i in 0...4)
-		{
+	private function generateStaticArrows(player:Int):Void {
+		for (i in 0...4) {
 			var babyArrow:FlxSprite = new FlxSprite(0, strumLine.y);
 			babyArrow.frames = Paths.getSparrowAtlas('NOTE_assets', 'shared');
 			babyArrow.animation.addByPrefix('green', 'arrowUP');
@@ -203,8 +192,7 @@ class GameplayCustomizeState extends MusicBeatState
 			babyArrow.animation.addByPrefix('red', 'arrowRIGHT');
 			babyArrow.antialiasing = true;
 			babyArrow.setGraphicSize(Std.int(babyArrow.width * 0.7));
-			switch (Math.abs(i))
-			{
+			switch (Math.abs(i)) {
 				case 0:
 					babyArrow.x += Note.swagWidth * 0;
 					babyArrow.animation.addByPrefix('static', 'arrowLEFT');
