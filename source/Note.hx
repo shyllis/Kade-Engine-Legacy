@@ -48,7 +48,7 @@ class Note extends FlxSprite
 		y -= 2000;
 		this.strumTime = strumTime;
 
-		if (this.strumTime < 0 )
+		if (this.strumTime < 0)
 			this.strumTime = 0;
 
 		this.noteData = noteData;
@@ -96,7 +96,7 @@ class Note extends FlxSprite
 				animation.play('redScroll');
 		}
 
-		if (FlxG.save.data.downscroll && sustainNote) 
+		if (FlxG.save.data.downscroll && sustainNote)
 			flipY = true;
 
 		if (isSustainNote && prevNote != null)
@@ -121,7 +121,7 @@ class Note extends FlxSprite
 			updateHitbox();
 
 			x -= width / 2;
-			
+
 			if (prevNote.isSustainNote)
 			{
 				switch (prevNote.noteData)
@@ -136,8 +136,7 @@ class Note extends FlxSprite
 						prevNote.animation.play('redhold');
 				}
 
-
-				if(FlxG.save.data.scrollSpeed != 1)
+				if (FlxG.save.data.scrollSpeed != 1)
 					prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * FlxG.save.data.scrollSpeed;
 				else
 					prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * PlayState.SONG.speed;

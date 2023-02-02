@@ -1,4 +1,5 @@
 package;
+
 using StringTools;
 
 class Boyfriend extends Character

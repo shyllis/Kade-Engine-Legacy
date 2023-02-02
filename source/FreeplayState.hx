@@ -6,7 +6,6 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-
 #if windows
 import Discord.DiscordClient;
 #end
@@ -41,9 +40,9 @@ class FreeplayState extends MusicBeatState
 			songs.push(new SongMetadata(data[0], Std.parseInt(data[2]), data[1]));
 		}
 
-		 #if windows
-		 DiscordClient.changePresence("In the Freeplay Menu", null);
-		 #end
+		#if windows
+		DiscordClient.changePresence("In the Freeplay Menu", null);
+		#end
 
 		var isDebug:Bool = false;
 
@@ -158,22 +157,28 @@ class FreeplayState extends MusicBeatState
 		if (accepted)
 		{
 			var songLowercase = StringTools.replace(songs[curSelected].songName, " ", "-").toLowerCase();
-			switch (songLowercase) {
-				case 'dad-battle': songLowercase = 'dadbattle';
-				case 'philly-nice': songLowercase = 'philly';
+			switch (songLowercase)
+			{
+				case 'dad-battle':
+					songLowercase = 'dadbattle';
+				case 'philly-nice':
+					songLowercase = 'philly';
 			}
 			var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
-			switch (songHighscore) {
-				case 'Dad-Battle': songHighscore = 'Dadbattle';
-				case 'Philly-Nice': songHighscore = 'Philly';
+			switch (songHighscore)
+			{
+				case 'Dad-Battle':
+					songHighscore = 'Dadbattle';
+				case 'Philly-Nice':
+					songHighscore = 'Philly';
 			}
-			
+
 			trace(songLowercase);
 
 			var poop:String = Highscore.formatSong(songHighscore, curDifficulty);
 
 			trace(poop);
-			
+
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = curDifficulty;
@@ -193,11 +198,14 @@ class FreeplayState extends MusicBeatState
 			curDifficulty = 0;
 
 		var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
-		switch (songHighscore) {
-			case 'Dad-Battle': songHighscore = 'Dadbattle';
-			case 'Philly-Nice': songHighscore = 'Philly';
+		switch (songHighscore)
+		{
+			case 'Dad-Battle':
+				songHighscore = 'Dadbattle';
+			case 'Philly-Nice':
+				songHighscore = 'Philly';
 		}
-		
+
 		#if !switch
 		intendedScore = Highscore.getScore(songHighscore, curDifficulty);
 		#end
@@ -225,9 +233,12 @@ class FreeplayState extends MusicBeatState
 			curSelected = 0;
 
 		var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
-		switch (songHighscore) {
-			case 'Dad-Battle': songHighscore = 'Dadbattle';
-			case 'Philly-Nice': songHighscore = 'Philly';
+		switch (songHighscore)
+		{
+			case 'Dad-Battle':
+				songHighscore = 'Dadbattle';
+			case 'Philly-Nice':
+				songHighscore = 'Philly';
 		}
 
 		#if !switch

@@ -53,7 +53,6 @@ class Alphabet extends FlxSpriteGroup
 			{
 				addText();
 			}
-
 		}
 	}
 
@@ -139,7 +138,6 @@ class Alphabet extends FlxSpriteGroup
 			#end
 
 			if (AlphaCharacter.alphabet.indexOf(splitWords[loopNum].toLowerCase()) != -1 || isNumber || isSymbol)
-
 			{
 				if (lastSprite != null && !xPosResetted)
 				{

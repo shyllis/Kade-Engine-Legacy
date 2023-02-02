@@ -26,7 +26,7 @@ class MenuItem extends FlxSpriteGroup
 	{
 		isFlashing = true;
 	}
-	
+
 	var fakeFramerate:Int = Math.round((1 / FlxG.elapsed) / 10);
 
 	override function update(elapsed:Float)
@@ -36,7 +36,7 @@ class MenuItem extends FlxSpriteGroup
 
 		if (isFlashing)
 			flashingInt += 1;
-	
+
 		if (flashingInt % fakeFramerate >= Math.floor(fakeFramerate / 2))
 			week.color = 0xFF33ffff;
 		else if (FlxG.save.data.flashing)

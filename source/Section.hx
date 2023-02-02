@@ -18,6 +18,7 @@ class Section
 	public var lengthInSteps:Int = 16;
 	public var typeOfSection:Int = 0;
 	public var mustHitSection:Bool = true;
+
 	public static var COPYCAT:Int = 0;
 
 	public function new(lengthInSteps:Int = 16)

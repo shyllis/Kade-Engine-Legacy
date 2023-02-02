@@ -22,11 +22,9 @@ import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.app.Application;
 import openfl.Assets;
-
 #if windows
 import Discord.DiscordClient;
 #end
-
 #if cpp
 import sys.thread.Thread;
 #end
@@ -53,16 +51,16 @@ class TitleState extends MusicBeatState
 		{
 			trace("Loaded " + openfl.Assets.getLibrary("default").assetsLoaded + " assets (DEFAULT)");
 		}
-		
+
 		PlayerSettings.init();
 
 		#if windows
 		DiscordClient.initialize();
 
-		Application.current.onExit.add (function (exitCode) {
+		Application.current.onExit.add(function(exitCode)
+		{
 			DiscordClient.shutdown();
-		 });
-		 
+		});
 		#end
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
@@ -254,8 +252,7 @@ class TitleState extends MusicBeatState
 
 			MainMenuState.firstStart = true;
 
-			new FlxTimer().start(2, function(tmr:FlxTimer)
-				FlxG.switchState(new MainMenuState()));
+			new FlxTimer().start(2, function(tmr:FlxTimer) FlxG.switchState(new MainMenuState()));
 		}
 
 		if (pressedEnter && !skippedIntro && initialized)
