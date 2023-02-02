@@ -154,9 +154,7 @@ class MainMenuState extends MusicBeatState {
 				} else {
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
-
-					if (FlxG.save.data.flashing)
-						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+					FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					menuItems.forEach(function(spr:FlxSprite) {
 						if (curSelected != spr.ID) {
@@ -169,10 +167,6 @@ class MainMenuState extends MusicBeatState {
 						} else {
 							if (FlxG.save.data.flashing) {
 								FlxFlicker.flicker(spr, 1, 0.06, false, false, function(flick:FlxFlicker) {
-									goToState();
-								});
-							} else {
-								new FlxTimer().start(1, function(tmr:FlxTimer) {
 									goToState();
 								});
 							}
@@ -202,7 +196,7 @@ class MainMenuState extends MusicBeatState {
 				trace("Freeplay Menu Selected");
 
 			case 'options':
-				FlxG.switchState(new OptionsMenu());
+				FlxG.switchState(new OptionsDirect());
 		}
 	}
 
