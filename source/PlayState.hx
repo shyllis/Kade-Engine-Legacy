@@ -921,7 +921,6 @@ class PlayState extends MusicBeatState
 		else
 		{
 			Conductor.songPosition += FlxG.elapsed * 1000;
-			songPositionBar = Conductor.songPosition;
 
 			if (!paused)
 			{
