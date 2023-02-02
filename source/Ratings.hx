@@ -100,7 +100,7 @@ class Ratings {
 	}
 
 	public static function CalculateRanking(score:Int, scoreDef:Int, nps:Int, maxNPS:Int, accuracy:Float):String {
-		return (!FlxG.save.data.botplay ? // NPS Toggle
+		return (!FlxG.save.data.botplay ?
 				"Score:"
 				+ (Conductor.safeFrames != 10 ? score + " (" + scoreDef + ")" : "" + score)
 				+ // Score

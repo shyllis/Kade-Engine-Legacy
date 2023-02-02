@@ -93,6 +93,8 @@ class OptionsMenu extends FlxSubState
 
 	public var shownStuff:FlxTypedGroup<FlxText>;
 
+	public var acceptInput:Bool = true;
+
 	public static var visibleRange = [114, 640];
 
 	public function new()
@@ -121,12 +123,14 @@ class OptionsMenu extends FlxSubState
 			new OptionCata(345, 40, "Appearance", [
 				new MiddleScrollOption("Put your lane in the center or on the right."),
 				new AccuracyOption("Display accuracy information on the info bar."),
-				new RainbowFPSOption("Make the FPS Counter flicker through rainbow colors."),
+				new RainbowFPSOption("Make the FPS Counter flicker through rainbow colors.")
 			]),
 			new OptionCata(640, 40, "Misc", [
-				new FPSOption("Toggle the FPS Counter"),
-				new ResetSettings("Resets saves."),
+				new FPSOption("Toggle the FPS Counter")
 			]),
+			new OptionCata(935, 40, "Saves", [
+				new ResetSettings("Resets saves.")
+			])
 		];
 
 		instance = this;
@@ -153,7 +157,7 @@ class OptionsMenu extends FlxSubState
 
 		add(shownStuff);
 
-		for (i in 0...options.length - 1)
+		for (i in 0...options.length)
 		{
 			if (i >= 4)
 				continue;
@@ -191,7 +195,7 @@ class OptionsMenu extends FlxSubState
 				object.text = selectedOption.getValue();
 			}
 
-			if (selectedCatIndex > options.length - 3 && checkForOutOfBounds)
+			if (selectedCatIndex > options.length && checkForOutOfBounds)
 				selectedCatIndex = 0;
 
 			if (selectedCat.middle)
@@ -255,20 +259,20 @@ class OptionsMenu extends FlxSubState
 	}
 
 	public function selectOption(option:Option)
+{
+	var object = selectedCat.optionObjects.members[selectedOptionIndex];
+
+	selectedOption = option;
+
+	if (!isInCat)
 	{
-		var object = selectedCat.optionObjects.members[selectedOptionIndex];
+		object.text = "> " + option.getValue();
 
-		selectedOption = option;
-
-		if (!isInCat)
-		{
-			object.text = "> " + option.getValue();
-
-			descText.text = option.getDescription();
-		}
+		descText.text = option.getDescription();
 	}
+}
 
-	override function update(elapsed:Float)
+    override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
@@ -326,10 +330,10 @@ class OptionsMenu extends FlxSubState
 					selectedCat.optionObjects.members[selectedOptionIndex].text = selectedOption.getValue();
 					selectedCatIndex++;
 
-					if (selectedCatIndex > options.length - 3)
+					if (selectedCatIndex > options.length - 1)
 						selectedCatIndex = 0;
 					if (selectedCatIndex < 0)
-						selectedCatIndex = options.length - 3;
+						selectedCatIndex = options.length - 1;
 
 					switchCat(options[selectedCatIndex]);
 				}
@@ -339,10 +343,10 @@ class OptionsMenu extends FlxSubState
 					selectedCat.optionObjects.members[selectedOptionIndex].text = selectedOption.getValue();
 					selectedCatIndex--;
 
-					if (selectedCatIndex > options.length - 3)
+					if (selectedCatIndex > options.length - 1)
 						selectedCatIndex = 0;
 					if (selectedCatIndex < 0)
-						selectedCatIndex = options.length - 3;
+						selectedCatIndex = options.length - 1;
 
 					switchCat(options[selectedCatIndex]);
 				}
@@ -418,7 +422,7 @@ class OptionsMenu extends FlxSubState
 
 						if (selectedOptionIndex != 0
 							&& selectedOptionIndex != options[selectedCatIndex].options.length - 1
-							&& options[selectedCatIndex].options.length > 6)
+							&& options[selectedCatIndex].options.length > 3)
 						{
 							if (selectedOptionIndex >= (options[selectedCatIndex].options.length - 1) / 2)
 								for (i in selectedCat.optionObjects.members)
@@ -443,14 +447,14 @@ class OptionsMenu extends FlxSubState
 						{
 							selectedOptionIndex = options[selectedCatIndex].options.length - 1;
 
-							if (options[selectedCatIndex].options.length > 6)
+							if (options[selectedCatIndex].options.length > 3)
 								for (i in selectedCat.optionObjects.members)
 								{
 									i.y -= (46 * ((options[selectedCatIndex].options.length - 1) / 2));
 								}
 						}
 
-						if (selectedOptionIndex != 0 && options[selectedCatIndex].options.length > 6)
+						if (selectedOptionIndex != 0 && options[selectedCatIndex].options.length > 3)
 						{
 							if (selectedOptionIndex >= (options[selectedCatIndex].options.length - 1) / 2)
 								for (i in selectedCat.optionObjects.members)

@@ -74,19 +74,17 @@ class DFJKOption extends Option
 	public function new()
 	{
 		super();
-		description = "Edit your keybindings";
 	}
 
 	public override function press():Bool
 	{
-		OptionsMenu.instance.selectedCatIndex = 4;
-		OptionsMenu.instance.switchCat(OptionsMenu.instance.options[4], false);
+		OptionsMenu.instance.openSubState(new KeyBindMenu());
 		return false;
 	}
 
 	private override function updateDisplay():String
 	{
-		return "Edit Keybindings";
+		return "Key Bindings";
 	}
 }
 
@@ -95,16 +93,11 @@ class DownscrollOption extends Option
 	public function new(desc:String)
 	{
 		super();
-		if (OptionsMenu.isInPause)
-			description = "This option cannot be toggled in the pause menu.";
-		else
-			description = desc;
+		description = desc;
 	}
 
 	public override function left():Bool
 	{
-		if (OptionsMenu.isInPause)
-			return false;
 		FlxG.save.data.downscroll = !FlxG.save.data.downscroll;
 		display = updateDisplay();
 		return true;
@@ -154,16 +147,11 @@ class AccuracyOption extends Option
 	public function new(desc:String)
 	{
 		super();
-		if (OptionsMenu.isInPause)
-			description = "This option cannot be toggled in the pause menu.";
-		else
-			description = desc;
+		description = desc;
 	}
 
 	public override function left():Bool
 	{
-		if (OptionsMenu.isInPause)
-			return false;
 		FlxG.save.data.accuracyDisplay = !FlxG.save.data.accuracyDisplay;
 		display = updateDisplay();
 		return true;
@@ -313,16 +301,11 @@ class AccuracyDOption extends Option
 	public function new(desc:String)
 	{
 		super();
-		if (OptionsMenu.isInPause)
-			description = "This option cannot be toggled in the pause menu.";
-		else
-			description = desc;
+		description = desc;
 	}
 
 	public override function left():Bool
 	{
-		if (OptionsMenu.isInPause)
-			return false;
 		FlxG.save.data.accuracyMod = FlxG.save.data.accuracyMod == 1 ? 0 : 1;
 		display = updateDisplay();
 		return true;
@@ -345,16 +328,11 @@ class CustomizeGameplay extends Option
 	public function new(desc:String)
 	{
 		super();
-		if (OptionsMenu.isInPause)
-			description = "This option cannot be toggled in the pause menu.";
-		else
-			description = desc;
+		description = desc;
 	}
 
 	public override function press():Bool
 	{
-		if (OptionsMenu.isInPause)
-			return false;
 		trace("switch");
 		FlxG.switchState(new GameplayCustomizeState());
 		return false;
@@ -397,16 +375,11 @@ class MiddleScrollOption extends Option
 	public function new(desc:String)
 	{
 		super();
-		if (OptionsMenu.isInPause)
-			description = "This option cannot be toggled in the pause menu.";
-		else
-			description = desc;
+		description = desc;
 	}
 
 	public override function left():Bool
 	{
-		if (OptionsMenu.isInPause)
-			return false;
 		FlxG.save.data.middleScroll = !FlxG.save.data.middleScroll;
 		display = updateDisplay();
 		return true;
@@ -431,16 +404,11 @@ class ResetSettings extends Option
 	public function new(desc:String)
 	{
 		super();
-		if (OptionsMenu.isInPause)
-			description = "This option cannot be toggled in the pause menu.";
-		else
-			description = desc;
+		description = desc;
 	}
 
 	public override function press():Bool
 	{
-		if (OptionsMenu.isInPause)
-			return false;
 		if (!confirm)
 		{
 			confirm = true;
@@ -457,6 +425,11 @@ class ResetSettings extends Option
 		FlxG.save.data.ghost = null;
 		FlxG.save.data.resetButton = null;
 		FlxG.save.data.botplay = null;
+		FlxG.save.data.upBind = null;
+		FlxG.save.data.downBind = null;
+		FlxG.save.data.rightBind = null;
+		FlxG.save.data.leftBind = null;
+		FlxG.save.data.killBind = null;
 
 		KadeEngineData.initSave();
 		confirm = false;
