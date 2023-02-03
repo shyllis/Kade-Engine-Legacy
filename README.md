@@ -1,3 +1,6 @@
+
+![Kade Engine Legacy logo](assets/preload/images/KELLogo.png)
+
 # Friday Night Funkin': Kade Engine Legacy
 
 ## Friday Night Funkin'
