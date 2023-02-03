@@ -24,7 +24,6 @@
 	 - `haxelib install newgrounds`
 	 - `haxelib install linc_luajit`
 	 - `haxelib git faxe https://github.com/uhrobots/faxe`
-	 - `haxelib git polymod https://github.com/larsiusprime/polymod.git`
 	 - `haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc`
 
 ### Windows-only dependencies (only for building *to* Windows. Building html5 on Windows does not require this)
