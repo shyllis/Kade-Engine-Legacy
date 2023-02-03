@@ -24,6 +24,10 @@ class Main extends Sprite {
 
 	public static var watermarks = true;
 
+	var fpsCounter:Overlay;
+
+	var game:FlxGame;
+	
 	public static function main():Void {
 		Lib.current.addChild(new Main());
 	}
@@ -66,23 +70,14 @@ class Main extends Sprite {
 
 		addChild(game);
 
-		#if !mobile
-		fpsCounter = new FPS(10, 3, 0xFFFFFF);
+		fpsCounter = new Overlay(10, 3, gameWidth, gameHeight);
 		addChild(fpsCounter);
-		toggleFPS(FlxG.save.data.fps);
-		#end
+		if (fpsCounter != null)
+			fpsCounter.visible = FlxG.save.data.fps;
 	}
-
-	var game:FlxGame;
-
-	var fpsCounter:FPS;
 
 	public function toggleFPS(fpsEnabled:Bool):Void {
 		fpsCounter.visible = fpsEnabled;
-	}
-
-	public function changeFPSColor(color:FlxColor) {
-		fpsCounter.textColor = color;
 	}
 
 	public function setFPSCap(cap:Float) {
@@ -94,6 +89,6 @@ class Main extends Sprite {
 	}
 
 	public function getFPS():Float {
-		return fpsCounter.currentFPS;
+		return fpsCounter.currentFrames;
 	}
 }

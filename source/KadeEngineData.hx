@@ -21,9 +21,6 @@ class KadeEngineData {
 		if (FlxG.save.data.fps == null)
 			FlxG.save.data.fps = false;
 
-		if (FlxG.save.data.fpsRain == null)
-			FlxG.save.data.fpsRain = false;
-
 		if (FlxG.save.data.fpsCap == null)
 			FlxG.save.data.fpsCap = 120;
 
@@ -38,6 +35,9 @@ class KadeEngineData {
 
 		if (FlxG.save.data.botplay == null)
 			FlxG.save.data.botplay = false;
+
+		if (FlxG.save.data.useGL == null)
+			FlxG.save.data.useGL = true;
 
 		if (FlxG.save.data.strumline == null)
 			FlxG.save.data.strumline = false;

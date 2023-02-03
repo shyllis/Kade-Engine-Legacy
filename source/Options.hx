@@ -275,33 +275,6 @@ class FPSCapOption extends Option
 	}
 }
 
-class RainbowFPSOption extends Option
-{
-	public function new(desc:String)
-	{
-		super();
-		description = desc;
-	}
-
-	public override function left():Bool
-	{
-		FlxG.save.data.fpsRain = !FlxG.save.data.fpsRain;
-		(cast(Lib.current.getChildAt(0), Main)).changeFPSColor(FlxColor.WHITE);
-		return true;
-	}
-
-	public override function right():Bool
-	{
-		left();
-		return true;
-	}
-
-	private override function updateDisplay():String
-	{
-		return "FPS Rainbow: < " + (!FlxG.save.data.fpsRain ? "off" : "on") + " >";
-	}
-}
-
 class CustomizeGameplay extends Option
 {
 	public function new(desc:String)
@@ -400,6 +373,33 @@ class MiddleScrollOption extends Option
 	private override function updateDisplay():String
 	{
 		return "Middle Scroll: < " + (FlxG.save.data.middleScroll ? "Enabled" : "Disabled") + " >";
+	}
+}
+
+class GLRenderOption extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function left():Bool
+	{
+		FlxG.save.data.useGL = !FlxG.save.data.useGL;
+		display = updateDisplay();
+		return true;
+	}
+
+	public override function right():Bool
+	{
+		left();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "GPU Rendering: < " + (FlxG.save.data.useGL ? "Enabled" : "Disabled") + " >";
 	}
 }
 
