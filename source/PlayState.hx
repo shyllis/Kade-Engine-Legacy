@@ -59,6 +59,9 @@ class PlayState extends MusicBeatState {
 	#end
 
 	private var vocals:FlxSound;
+	private var P1vocals:FlxSound;
+	private var P2vocals:FlxSound;
+	private var SepVocalsNull:Bool = false;
 
 	public static var dad:Character;
 	public static var gf:Character;
@@ -146,6 +149,11 @@ class PlayState extends MusicBeatState {
 
 	override public function create() {
 		instance = this;
+
+		if (!Assets.exists(Paths.P1voice(PlayState.SONG.song)) || !Assets.exists(Paths.P2voice(PlayState.SONG.song)))
+		{
+			SepVocalsNull = true;
+		}
 
 		if (FlxG.save.data.fpsCap > 290)
 			(cast(Lib.current.getChildAt(0), Main)).setFPSCap(800);
@@ -473,12 +481,15 @@ class PlayState extends MusicBeatState {
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
 
-		if (!paused) {
+		if (!paused) 
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
-		}
 
 		FlxG.sound.music.onComplete = endSong;
-		vocals.play();
+		if (SepVocalsNull)
+			vocals.play();
+		else
+			for (vocals in [P1vocals, P2vocals])
+				vocals.play();
 
 		songLength = FlxG.sound.music.length;
 
@@ -513,13 +524,25 @@ class PlayState extends MusicBeatState {
 		curSong = songData.song;
 
 		if (SONG.needsVoices)
-			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+			if (SepVocalsNull)
+			{
+				vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+		        trace('Sep Vocals IS NULL');
+			}
+			else
+			{
+				P1vocals = new FlxSound().loadEmbedded(Paths.P1voice(PlayState.SONG.song));
+				P2vocals = new FlxSound().loadEmbedded(Paths.P2voice(PlayState.SONG.song));
+			}
 		else
 			vocals = new FlxSound();
-
 		trace('loaded vocals');
-
-		FlxG.sound.list.add(vocals);
+        
+		if (SepVocalsNull)
+			FlxG.sound.list.add(vocals);
+		else
+			for (vocals in [P1vocals, P2vocals])
+				FlxG.sound.list.add(vocals);
 
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
@@ -707,7 +730,11 @@ class PlayState extends MusicBeatState {
 		if (paused) {
 			if (FlxG.sound.music != null) {
 				FlxG.sound.music.pause();
-				vocals.pause();
+				if (SepVocalsNull)
+					vocals.pause();
+				else
+					for (vocals in [P1vocals, P2vocals])
+						vocals.pause();
 			}
 
 			#if windows
@@ -768,12 +795,25 @@ class PlayState extends MusicBeatState {
 	}
 
 	function resyncVocals():Void {
-		vocals.pause();
+		if (SepVocalsNull)
+			vocals.pause();
+		else
+			for (vocals in [P1vocals, P2vocals])
+				vocals.pause();
 
 		FlxG.sound.music.play();
 		Conductor.songPosition = FlxG.sound.music.time;
-		vocals.time = Conductor.songPosition;
-		vocals.play();
+		if (SepVocalsNull)
+		{
+			vocals.time = Conductor.songPosition;
+			vocals.play();
+		}
+		else
+			for (vocals in [P1vocals, P2vocals])
+			{
+				vocals.time = Conductor.songPosition;
+				vocals.play();
+			}
 
 		#if windows
 		DiscordClient.changePresence(detailsText
@@ -914,7 +954,11 @@ class PlayState extends MusicBeatState {
 			persistentDraw = false;
 			paused = true;
 
-			vocals.stop();
+			if (SepVocalsNull)
+				vocals.stop();
+			else
+				for (vocals in [P1vocals, P2vocals])
+					vocals.stop();
 			FlxG.sound.music.stop();
 
 			openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
@@ -942,7 +986,11 @@ class PlayState extends MusicBeatState {
 				persistentDraw = false;
 				paused = true;
 
-				vocals.stop();
+				if (SepVocalsNull)
+					vocals.stop();
+				else
+					for (vocals in [P1vocals, P2vocals])
+						vocals.stop();
 				FlxG.sound.music.stop();
 
 				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
@@ -1088,7 +1136,11 @@ class PlayState extends MusicBeatState {
 					dad.holdTimer = 0;
 
 					if (SONG.needsVoices)
-						vocals.volume = 1;
+						if (SepVocalsNull)
+							vocals.volume = 1;
+						else
+							for (vocals in [P1vocals, P2vocals])
+								vocals.volume = 1;
 
 					daNote.active = false;
 
@@ -1123,7 +1175,11 @@ class PlayState extends MusicBeatState {
 						notes.remove(daNote, true);
 					} else {
 						health -= 0.075;
-						vocals.volume = 0;
+						if (SepVocalsNull)
+							vocals.volume = 0;
+						else
+							P1vocals.volume = 0;
+
 						if (theFunne)
 							noteMiss(daNote.noteData, daNote);
 					}
@@ -1155,7 +1211,11 @@ class PlayState extends MusicBeatState {
 
 		canPause = false;
 		FlxG.sound.music.volume = 0;
-		vocals.volume = 0;
+		if (SepVocalsNull)
+			vocals.volume = 0;
+		else
+			for (vocals in [P1vocals, P2vocals])
+				vocals.volume = 0;
 		if (SONG.validScore) {
 			var songHighscore = StringTools.replace(PlayState.SONG.song, " ", "-");
 			switch (songHighscore) {
@@ -1237,7 +1297,12 @@ class PlayState extends MusicBeatState {
 	private function popUpScore(daNote:Note):Void {
 		var noteDiff:Float = Math.abs(Conductor.songPosition - daNote.strumTime);
 		var wife:Float = EtternaFunctions.wife3(noteDiff, Conductor.timeScale);
-		vocals.volume = 1;
+		if (SONG.needsVoices)
+			if (SepVocalsNull)
+				vocals.volume = 1;
+			else
+				for (vocals in [P1vocals, P2vocals])
+					vocals.volume = 1;
 
 		var placement:String = Std.string(combo);
 
@@ -1620,7 +1685,12 @@ class PlayState extends MusicBeatState {
 			});
 
 			note.wasGoodHit = true;
-			vocals.volume = 1;
+			if (SONG.needsVoices)
+				if (SepVocalsNull)
+					vocals.volume = 1;
+				else
+					for (vocals in [P1vocals, P2vocals])
+						vocals.volume = 1;
 
 			note.kill();
 			notes.remove(note, true);
