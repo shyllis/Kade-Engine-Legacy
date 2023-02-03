@@ -949,6 +949,13 @@ class PlayState extends MusicBeatState {
 			FlxG.switchState(new ChartingState());
 		}
 
+		if (FlxG.keys.justPressed.NINE) {
+			#if windows
+			DiscordClient.changePresence("Animation Debug", null, null, true);
+			#end
+			FlxG.switchState(new offsets.AnimationDebug());
+		}
+
 		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
 		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
 
