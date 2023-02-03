@@ -1236,10 +1236,6 @@ class PlayState extends MusicBeatState {
 
 		var rating:FlxSprite = new FlxSprite();
 		var score:Float = 350;
-
-		if (FlxG.save.data.accuracyMod == 1)
-			totalNotesHit += wife;
-
 		var daRating = daNote.rating;
 
 		switch (daRating) {
@@ -1250,16 +1246,14 @@ class PlayState extends MusicBeatState {
 				health -= 0.2;
 				ss = false;
 				shits++;
-				if (FlxG.save.data.accuracyMod == 0)
-					totalNotesHit += 0.25;
+				totalNotesHit += 0.25;
 			case 'bad':
 				daRating = 'bad';
 				score = 0;
 				health -= 0.06;
 				ss = false;
 				bads++;
-				if (FlxG.save.data.accuracyMod == 0)
-					totalNotesHit += 0.50;
+				totalNotesHit += 0.50;
 			case 'good':
 				daRating = 'good';
 				score = 200;
@@ -1267,13 +1261,11 @@ class PlayState extends MusicBeatState {
 				goods++;
 				if (health < 2)
 					health += 0.04;
-				if (FlxG.save.data.accuracyMod == 0)
-					totalNotesHit += 0.75;
+				totalNotesHit += 0.75;
 			case 'sick':
 				if (health < 2)
 					health += 0.1;
-				if (FlxG.save.data.accuracyMod == 0)
-					totalNotesHit += 1;
+				totalNotesHit += 1;
 				sicks++;
 		}
 		if (daRating != 'shit' || daRating != 'bad') {
@@ -1512,9 +1504,6 @@ class PlayState extends MusicBeatState {
 			}
 			combo = 0;
 			misses++;
-
-			if (FlxG.save.data.accuracyMod == 1)
-				totalNotesHit -= 1;
 
 			songScore -= 10;
 

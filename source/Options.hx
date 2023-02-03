@@ -296,33 +296,6 @@ class RainbowFPSOption extends Option
 	}
 }
 
-class AccuracyDOption extends Option
-{
-	public function new(desc:String)
-	{
-		super();
-		description = desc;
-	}
-
-	public override function left():Bool
-	{
-		FlxG.save.data.accuracyMod = FlxG.save.data.accuracyMod == 1 ? 0 : 1;
-		display = updateDisplay();
-		return true;
-	}
-
-	public override function right():Bool
-	{
-		left();
-		return true;
-	}
-
-	private override function updateDisplay():String
-	{
-		return "Accuracy Mode: < " + (FlxG.save.data.accuracyMod == 0 ? "Accurate" : "Complex") + " >";
-	}
-}
-
 class CustomizeGameplay extends Option
 {
 	public function new(desc:String)
@@ -421,7 +394,6 @@ class ResetSettings extends Option
 		FlxG.save.data.fps = null;
 		FlxG.save.data.fpsRain = null;
 		FlxG.save.data.fpsCap = null;
-		FlxG.save.data.accuracyMod = null;
 		FlxG.save.data.ghost = null;
 		FlxG.save.data.resetButton = null;
 		FlxG.save.data.botplay = null;

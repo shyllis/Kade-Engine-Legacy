@@ -24,12 +24,6 @@ class KadeEngineData {
 		if (FlxG.save.data.fpsCap > 285 || FlxG.save.data.fpsCap < 60)
 			FlxG.save.data.fpsCap = 120;
 
-		if (FlxG.save.data.scrollSpeed == null)
-			FlxG.save.data.scrollSpeed = 1;
-
-		if (FlxG.save.data.accuracyMod == null)
-			FlxG.save.data.accuracyMod = 1;
-
 		if (FlxG.save.data.ghost == null)
 			FlxG.save.data.ghost = true;
 

@@ -111,7 +111,6 @@ class OptionsMenu extends FlxSubState
 	{
 		options = [
 			new OptionCata(50, 40, "Gameplay", [
-				new AccuracyDOption("Change how accuracy is calculated. (Accurate = Simple, Complex = Milisecond Based)"),
 				new GhostTapOption("Toggle counting pressing a directional input when no arrow is there as a miss."),
 				new DownscrollOption("Toggle making the notes scroll down rather than up."),
 				new BotPlay("A bot plays for you!"),
@@ -412,25 +411,8 @@ class OptionsMenu extends FlxSubState
 
 						if (selectedOptionIndex > options[selectedCatIndex].options.length - 1)
 						{
-							for (i in 0...selectedCat.options.length)
-							{
-								var opt = selectedCat.optionObjects.members[i];
-								opt.y = selectedCat.titleObject.y + 54 + (46 * i);
-							}
 							selectedOptionIndex = 0;
 						}
-
-						if (selectedOptionIndex != 0
-							&& selectedOptionIndex != options[selectedCatIndex].options.length - 1
-							&& options[selectedCatIndex].options.length > 3)
-						{
-							if (selectedOptionIndex >= (options[selectedCatIndex].options.length - 1) / 2)
-								for (i in selectedCat.optionObjects.members)
-								{
-									i.y -= 46;
-								}
-						}
-
 						selectOption(options[selectedCatIndex].options[selectedOptionIndex]);
 					}
 					else if (up)
@@ -446,32 +428,7 @@ class OptionsMenu extends FlxSubState
 						if (selectedOptionIndex < 0)
 						{
 							selectedOptionIndex = options[selectedCatIndex].options.length - 1;
-
-							if (options[selectedCatIndex].options.length > 3)
-								for (i in selectedCat.optionObjects.members)
-								{
-									i.y -= (46 * ((options[selectedCatIndex].options.length - 1) / 2));
-								}
 						}
-
-						if (selectedOptionIndex != 0 && options[selectedCatIndex].options.length > 3)
-						{
-							if (selectedOptionIndex >= (options[selectedCatIndex].options.length - 1) / 2)
-								for (i in selectedCat.optionObjects.members)
-								{
-									i.y += 46;
-								}
-						}
-
-						if (selectedOptionIndex < (options[selectedCatIndex].options.length - 1) / 2)
-						{
-							for (i in 0...selectedCat.options.length)
-							{
-								var opt = selectedCat.optionObjects.members[i];
-								opt.y = selectedCat.titleObject.y + 54 + (46 * i);
-							}
-						}
-
 						selectOption(options[selectedCatIndex].options[selectedOptionIndex]);
 					}
 
