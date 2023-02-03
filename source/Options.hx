@@ -177,10 +177,16 @@ class ResetButtonOption extends Option
 		description = desc;
 	}
 
-	public override function press():Bool
+	public override function left():Bool
 	{
 		FlxG.save.data.resetButton = !FlxG.save.data.resetButton;
 		display = updateDisplay();
+		return true;
+	}
+
+	public override function right():Bool
+	{
+		left();
 		return true;
 	}
 
@@ -314,6 +320,33 @@ class CustomizeGameplay extends Option
 	private override function updateDisplay():String
 	{
 		return "Customize Gameplay";
+	}
+}
+
+class NoteSplashes extends Option
+{
+	public function new(desc:String)
+	{
+		super();
+		description = desc;
+	}
+
+	public override function left():Bool
+	{
+		FlxG.save.data.noteSplashes = !FlxG.save.data.noteSplashes;
+		display = updateDisplay();
+		return true;
+	}
+
+	public override function right():Bool
+	{
+		left();
+		return true;
+	}
+
+	private override function updateDisplay():String
+	{
+		return "Note Splashes < " + (FlxG.save.data.noteSplashes ? "on" : "off") + " >";
 	}
 }
 

@@ -140,9 +140,9 @@ class PlayState extends MusicBeatState {
 	private var triggeredAlready:Bool = false;
 	private var allowedToHeadbang:Bool = false;
 
-	public static var songOffset:Float = 0;
-
 	private var botPlayState:FlxText;
+
+	var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
 
 	override public function create() {
 		instance = this;
@@ -288,6 +288,14 @@ class PlayState extends MusicBeatState {
 		strumLineNotes = new FlxTypedGroup<FlxSprite>();
 		add(strumLineNotes);
 
+		grpNoteSplashes = new FlxTypedGroup<NoteSplash>();
+
+		var noteSplash:NoteSplash = new NoteSplash(100, 100, 0);
+		grpNoteSplashes.add(noteSplash);
+		noteSplash.alpha = 0.1;
+
+		add(grpNoteSplashes);
+
 		playerStrums = new FlxTypedGroup<FlxSprite>();
 		cpuStrums = new FlxTypedGroup<FlxSprite>();
 
@@ -357,6 +365,7 @@ class PlayState extends MusicBeatState {
 		iconP2.y = healthBar.y - (iconP2.height / 2);
 		add(iconP2);
 
+		grpNoteSplashes.cameras = [camHUD];
 		strumLineNotes.cameras = [camHUD];
 		notes.cameras = [camHUD];
 		healthBar.cameras = [camHUD];
@@ -526,7 +535,7 @@ class PlayState extends MusicBeatState {
 			var coolSection:Int = Std.int(section.lengthInSteps / 4);
 
 			for (songNotes in section.sectionNotes) {
-				var daStrumTime:Float = songNotes[0] + songOffset;
+				var daStrumTime:Float = songNotes[0];
 				if (daStrumTime < 0)
 					daStrumTime = 0;
 				var daNoteData:Int = Std.int(songNotes[1] % 4);
@@ -670,8 +679,12 @@ class PlayState extends MusicBeatState {
 			switch (player) {
 				case 0:
 					cpuStrums.add(babyArrow);
+					if(FlxG.save.data.middleScroll)
+						babyArrow.visible = false;
 				case 1:
 					playerStrums.add(babyArrow);
+					if(FlxG.save.data.middleScroll)
+						babyArrow.x -= FlxG.width / 4.75;
 			}
 
 			babyArrow.animation.play('static');
@@ -985,7 +998,7 @@ class PlayState extends MusicBeatState {
 						daNote.x += daNote.width / 2 + 20;
 						daNote.y -= daNote.height / 2 - 50;
 						if (daNote.animation.name.endsWith('end'))
-							daNote.y -= daNote.height / 2 - 60;
+							daNote.y -= daNote.height / 2 - 65;
 
 						if (!FlxG.save.data.botplay) {
 							if ((!daNote.mustPress || daNote.wasGoodHit || daNote.prevNote.wasGoodHit && !daNote.canBeHit)
@@ -1268,6 +1281,13 @@ class PlayState extends MusicBeatState {
 				totalNotesHit += 1;
 				sicks++;
 		}
+		if (daRating == 'sick' && FlxG.save.data.noteSplashes)
+		{
+			var noteSplash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
+			noteSplash.setupNoteSplash(daNote.x, daNote.y, daNote.noteData);
+			grpNoteSplashes.add(noteSplash);
+		}
+
 		if (daRating != 'shit' || daRating != 'bad') {
 			songScore += Math.round(score);
 			songScoreDef += Math.round(ConvertScore.convertScore(noteDiff));

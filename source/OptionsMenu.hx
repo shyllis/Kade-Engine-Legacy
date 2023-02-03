@@ -121,6 +121,7 @@ class OptionsMenu extends FlxSubState
 			]),
 			new OptionCata(345, 40, "Appearance", [
 				new MiddleScrollOption("Put your lane in the center or on the right."),
+				new NoteSplashes("Adds splashes at sick note hit."),
 				new AccuracyOption("Display accuracy information on the info bar."),
 				new RainbowFPSOption("Make the FPS Counter flicker through rainbow colors.")
 			]),
