@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
+import flixel.tweens.FlxTween;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 #if windows
@@ -24,6 +25,10 @@ class FreeplayState extends MusicBeatState {
 	var lerpScore:Int = 0;
 	var intendedScore:Int = 0;
 
+	var bg:FlxSprite;
+	var intendedColor:Int;
+	var colorTween:FlxTween;
+
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
 
@@ -37,7 +42,7 @@ class FreeplayState extends MusicBeatState {
 
 		for (i in 0...initSonglist.length) {
 			var data:Array<String> = initSonglist[i].split(':');
-			songs.push(new SongMetadata(data[0], Std.parseInt(data[2]), data[1]));
+			songs.push(new SongMetadata(data[0], Std.parseInt(data[2]), data[1], Std.parseInt(data[3])));
 		}
 
 		#if windows
@@ -50,7 +55,7 @@ class FreeplayState extends MusicBeatState {
 		isDebug = true;
 		#end
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuBGBlue'));
+		bg = new FlxSprite().loadGraphic(Paths.image('menuBGBlue'));
 		add(bg);
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
@@ -92,17 +97,17 @@ class FreeplayState extends MusicBeatState {
 		super.create();
 	}
 
-	public function addSong(songName:String, weekNum:Int, songCharacter:String) {
-		songs.push(new SongMetadata(songName, weekNum, songCharacter));
+	public function addSong(songName:String, weekNum:Int, songCharacter:String, bgcolor:Int) {
+		songs.push(new SongMetadata(songName, weekNum, songCharacter, bgcolor));
 	}
 
-	public function addWeek(songs:Array<String>, weekNum:Int, ?songCharacters:Array<String>) {
+	public function addWeek(songs:Array<String>, weekNum:Int, ?songCharacters:Array<String>, bgcolor:Int) {
 		if (songCharacters == null)
 			songCharacters = ['dad'];
 
 		var num:Int = 0;
 		for (song in songs) {
-			addSong(song, weekNum, songCharacters[num]);
+			addSong(song, weekNum, songCharacters[num], bgcolor);
 
 			if (songCharacters.length != 1)
 				num++;
@@ -214,6 +219,19 @@ class FreeplayState extends MusicBeatState {
 		if (curSelected >= songs.length)
 			curSelected = 0;
 
+		var newColor:Int = songs[curSelected].bgcolor;
+		if(newColor != intendedColor) {
+			if(colorTween != null) {
+				colorTween.cancel();
+			}
+			intendedColor = newColor;
+			colorTween = FlxTween.color(bg, 1, bg.color, intendedColor, {
+				onComplete: function(twn:FlxTween) {
+					colorTween = null;
+				}
+			});
+		}
+		
 		var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
 		switch (songHighscore) {
 			case 'Dad-Battle':
@@ -255,10 +273,12 @@ class SongMetadata {
 	public var songName:String = "";
 	public var week:Int = 0;
 	public var songCharacter:String = "";
+	public var bgcolor:Int;
 
-	public function new(song:String, week:Int, songCharacter:String) {
+	public function new(song:String, week:Int, songCharacter:String, bgcolor:Int) {
 		this.songName = song;
 		this.week = week;
 		this.songCharacter = songCharacter;
+		this.bgcolor = bgcolor;
 	}
 }
