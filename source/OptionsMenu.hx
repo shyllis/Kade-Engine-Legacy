@@ -110,9 +110,10 @@ class OptionsMenu extends FlxSubState {
 				new MiddleScrollOption("Put your lane in the center or on the right."),
 				new NoteSplashes("Adds splashes at sick note hit."),
 				new AccuracyOption("Display accuracy information on the info bar."),
+				new RatingCounterOption("Display note hit ratings information.")
 			]),
 			new OptionCata(640, 40, "Misc", [
-				new FPSOption("Toggle the FPS Counter"),
+				new OverlayOption("Toggle the Overlay"),
 				new GLRenderOption("Toggle the GPU Rendering")
 			]),
 			new OptionCata(935, 40, "Saves", [new ResetSettings("Resets saves.")])

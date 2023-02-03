@@ -160,7 +160,7 @@ class ResetButtonOption extends Option {
 	}
 }
 
-class FPSOption extends Option {
+class OverlayOption extends Option {
 	public function new(desc:String) {
 		super();
 		description = desc;
@@ -179,7 +179,7 @@ class FPSOption extends Option {
 	}
 
 	private override function updateDisplay():String {
-		return "FPS Counter: < " + (!FlxG.save.data.fps ? "off" : "on") + " >";
+		return "Overlay: < " + (!FlxG.save.data.fps ? "off" : "on") + " >";
 	}
 }
 
@@ -261,6 +261,28 @@ class NoteSplashes extends Option {
 
 	private override function updateDisplay():String {
 		return "Note Splashes < " + (FlxG.save.data.noteSplashes ? "on" : "off") + " >";
+	}
+}
+
+class RatingCounterOption extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+	}
+
+	public override function left():Bool {
+		FlxG.save.data.ratingCounter = !FlxG.save.data.ratingCounter;
+		display = updateDisplay();
+		return true;
+	}
+
+	public override function right():Bool {
+		left();
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return "Rating Counter < " + (FlxG.save.data.ratingCounter ? "on" : "off") + " >";
 	}
 }
 

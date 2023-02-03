@@ -18,6 +18,9 @@ class KadeEngineData {
 		if (FlxG.save.data.noteSplashes == null)
 			FlxG.save.data.noteSplashes = true;
 
+		if (FlxG.save.data.ratingCounter == null)
+			FlxG.save.data.ratingCounter = true;
+
 		if (FlxG.save.data.fps == null)
 			FlxG.save.data.fps = false;
 

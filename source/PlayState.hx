@@ -113,8 +113,6 @@ class PlayState extends MusicBeatState {
 
 	private var camGame:FlxCamera;
 
-	public static var offsetTesting:Bool = false;
-
 	var notesHitArray:Array<Date> = [];
 	var currentFrames:Int = 0;
 
@@ -124,6 +122,8 @@ class PlayState extends MusicBeatState {
 	var songScore:Int = 0;
 	var songScoreDef:Int = 0;
 	var scoreTxt:FlxText;
+
+	var RatingCounter:FlxText;
 
 	public static var campaignScore:Int = 0;
 
@@ -301,7 +301,7 @@ class PlayState extends MusicBeatState {
 
 		var noteSplash:NoteSplash = new NoteSplash(100, 100, 0);
 		grpNoteSplashes.add(noteSplash);
-		noteSplash.alpha = 0.1;
+		noteSplash.alpha = 0.00001;
 
 		add(grpNoteSplashes);
 
@@ -327,7 +327,7 @@ class PlayState extends MusicBeatState {
 
 		add(camFollow);
 
-		FlxG.camera.follow(camFollow, LOCKON, 0.04 * (30 / (cast(Lib.current.getChildAt(0), Main)).getFPS()));
+		FlxG.camera.follow(camFollow, LOCKON, 0.04 * (60 / (cast(Lib.current.getChildAt(0), Main)).getFPS()));
 		FlxG.camera.zoom = defaultCamZoom;
 		FlxG.camera.focusOn(camFollow.getPosition());
 
@@ -352,15 +352,27 @@ class PlayState extends MusicBeatState {
 		if (!FlxG.save.data.accuracyDisplay)
 			scoreTxt.x = healthBarBG.x + healthBarBG.width / 2;
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.borderSize = 2;
+		scoreTxt.borderQuality = 2;
 		scoreTxt.scrollFactor.set();
-		if (offsetTesting)
-			scoreTxt.x += 300;
 		if (FlxG.save.data.botplay)
 			scoreTxt.x = FlxG.width / 2 - 20;
 		add(scoreTxt);
 
+		RatingCounter = new FlxText(20, 0, 0, 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nMisses: ${misses}', 20);
+		RatingCounter.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		RatingCounter.borderSize = 2;
+		RatingCounter.borderQuality = 2;
+		RatingCounter.scrollFactor.set();
+		RatingCounter.cameras = [camHUD];
+		RatingCounter.screenCenter(Y);
+		if (FlxG.save.data.ratingCounter && !FlxG.save.data.botplay)
+			add(RatingCounter);
+
 		botPlayState = new FlxText(healthBarBG.x + healthBarBG.width / 2 - 75, healthBarBG.y + (FlxG.save.data.downscroll ? 100 : -100), 0, "BOTPLAY", 20);
 		botPlayState.setFormat(Paths.font("vcr.ttf"), 42, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		botPlayState.borderSize = 2;
+		botPlayState.borderQuality = 2;
 		botPlayState.scrollFactor.set();
 
 		if (FlxG.save.data.botplay)
@@ -831,8 +843,6 @@ class PlayState extends MusicBeatState {
 	private var paused:Bool = false;
 	var startedCountdown:Bool = false;
 	var canPause:Bool = true;
-	var nps:Int = 0;
-	var maxNPS:Int = 0;
 
 	public static var songRate = 1.5;
 
@@ -841,6 +851,8 @@ class PlayState extends MusicBeatState {
 		perfectMode = false;
 		#end
 
+		if (FlxG.save.data.ratingCounter)
+			RatingCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nMisses: ${misses}';
 		if (FlxG.save.data.botplay && FlxG.keys.justPressed.ONE)
 			camHUD.visible = !camHUD.visible;
 
@@ -854,14 +866,11 @@ class PlayState extends MusicBeatState {
 					balls = 0;
 				balls--;
 			}
-			nps = notesHitArray.length;
-			if (nps > maxNPS)
-				maxNPS = nps;
 		}
 
 		super.update(elapsed);
 
-		scoreTxt.text = Ratings.CalculateRanking(songScore, songScoreDef, nps, maxNPS, accuracy);
+		scoreTxt.text = Ratings.CalculateRanking(songScore, songScoreDef, accuracy);
 		if (!FlxG.save.data.accuracyDisplay)
 			scoreTxt.text = "Score: " + songScore;
 
@@ -1193,9 +1202,6 @@ class PlayState extends MusicBeatState {
 	}
 
 	function endSong():Void {
-		FlxG.save.data.botplay = false;
-		FlxG.save.data.downscroll = false;
-
 		if (FlxG.save.data.fpsCap > 290)
 			(cast(Lib.current.getChildAt(0), Main)).setFPSCap(290);
 
