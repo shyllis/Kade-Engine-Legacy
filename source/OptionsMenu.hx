@@ -106,9 +106,6 @@ class OptionsMenu extends FlxSubState
 
 	override function create()
 	{
-		Paths.clearStoredMemory();
-		Paths.clearUnusedMemory();
-
 		options = [
 			new OptionCata(50, 40, "Gameplay", [
 				new GhostTapOption("Toggle counting pressing a directional input when no arrow is there as a miss."),
