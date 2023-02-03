@@ -1,10 +1,8 @@
-﻿# Building Friday Night Funkin': Kade Engine
+﻿# How to build Kade Engine Legacy
 
-**Please note** that these instructions are for compiling/building the game. If you just want to play Kade Engine, **play in your browser or download a build instead**: **[play in browser](https://funkin.puyo.xyz) ⋅ [latest stable release](https://github.com/KadeDev/Kade-Engine/releases/latest) ⋅ [latest development build (windows)](https://ci.appveyor.com/project/KadeDev/kade-engine-windows/build/artifacts) ⋅ [latest development build (macOS)](https://ci.appveyor.com/project/daniel11420/kade-engine-macos/build/artifacts) ⋅ [latest development build (linux)](https://ci.appveyor.com/project/daniel11420/kade-engine-linux/build/artifacts)**. If you want to build the game yourself, continue reading.
+**Note**: You should be familiar with the commandline. If not, read this [quick guide by ninjamuffin](https://ninjamuffin99.newgrounds.com/news/post/1090480).
 
-**Also note**: you should be familiar with the commandline. If not, read this [quick guide by ninjamuffin](https://ninjamuffin99.newgrounds.com/news/post/1090480).
-
-**Also also note**: To build for *Windows*, you need to be on *Windows*. To build for *Linux*, you need to be on *Linux*. Same goes for macOS. You can build for html5/browsers on any platform.
+**Another note**: To build for *Windows*, you need to be on *Windows*. To build for *Linux*, you need to be on *Linux*. Same goes for macOS. You can build for html5/browsers/android on any platform.
 
 ## Dependencies
  1. [Install Haxe 4.1.5](https://haxe.org/download/version/4.1.5/). You should use 4.1.5 instead of the latest version because the latest version has some problems with Friday Night Funkin': Kade Engine.
@@ -53,5 +51,5 @@ Since you already installed `git` in a previous step, we'll use it to clone the 
 Finally, we are ready to build.
 
 - Run `lime build <target>`, replacing `<target>` with the platform you want to build to (`windows`, `mac`, `linux`, `html5`) (i.e. `lime build windows`)
-- The build will be in `Kade-Engine/export/<target>/bin`, with `<target>` being the target you built to in the previous step. (i.e. `Kade-Engine/export/windows/bin`)
+- The build will be in `ModFolder/export/<target>/bin`, with `<target>` being the target you built to in the previous step. (i.e. `'ModFolder/export/windows/bin`)
 - Only the `bin` folder is necessary to run the game. The other ones in `export/<target>` are not.
