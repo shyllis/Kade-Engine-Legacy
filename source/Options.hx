@@ -1,11 +1,7 @@
 package;
 
 import lime.app.Application;
-import lime.system.DisplayMode;
-import flixel.util.FlxColor;
-import Controls.KeyboardScheme;
 import flixel.FlxG;
-import openfl.display.FPS;
 import openfl.Lib;
 
 class Option {
@@ -283,6 +279,28 @@ class RatingCounterOption extends Option {
 
 	private override function updateDisplay():String {
 		return "Rating Counter < " + (FlxG.save.data.ratingCounter ? "on" : "off") + " >";
+	}
+}
+
+class TimerOption extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+	}
+
+	public override function left():Bool {
+		FlxG.save.data.timer = !FlxG.save.data.timer;
+		display = updateDisplay();
+		return true;
+	}
+
+	public override function right():Bool {
+		left();
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return "Song Timer < " + (FlxG.save.data.timer ? "on" : "off") + " >";
 	}
 }
 

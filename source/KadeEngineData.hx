@@ -21,6 +21,9 @@ class KadeEngineData {
 		if (FlxG.save.data.ratingCounter == null)
 			FlxG.save.data.ratingCounter = true;
 
+		if (FlxG.save.data.timer == null)
+			FlxG.save.data.timer = true;
+
 		if (FlxG.save.data.fps == null)
 			FlxG.save.data.fps = false;
 

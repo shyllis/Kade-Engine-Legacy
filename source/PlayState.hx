@@ -21,6 +21,7 @@ import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
+import flixel.util.FlxStringUtil;
 import lime.utils.Assets;
 #if windows
 import Discord.DiscordClient;
@@ -122,8 +123,9 @@ class PlayState extends MusicBeatState {
 	var songScore:Int = 0;
 	var songScoreDef:Int = 0;
 	var scoreTxt:FlxText;
-
 	var RatingCounter:FlxText;
+	var timer:FlxText;
+	var info:FlxText;
 
 	public static var campaignScore:Int = 0;
 
@@ -210,6 +212,7 @@ class PlayState extends MusicBeatState {
 
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
+		camHUD.alpha = 0;
 		camHUD.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
@@ -335,6 +338,25 @@ class PlayState extends MusicBeatState {
 
 		FlxG.fixedTimestep = false;
 
+		timer = new FlxText(20, 645, 0, '', 30);
+		timer.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		if (FlxG.save.data.downscroll)
+			timer.y = 75;
+		timer.borderSize = 2;
+		timer.borderQuality = 2;
+		timer.scrollFactor.set();
+		if (FlxG.save.data.timer)
+			add(timer);
+
+		info = new FlxText(20, 675, 0, '', 30);
+		info.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		if (FlxG.save.data.downscroll)
+			info.y = 45;
+		info.borderSize = 2;
+		info.borderQuality = 2;
+		info.scrollFactor.set();
+		add(info);
+
 		healthBarBG = new FlxSprite(0, FlxG.height * 0.9).loadGraphic(Paths.image('healthBar', 'shared'));
 		if (FlxG.save.data.downscroll)
 			healthBarBG.y = 50;
@@ -389,6 +411,8 @@ class PlayState extends MusicBeatState {
 		grpNoteSplashes.cameras = [camHUD];
 		strumLineNotes.cameras = [camHUD];
 		notes.cameras = [camHUD];
+		timer.cameras = [camHUD];
+		info.cameras = [camHUD];
 		healthBar.cameras = [camHUD];
 		healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
@@ -506,6 +530,7 @@ class PlayState extends MusicBeatState {
 				vocals.play();
 
 		songLength = FlxG.sound.music.length;
+		FlxTween.tween(camHUD, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 
 		switch (curSong) {
 			default:
@@ -851,6 +876,17 @@ class PlayState extends MusicBeatState {
 		perfectMode = false;
 		#end
 
+		info.text = '${SONG.song.toLowerCase()}' + ' - ' + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy");
+		if (FlxG.save.data.timer)
+		{
+			var curTime:Float = Conductor.songPosition;
+			if (curTime < 0)
+				curTime = 0;
+			var secondsTotal:Int = Math.floor(curTime / 1000);
+			if (secondsTotal < 0)
+				secondsTotal = 0;
+			timer.text = FlxStringUtil.formatTime(secondsTotal, false) + ' / ' + FlxStringUtil.formatTime(songLength / 1000, false);
+		}
 		if (FlxG.save.data.ratingCounter)
 			RatingCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nMisses: ${misses}';
 		if (FlxG.save.data.botplay && FlxG.keys.justPressed.ONE)
