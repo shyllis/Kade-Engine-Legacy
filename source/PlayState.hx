@@ -150,6 +150,8 @@ class PlayState extends MusicBeatState {
 	override public function create() {
 		instance = this;
 
+		Paths.clearStoredMemory();
+
 		if (!Assets.exists(Paths.P1voice(PlayState.SONG.song)) || !Assets.exists(Paths.P2voice(PlayState.SONG.song)))
 		{
 			SepVocalsNull = true;
@@ -392,6 +394,8 @@ class PlayState extends MusicBeatState {
 		}
 
 		super.create();
+
+		Paths.clearUnusedMemory();
 	}
 
 	var startTimer:FlxTimer;

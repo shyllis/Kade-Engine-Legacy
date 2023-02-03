@@ -30,6 +30,9 @@ class FreeplayState extends MusicBeatState {
 	private var iconArray:Array<HealthIcon> = [];
 
 	override function create() {
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+		
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 
 		for (i in 0...initSonglist.length) {

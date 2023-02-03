@@ -86,6 +86,9 @@ class ChartingState extends MusicBeatState {
 	public var snapText:FlxText;
 
 	override function create() {
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+		
 		curSection = lastSection;
 
 		if (PlayState.SONG != null)

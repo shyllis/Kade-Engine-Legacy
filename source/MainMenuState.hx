@@ -46,6 +46,9 @@ class MainMenuState extends MusicBeatState {
 	public static var finishedFunnyMove:Bool = false;
 
 	override function create() {
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+		
 		#if windows
 		DiscordClient.changePresence("In the Menus", null);
 		#end

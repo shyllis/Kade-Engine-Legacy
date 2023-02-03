@@ -1,15 +1,12 @@
 package;
 
-import flixel.FlxCamera;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxSubState;
 import flixel.input.gamepad.FlxGamepad;
-import flixel.tweens.FlxTween;
 import Options;
-import Controls.Control;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.input.keyboard.FlxKey;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 
@@ -109,6 +106,9 @@ class OptionsMenu extends FlxSubState
 
 	override function create()
 	{
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
 		options = [
 			new OptionCata(50, 40, "Gameplay", [
 				new GhostTapOption("Toggle counting pressing a directional input when no arrow is there as a miss."),

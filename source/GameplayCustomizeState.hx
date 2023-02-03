@@ -36,6 +36,9 @@ class GameplayCustomizeState extends MusicBeatState {
 	private var camHUD:FlxCamera;
 
 	public override function create() {
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+		
 		#if windows
 		DiscordClient.changePresence("Customizing Gameplay", null);
 		#end
