@@ -20,6 +20,10 @@ Links: **[Gamebanana mod page]() ⋅ [latest stable release](https://github.com/
 
 **REMEMBER**: This is a **mod**. This is not the vanilla game and should be treated as a **modification**. This is not and will never be official, so don't get confused.
 
+## How to build KEL?
+
+### If you want to build Kade Engine Legacy, read [this](https://github.com/KadeDev/Kade-Engine/blob/stable/docs/building.md).
+
 # Features
 
  - **Based on KE 1.5.2**
@@ -45,7 +49,7 @@ Links: **[Gamebanana mod page]() ⋅ [latest stable release](https://github.com/
 
 # Credit
 ### Friday Night Funkin'
- - [ninjamuffin99](https://twitter.com/ninja_muffin99) - Programming
+ - [ninjamuffin99](https://twitter we.com/ninja_muffin99) - Programming
  - [PhantomArcade3K](https://twitter.com/phantomarcade3k) and [Evilsk8r](https://twitter.com/evilsk8r) - Art
  - [Kawai Sprite](https://twitter.com/kawaisprite) - Music
 
