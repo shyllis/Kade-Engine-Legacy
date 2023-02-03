@@ -866,30 +866,26 @@ class PlayState extends MusicBeatState {
 			+ misses, iconRPC);
 		#end
 	}
-	function playCutscene(name:String, atEndOfSong:Bool = false)
-	{
+
+	function playCutscene(name:String, atEndOfSong:Bool = false) {
 		inCutscene = true;
 		FlxG.sound.music.stop();
-	
+
 		var video:VideoHandler = new VideoHandler();
-		video.finishCallback = function()
-		{
-			if (atEndOfSong)
-			{
+		video.finishCallback = function() {
+			if (atEndOfSong) {
 				if (storyPlaylist.length <= 0)
 					FlxG.switchState(new StoryMenuState());
-				else
-				{
+				else {
 					SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
 					FlxG.switchState(new PlayState());
 				}
-			}
-			else
+			} else
 				startCountdown();
 		}
 		video.playVideo(Paths.video(name));
 	}
-		
+
 	private var paused:Bool = false;
 	var startedCountdown:Bool = false;
 	var canPause:Bool = true;
@@ -902,8 +898,7 @@ class PlayState extends MusicBeatState {
 		#end
 
 		info.text = '${SONG.song}' + ' - ' + (storyDifficulty == 2 ? "Hard" : storyDifficulty == 1 ? "Normal" : "Easy");
-		if (FlxG.save.data.timer)
-		{
+		if (FlxG.save.data.timer) {
 			var curTime:Float = Conductor.songPosition;
 			if (curTime < 0)
 				curTime = 0;

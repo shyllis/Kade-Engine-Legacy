@@ -142,8 +142,7 @@ class Paths {
 		return returnSound('music', key, library);
 	}
 
-	inline static public function video(key:String)
-	{
+	inline static public function video(key:String) {
 		return 'assets/videos/$key';
 	}
 

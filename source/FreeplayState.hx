@@ -220,8 +220,8 @@ class FreeplayState extends MusicBeatState {
 			curSelected = 0;
 
 		var newColor:Int = songs[curSelected].bgcolor;
-		if(newColor != intendedColor) {
-			if(colorTween != null) {
+		if (newColor != intendedColor) {
+			if (colorTween != null) {
 				colorTween.cancel();
 			}
 			intendedColor = newColor;
@@ -231,7 +231,7 @@ class FreeplayState extends MusicBeatState {
 				}
 			});
 		}
-		
+
 		var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
 		switch (songHighscore) {
 			case 'Dad-Battle':
