@@ -22,7 +22,7 @@ Links: **[Gamebanana mod page]() ⋅ [latest stable release](https://github.com/
 
 ## How to build KEL?
 
-### If you want to build Kade Engine Legacy, read [this](https://github.com/Goldie5fnf/Kade-Engine-Legacy/blob/stable/docs/building.md).
+### If you want to build Kade Engine Legacy, read [this](https://github.com/Goldie5fnf/Kade-Engine-Legacy/blob/main/docs/building.md).
 
 # Features
 
