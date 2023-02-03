@@ -142,6 +142,11 @@ class Paths {
 		return returnSound('music', key, library);
 	}
 
+	inline static public function video(key:String)
+	{
+		return 'assets/videos/$key';
+	}
+
 	inline static public function voices(song:String) {
 		var songLowercase = StringTools.replace(song, " ", "-").toLowerCase();
 		switch (songLowercase) {
