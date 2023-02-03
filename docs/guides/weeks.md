@@ -17,14 +17,16 @@ Scroll down to Line 26, or Search (Windows/Linux: `Ctrl+F`, Mac: `Cmd+F`) for "w
 ```haxe
 var weekData:Array<Dynamic> = [
 		
-    ['Tutorial']
-    
+    ['Tutorial'],
+
+    ['Bopeebo', 'Fresh', 'Dadbattle']
+
 ];
 ```
 
 ---
 
-Copy `['Tutorial']` into an empty line below it, and change the song names to the song names you want to use.
+Copy `['Bopeebo', 'Fresh', 'Dadbattle']` into an empty line below it, and change the song names to the song names you want to use.
 Don't forget to add a comma at the end of the previous Week, and you have your songlist for the week completed!
 
 Example
@@ -37,7 +39,9 @@ var weekData:Array<Dynamic> = [
 		
     ['Tutorial'],
 		
-    ['Bopeebo', 'Fresh', 'Dadbattle']
+    ['Bopeebo', 'Fresh', 'Dadbattle'],
+		
+    ['Song1', 'Song2', 'Song3']
     
 ];
 ```
@@ -58,7 +62,9 @@ var weekCharacters:Array<Dynamic> = [
 		
     ['', 'bf', 'gf'],
 		
-    ['dad', 'bf', 'gf']
+    ['dad', 'bf', 'gf'],
+
+    ['customchar', 'bf', 'gf']
 	
   ];
 ```
@@ -78,7 +84,9 @@ var weekNames:Array<String> = [
 		
 	"How to Funk",
 		
-	"Daddy dearest"
+	"Daddy dearest",
+
+        "Epic rap battle!"
 
 ];
 ```
