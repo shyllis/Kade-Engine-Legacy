@@ -8,10 +8,8 @@ import flixel.FlxG;
 import openfl.display.FPS;
 import openfl.Lib;
 
-class Option
-{
-	public function new()
-	{
+class Option {
+	public function new() {
 		display = updateDisplay();
 	}
 
@@ -23,242 +21,195 @@ class Option
 
 	public var waitingType:Bool = false;
 
-	public final function getDisplay():String
-	{
+	public final function getDisplay():String {
 		return display;
 	}
 
-	public final function getAccept():Bool
-	{
+	public final function getAccept():Bool {
 		return acceptValues;
 	}
 
-	public final function getDescription():String
-	{
+	public final function getDescription():String {
 		return description;
 	}
 
-	public function getValue():String
-	{
+	public function getValue():String {
 		return updateDisplay();
 	};
 
-	public function onType(text:String)
-	{
-	}
+	public function onType(text:String) {}
 
 	// Returns whether the label is to be updated.
-	public function press():Bool
-	{
+	public function press():Bool {
 		return true;
 	}
 
-	private function updateDisplay():String
-	{
+	private function updateDisplay():String {
 		return "";
 	}
 
-	public function left():Bool
-	{
+	public function left():Bool {
 		return false;
 	}
 
-	public function right():Bool
-	{
+	public function right():Bool {
 		return false;
 	}
 }
 
-class DFJKOption extends Option
-{
-	public function new()
-	{
+class DFJKOption extends Option {
+	public function new() {
 		super();
 	}
 
-	public override function press():Bool
-	{
+	public override function press():Bool {
 		OptionsMenu.instance.openSubState(new KeyBindMenu());
 		return false;
 	}
 
-	private override function updateDisplay():String
-	{
+	private override function updateDisplay():String {
 		return "Key Bindings";
 	}
 }
 
-class DownscrollOption extends Option
-{
-	public function new(desc:String)
-	{
+class DownscrollOption extends Option {
+	public function new(desc:String) {
 		super();
 		description = desc;
 	}
 
-	public override function left():Bool
-	{
+	public override function left():Bool {
 		FlxG.save.data.downscroll = !FlxG.save.data.downscroll;
 		display = updateDisplay();
 		return true;
 	}
 
-	public override function right():Bool
-	{
+	public override function right():Bool {
 		left();
 		return true;
 	}
 
-	private override function updateDisplay():String
-	{
+	private override function updateDisplay():String {
 		return "Scroll: < " + (FlxG.save.data.downscroll ? "Downscroll" : "Upscroll") + " >";
 	}
 }
 
-class GhostTapOption extends Option
-{
-	public function new(desc:String)
-	{
+class GhostTapOption extends Option {
+	public function new(desc:String) {
 		super();
 		description = desc;
 	}
 
-	public override function left():Bool
-	{
+	public override function left():Bool {
 		FlxG.save.data.ghost = !FlxG.save.data.ghost;
 		display = updateDisplay();
 		return true;
 	}
 
-	public override function right():Bool
-	{
+	public override function right():Bool {
 		left();
 		return true;
 	}
 
-	private override function updateDisplay():String
-	{
+	private override function updateDisplay():String {
 		return "Ghost Tapping: < " + (FlxG.save.data.ghost ? "Enabled" : "Disabled") + " >";
 	}
 }
 
-class AccuracyOption extends Option
-{
-	public function new(desc:String)
-	{
+class AccuracyOption extends Option {
+	public function new(desc:String) {
 		super();
 		description = desc;
 	}
 
-	public override function left():Bool
-	{
+	public override function left():Bool {
 		FlxG.save.data.accuracyDisplay = !FlxG.save.data.accuracyDisplay;
 		display = updateDisplay();
 		return true;
 	}
 
-	public override function right():Bool
-	{
+	public override function right():Bool {
 		left();
 		return true;
 	}
 
-	private override function updateDisplay():String
-	{
+	private override function updateDisplay():String {
 		return "Accuracy Display < " + (!FlxG.save.data.accuracyDisplay ? "off" : "on") + " >";
 	}
 }
 
-class ResetButtonOption extends Option
-{
-	public function new(desc:String)
-	{
+class ResetButtonOption extends Option {
+	public function new(desc:String) {
 		super();
 		description = desc;
 	}
 
-	public override function left():Bool
-	{
+	public override function left():Bool {
 		FlxG.save.data.resetButton = !FlxG.save.data.resetButton;
 		display = updateDisplay();
 		return true;
 	}
 
-	public override function right():Bool
-	{
+	public override function right():Bool {
 		left();
 		return true;
 	}
 
-	private override function updateDisplay():String
-	{
+	private override function updateDisplay():String {
 		return "Reset Button: < " + (!FlxG.save.data.resetButton ? "off" : "on") + " >";
 	}
 }
 
-class FPSOption extends Option
-{
-	public function new(desc:String)
-	{
+class FPSOption extends Option {
+	public function new(desc:String) {
 		super();
 		description = desc;
 	}
 
-	public override function left():Bool
-	{
+	public override function left():Bool {
 		FlxG.save.data.fps = !FlxG.save.data.fps;
 		(cast(Lib.current.getChildAt(0), Main)).toggleFPS(FlxG.save.data.fps);
 		display = updateDisplay();
 		return true;
 	}
 
-	public override function right():Bool
-	{
+	public override function right():Bool {
 		left();
 		return true;
 	}
 
-	private override function updateDisplay():String
-	{
+	private override function updateDisplay():String {
 		return "FPS Counter: < " + (!FlxG.save.data.fps ? "off" : "on") + " >";
 	}
 }
 
-class FPSCapOption extends Option
-{
-	public function new(desc:String)
-	{
+class FPSCapOption extends Option {
+	public function new(desc:String) {
 		super();
 		description = desc;
 		acceptValues = true;
 	}
 
-	public override function press():Bool
-	{
+	public override function press():Bool {
 		return false;
 	}
 
-	private override function updateDisplay():String
-	{
+	private override function updateDisplay():String {
 		return "FPS Cap: < " + FlxG.save.data.fpsCap + " >";
 	}
 
-	override function right():Bool
-	{
-		if (FlxG.save.data.fpsCap >= 290)
-		{
+	override function right():Bool {
+		if (FlxG.save.data.fpsCap >= 290) {
 			FlxG.save.data.fpsCap = 290;
 			(cast(Lib.current.getChildAt(0), Main)).setFPSCap(290);
-		}
-		else
+		} else
 			FlxG.save.data.fpsCap = FlxG.save.data.fpsCap + 10;
 		(cast(Lib.current.getChildAt(0), Main)).setFPSCap(FlxG.save.data.fpsCap);
 
 		return true;
 	}
 
-	override function left():Bool
-	{
+	override function left():Bool {
 		if (FlxG.save.data.fpsCap > 290)
 			FlxG.save.data.fpsCap = 290;
 		else if (FlxG.save.data.fpsCap < 60)
@@ -269,78 +220,64 @@ class FPSCapOption extends Option
 		return true;
 	}
 
-	override function getValue():String
-	{
+	override function getValue():String {
 		return updateDisplay();
 	}
 }
 
-class CustomizeGameplay extends Option
-{
-	public function new(desc:String)
-	{
+class CustomizeGameplay extends Option {
+	public function new(desc:String) {
 		super();
 		description = desc;
 	}
 
-	public override function press():Bool
-	{
+	public override function press():Bool {
 		trace("switch");
 		FlxG.switchState(new GameplayCustomizeState());
 		return false;
 	}
 
-	private override function updateDisplay():String
-	{
+	private override function updateDisplay():String {
 		return "Customize Gameplay";
 	}
 }
 
-class NoteSplashes extends Option
-{
-	public function new(desc:String)
-	{
+class NoteSplashes extends Option {
+	public function new(desc:String) {
 		super();
 		description = desc;
 	}
 
-	public override function left():Bool
-	{
+	public override function left():Bool {
 		FlxG.save.data.noteSplashes = !FlxG.save.data.noteSplashes;
 		display = updateDisplay();
 		return true;
 	}
 
-	public override function right():Bool
-	{
+	public override function right():Bool {
 		left();
 		return true;
 	}
 
-	private override function updateDisplay():String
-	{
+	private override function updateDisplay():String {
 		return "Note Splashes < " + (FlxG.save.data.noteSplashes ? "on" : "off") + " >";
 	}
 }
 
-class BotPlay extends Option
-{
-	public function new(desc:String)
-	{
+class BotPlay extends Option {
+	public function new(desc:String) {
 		super();
 		description = desc;
 	}
 
-	public override function left():Bool
-	{
+	public override function left():Bool {
 		FlxG.save.data.botplay = !FlxG.save.data.botplay;
 		trace('BotPlay : ' + FlxG.save.data.botplay);
 		display = updateDisplay();
 		return true;
 	}
 
-	public override function right():Bool
-	{
+	public override function right():Bool {
 		left();
 		return true;
 	}
@@ -349,74 +286,60 @@ class BotPlay extends Option
 		return "BotPlay: < " + (FlxG.save.data.botplay ? "on" : "off") + " >";
 }
 
-class MiddleScrollOption extends Option
-{
-	public function new(desc:String)
-	{
+class MiddleScrollOption extends Option {
+	public function new(desc:String) {
 		super();
 		description = desc;
 	}
 
-	public override function left():Bool
-	{
+	public override function left():Bool {
 		FlxG.save.data.middleScroll = !FlxG.save.data.middleScroll;
 		display = updateDisplay();
 		return true;
 	}
 
-	public override function right():Bool
-	{
+	public override function right():Bool {
 		left();
 		return true;
 	}
 
-	private override function updateDisplay():String
-	{
+	private override function updateDisplay():String {
 		return "Middle Scroll: < " + (FlxG.save.data.middleScroll ? "Enabled" : "Disabled") + " >";
 	}
 }
 
-class GLRenderOption extends Option
-{
-	public function new(desc:String)
-	{
+class GLRenderOption extends Option {
+	public function new(desc:String) {
 		super();
 		description = desc;
 	}
 
-	public override function left():Bool
-	{
+	public override function left():Bool {
 		FlxG.save.data.useGL = !FlxG.save.data.useGL;
 		display = updateDisplay();
 		return true;
 	}
 
-	public override function right():Bool
-	{
+	public override function right():Bool {
 		left();
 		return true;
 	}
 
-	private override function updateDisplay():String
-	{
+	private override function updateDisplay():String {
 		return "GPU Rendering: < " + (FlxG.save.data.useGL ? "Enabled" : "Disabled") + " >";
 	}
 }
 
-class ResetSettings extends Option
-{
+class ResetSettings extends Option {
 	var confirm:Bool = false;
 
-	public function new(desc:String)
-	{
+	public function new(desc:String) {
 		super();
 		description = desc;
 	}
 
-	public override function press():Bool
-	{
-		if (!confirm)
-		{
+	public override function press():Bool {
+		if (!confirm) {
 			confirm = true;
 			display = updateDisplay();
 			return true;
@@ -443,8 +366,7 @@ class ResetSettings extends Option
 		return true;
 	}
 
-	private override function updateDisplay():String
-	{
+	private override function updateDisplay():String {
 		return confirm ? "Confirm Settings Reset" : "Reset Settings";
 	}
 }

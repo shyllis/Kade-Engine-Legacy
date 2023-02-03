@@ -21,7 +21,7 @@ class GameOverState extends FlxTransitionableState {
 	override function create() {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
-		
+
 		var loser:FlxSprite = new FlxSprite(100, 100);
 		var loseTex = Paths.getSparrowAtlas('lose');
 		loser.frames = loseTex;

@@ -48,7 +48,7 @@ class MainMenuState extends MusicBeatState {
 	override function create() {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
-		
+
 		#if windows
 		DiscordClient.changePresence("In the Menus", null);
 		#end

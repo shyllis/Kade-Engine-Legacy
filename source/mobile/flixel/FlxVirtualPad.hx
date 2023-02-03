@@ -10,8 +10,7 @@ import mobile.flixel.FlxButton;
 import openfl.display.BitmapData;
 import openfl.utils.Assets;
 
-enum FlxDPadMode
-{
+enum FlxDPadMode {
 	UP_DOWN;
 	LEFT_RIGHT;
 	UP_LEFT_RIGHT;
@@ -21,8 +20,7 @@ enum FlxDPadMode
 	NONE;
 }
 
-enum FlxActionMode
-{
+enum FlxActionMode {
 	A;
 	B;
 	A_B;
@@ -42,8 +40,7 @@ enum FlxActionMode
  * @author Ka Wing Chin
  * @author Mihai Alexandru (M.A. Jigsaw)
  */
-class FlxVirtualPad extends FlxSpriteGroup
-{
+class FlxVirtualPad extends FlxSpriteGroup {
 	public var buttonLeft:FlxButton = new FlxButton(0, 0);
 	public var buttonUp:FlxButton = new FlxButton(0, 0);
 	public var buttonRight:FlxButton = new FlxButton(0, 0);
@@ -70,12 +67,10 @@ class FlxVirtualPad extends FlxSpriteGroup
 	 * @param   DPadMode     The D-Pad mode. `LEFT_FULL` for example.
 	 * @param   ActionMode   The action buttons mode. `A_B_C` for example.
 	 */
-	public function new(DPad:FlxDPadMode, Action:FlxActionMode)
-	{
+	public function new(DPad:FlxDPadMode, Action:FlxActionMode) {
 		super();
 
-		switch (DPad)
-		{
+		switch (DPad) {
 			case UP_DOWN:
 				add(buttonUp = createButton(0, FlxG.height - 255, 'up', 0x00FF00));
 				add(buttonDown = createButton(0, FlxG.height - 135, 'down', 0x00FFFF));
@@ -108,8 +103,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 			case NONE: // do nothing
 		}
 
-		switch (Action)
-		{
+		switch (Action) {
 			case A:
 				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
 			case B:
@@ -161,8 +155,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 	/**
 	 * Clean up memory.
 	 */
-	override public function destroy():Void
-	{
+	override public function destroy():Void {
 		super.destroy();
 
 		buttonLeft = null;
@@ -186,8 +179,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 		buttonZ = null;
 	}
 
-	private function createButton(X:Float, Y:Float, Graphic:String, Color:Int = 0xFFFFFF):FlxButton
-	{
+	private function createButton(X:Float, Y:Float, Graphic:String, Color:Int = 0xFFFFFF):FlxButton {
 		var bitmapData:BitmapData;
 
 		if (Assets.exists('assets/mobile/virtualpad/${Graphic}.png'))

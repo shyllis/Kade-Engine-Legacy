@@ -9,8 +9,7 @@ import openfl.text.Font;
 	resources loaded from openfl.utils.Assets to improve
 	performance.
 **/
-interface IAssetCache
-{
+interface IAssetCache {
 	/**
 		Whether caching is currently enabled.
 	**/

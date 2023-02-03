@@ -152,8 +152,7 @@ class PlayState extends MusicBeatState {
 
 		Paths.clearStoredMemory();
 
-		if (!Assets.exists(Paths.P1voice(PlayState.SONG.song)) || !Assets.exists(Paths.P2voice(PlayState.SONG.song)))
-		{
+		if (!Assets.exists(Paths.P1voice(PlayState.SONG.song)) || !Assets.exists(Paths.P2voice(PlayState.SONG.song))) {
 			SepVocalsNull = true;
 		}
 
@@ -424,7 +423,6 @@ class PlayState extends MusicBeatState {
 			var introAlts:Array<String> = introAssets.get('default');
 
 			switch (swagCounter) {
-
 				case 0:
 					FlxG.sound.play(Paths.sound('intro3', 'shared'), 0.6);
 				case 1:
@@ -485,7 +483,7 @@ class PlayState extends MusicBeatState {
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
 
-		if (!paused) 
+		if (!paused)
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
 
 		FlxG.sound.music.onComplete = endSong;
@@ -528,20 +526,17 @@ class PlayState extends MusicBeatState {
 		curSong = songData.song;
 
 		if (SONG.needsVoices)
-			if (SepVocalsNull)
-			{
+			if (SepVocalsNull) {
 				vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-		        trace('Sep Vocals IS NULL');
-			}
-			else
-			{
+				trace('Sep Vocals IS NULL');
+			} else {
 				P1vocals = new FlxSound().loadEmbedded(Paths.P1voice(PlayState.SONG.song));
 				P2vocals = new FlxSound().loadEmbedded(Paths.P2voice(PlayState.SONG.song));
 			}
 		else
 			vocals = new FlxSound();
 		trace('loaded vocals');
-        
+
 		if (SepVocalsNull)
 			FlxG.sound.list.add(vocals);
 		else
@@ -706,11 +701,11 @@ class PlayState extends MusicBeatState {
 			switch (player) {
 				case 0:
 					cpuStrums.add(babyArrow);
-					if(FlxG.save.data.middleScroll)
+					if (FlxG.save.data.middleScroll)
 						babyArrow.visible = false;
 				case 1:
 					playerStrums.add(babyArrow);
-					if(FlxG.save.data.middleScroll)
+					if (FlxG.save.data.middleScroll)
 						babyArrow.x -= FlxG.width / 4.75;
 			}
 
@@ -807,14 +802,11 @@ class PlayState extends MusicBeatState {
 
 		FlxG.sound.music.play();
 		Conductor.songPosition = FlxG.sound.music.time;
-		if (SepVocalsNull)
-		{
+		if (SepVocalsNull) {
 			vocals.time = Conductor.songPosition;
 			vocals.play();
-		}
-		else
-			for (vocals in [P1vocals, P2vocals])
-			{
+		} else
+			for (vocals in [P1vocals, P2vocals]) {
 				vocals.time = Conductor.songPosition;
 				vocals.play();
 			}
@@ -1038,14 +1030,10 @@ class PlayState extends MusicBeatState {
 				if (FlxG.save.data.downscroll) {
 					if (daNote.mustPress)
 						daNote.y = (playerStrums.members[Math.floor(Math.abs(daNote.noteData))].y
-							+
-							0.45 * (Conductor.songPosition - daNote.strumTime) * FlxMath.roundDecimal(SONG.speed,
-								2));
+							+ 0.45 * (Conductor.songPosition - daNote.strumTime) * FlxMath.roundDecimal(SONG.speed, 2));
 					else
 						daNote.y = (strumLineNotes.members[Math.floor(Math.abs(daNote.noteData))].y
-							+
-							0.45 * (Conductor.songPosition - daNote.strumTime) * FlxMath.roundDecimal(SONG.speed,
-								2));
+							+ 0.45 * (Conductor.songPosition - daNote.strumTime) * FlxMath.roundDecimal(SONG.speed, 2));
 					if (daNote.isSustainNote) {
 						daNote.x += daNote.width / 2 + 20;
 						daNote.y -= daNote.height / 2 - 50;
@@ -1076,12 +1064,10 @@ class PlayState extends MusicBeatState {
 				} else {
 					if (daNote.mustPress)
 						daNote.y = (playerStrums.members[Math.floor(Math.abs(daNote.noteData))].y
-							- 0.45 * (Conductor.songPosition - daNote.strumTime) * FlxMath.roundDecimal(SONG.speed,
-								2));
+							- 0.45 * (Conductor.songPosition - daNote.strumTime) * FlxMath.roundDecimal(SONG.speed, 2));
 					else
 						daNote.y = (strumLineNotes.members[Math.floor(Math.abs(daNote.noteData))].y
-							- 0.45 * (Conductor.songPosition - daNote.strumTime) * FlxMath.roundDecimal(SONG.speed,
-								2));
+							- 0.45 * (Conductor.songPosition - daNote.strumTime) * FlxMath.roundDecimal(SONG.speed, 2));
 					if (daNote.isSustainNote) {
 						daNote.y -= daNote.height / 2;
 
@@ -1350,8 +1336,7 @@ class PlayState extends MusicBeatState {
 				totalNotesHit += 1;
 				sicks++;
 		}
-		if (daRating == 'sick' && FlxG.save.data.noteSplashes)
-		{
+		if (daRating == 'sick' && FlxG.save.data.noteSplashes) {
 			var noteSplash:NoteSplash = grpNoteSplashes.recycle(NoteSplash);
 			noteSplash.setupNoteSplash(daNote.x, daNote.y, daNote.noteData);
 			grpNoteSplashes.add(noteSplash);

@@ -12,8 +12,7 @@ import mobile.flixel.FlxButton;
  *
  * @author Mihai Alexandru (M.A. Jigsaw)
  */
-class FlxHitbox extends FlxSpriteGroup
-{
+class FlxHitbox extends FlxSpriteGroup {
 	public var buttonLeft:FlxButton = new FlxButton(0, 0);
 	public var buttonDown:FlxButton = new FlxButton(0, 0);
 	public var buttonUp:FlxButton = new FlxButton(0, 0);
@@ -22,8 +21,7 @@ class FlxHitbox extends FlxSpriteGroup
 	/**
 	 * Create the zone.
 	 */
-	public function new():Void
-	{
+	public function new():Void {
 		super();
 
 		add(buttonLeft = createHint(0, 0, Std.int(FlxG.width / 4), FlxG.height, 0xFF00FF));
@@ -37,8 +35,7 @@ class FlxHitbox extends FlxSpriteGroup
 	/**
 	 * Clean up memory.
 	 */
-	override function destroy():Void
-	{
+	override function destroy():Void {
 		super.destroy();
 
 		buttonLeft = null;
@@ -47,8 +44,7 @@ class FlxHitbox extends FlxSpriteGroup
 		buttonRight = null;
 	}
 
-	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData
-	{
+	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData {
 		var shape:Shape = new Shape();
 		shape.graphics.beginFill(Color);
 		shape.graphics.lineStyle(10, Color, 1);
@@ -60,21 +56,18 @@ class FlxHitbox extends FlxSpriteGroup
 		return bitmap;
 	}
 
-	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):FlxButton
-	{
+	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):FlxButton {
 		var hint:FlxButton = new FlxButton(X, Y);
 		hint.loadGraphic(createHintGraphic(Width, Height, Color));
 		hint.solid = false;
 		hint.immovable = true;
 		hint.scrollFactor.set();
 		hint.alpha = 0.00001;
-		hint.onDown.callback = hint.onOver.callback = function()
-		{
+		hint.onDown.callback = hint.onOver.callback = function() {
 			if (hint.alpha != 0.2)
 				hint.alpha = 0.2;
 		}
-		hint.onUp.callback = hint.onOut.callback = function()
-		{
+		hint.onUp.callback = hint.onOut.callback = function() {
 			if (hint.alpha != 0.00001)
 				hint.alpha = 0.00001;
 		}

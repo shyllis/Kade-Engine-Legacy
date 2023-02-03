@@ -20,21 +20,16 @@ class Paths {
 
 	public static var dumpExclusions:Array<String> = [];
 
-	public static function excludeAsset(key:String):Void
-	{
+	public static function excludeAsset(key:String):Void {
 		if (!dumpExclusions.contains(key))
 			dumpExclusions.push(key);
 	}
 
-	public static function clearUnusedMemory():Void
-	{
-		for (key in currentTrackedAssets["graphics"].keys())
-		{
+	public static function clearUnusedMemory():Void {
+		for (key in currentTrackedAssets["graphics"].keys()) {
 			@:privateAccess
-			if (!localTrackedAssets["graphics"].contains(key))
-			{
-				if (currentTrackedAssets["textures"].exists(key))
-				{
+			if (!localTrackedAssets["graphics"].contains(key)) {
+				if (currentTrackedAssets["textures"].exists(key)) {
 					var texture:Null<Texture> = currentTrackedAssets["textures"].get(key);
 					texture.dispose();
 					texture = null;
@@ -49,10 +44,8 @@ class Paths {
 			}
 		}
 
-		for (key in currentTrackedAssets["sounds"].keys())
-		{
-			if (!localTrackedAssets["sounds"].contains(key))
-			{
+		for (key in currentTrackedAssets["sounds"].keys()) {
+			if (!localTrackedAssets["sounds"].contains(key)) {
 				OpenFlAssets.cache.removeSound(key);
 				currentTrackedAssets["sounds"].remove(key);
 			}
@@ -62,15 +55,12 @@ class Paths {
 		System.gc();
 	}
 
-	public static function clearStoredMemory():Void
-	{
+	public static function clearStoredMemory():Void {
 		FlxG.bitmap.dumpCache();
 
 		@:privateAccess
-		for (key in FlxG.bitmap._cache.keys())
-		{
-			if (!currentTrackedAssets["graphics"].exists(key))
-			{
+		for (key in FlxG.bitmap._cache.keys()) {
+			if (!currentTrackedAssets["graphics"].exists(key)) {
 				var graphic:Null<FlxGraphic> = FlxG.bitmap._cache.get(key);
 				OpenFlAssets.cache.removeBitmapData(key);
 				FlxG.bitmap._cache.remove(key);
@@ -78,8 +68,7 @@ class Paths {
 			}
 		}
 
-		for (key in OpenFlAssets.cache.getSoundKeys())
-		{
+		for (key in OpenFlAssets.cache.getSoundKeys()) {
 			if (!currentTrackedAssets["sounds"].exists(key))
 				OpenFlAssets.cache.removeSound(key);
 		}
@@ -145,7 +134,7 @@ class Paths {
 		return returnSound('sounds', key, library);
 	}
 
-	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String){
+	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String) {
 		return sound(key + FlxG.random.int(min, max), library);
 	}
 
@@ -197,8 +186,7 @@ class Paths {
 		return 'songs:assets/songs/${songLowercase}/Inst.$SOUND_EXT';
 	}
 
-	inline static public function image(key:String, ?library:String, useGL:Bool = true):FlxGraphic
-	{
+	inline static public function image(key:String, ?library:String, useGL:Bool = true):FlxGraphic {
 		var returnAsset:FlxGraphic = returnGraphic(key, library, useGL ? FlxG.save.data.useGL : false);
 		return returnAsset;
 	}
@@ -215,18 +203,14 @@ class Paths {
 		return FlxAtlasFrames.fromSpriteSheetPacker(image(key, library), file('images/$key.txt', library));
 	}
 
-	public static function returnGraphic(key:String, ?library:String, ?useGL:Bool = false)
-	{
+	public static function returnGraphic(key:String, ?library:String, ?useGL:Bool = false) {
 		var path:String = getPath('images/$key.png', IMAGE, library);
-		if (OpenFlAssets.exists(path))
-		{
-			if (!currentTrackedAssets["graphics"].exists(path))
-			{
+		if (OpenFlAssets.exists(path)) {
+			if (!currentTrackedAssets["graphics"].exists(path)) {
 				var graphic:FlxGraphic;
 				var bitmapData:BitmapData = OpenFlAssets.getBitmapData(path);
 
-				if (useGL)
-				{
+				if (useGL) {
 					var texture:Texture = FlxG.stage.context3D.createTexture(bitmapData.width, bitmapData.height, BGRA, true);
 					texture.uploadFromBitmapData(bitmapData);
 					currentTrackedAssets["textures"].set(path, texture);
@@ -236,8 +220,7 @@ class Paths {
 					bitmapData = null;
 
 					graphic = FlxGraphic.fromBitmapData(BitmapData.fromTexture(texture), false, path);
-				}
-				else
+				} else
 					graphic = FlxGraphic.fromBitmapData(bitmapData, false, path);
 
 				graphic.persist = true;
@@ -251,20 +234,17 @@ class Paths {
 		return null;
 	}
 
-	public static function returnSound(path:String, key:String, ?library:String)
-	{
+	public static function returnSound(path:String, key:String, ?library:String) {
+		var file:String = getPath(path == 'songs' ? '$key.$SOUND_EXT' : '$path/$key.$SOUND_EXT', SOUND, path == 'songs' ? path : library);
+		if (OpenFlAssets.exists(file)) {
+			if (!currentTrackedAssets["sounds"].exists(file))
+				currentTrackedAssets["sounds"].set(file, OpenFlAssets.getSound(file));
 
-	var file:String = getPath(path == 'songs' ? '$key.$SOUND_EXT' : '$path/$key.$SOUND_EXT', SOUND, path == 'songs' ? path : library);
-	if (OpenFlAssets.exists(file))
-	{
-		if (!currentTrackedAssets["sounds"].exists(file))
-			currentTrackedAssets["sounds"].set(file, OpenFlAssets.getSound(file));
+			localTrackedAssets["sounds"].push(file);
+			return currentTrackedAssets["sounds"].get(file);
+		}
 
-		localTrackedAssets["sounds"].push(file);
-		return currentTrackedAssets["sounds"].get(file);
-	}
-
-	FlxG.log.error('oh no $file is returning null NOOOO');
-	return null;
+		FlxG.log.error('oh no $file is returning null NOOOO');
+		return null;
 	}
 }

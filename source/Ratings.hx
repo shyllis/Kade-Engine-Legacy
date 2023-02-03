@@ -100,17 +100,16 @@ class Ratings {
 	}
 
 	public static function CalculateRanking(score:Int, scoreDef:Int, nps:Int, maxNPS:Int, accuracy:Float):String {
-		return (!FlxG.save.data.botplay ?
-				"Score:"
-				+ (Conductor.safeFrames != 10 ? score + " (" + scoreDef + ")" : "" + score)
-				+ // Score
-				" | Combo Breaks:"
-				+ PlayState.misses
-				+ // Misses/Combo Breaks
-				" | Accuracy:"
-				+ (FlxG.save.data.botplay ? "N/A" : HelperFunctions.truncateFloat(accuracy, 2) + " %")
-				+ // Accuracy
-				" | "
-				+ GenerateLetterRank(accuracy) : ""); // Letter Rank
+		return (!FlxG.save.data.botplay ? "Score:"
+			+ (Conductor.safeFrames != 10 ? score + " (" + scoreDef + ")" : "" + score)
+			+ // Score
+			" | Combo Breaks:"
+			+ PlayState.misses
+			+ // Misses/Combo Breaks
+			" | Accuracy:"
+			+ (FlxG.save.data.botplay ? "N/A" : HelperFunctions.truncateFloat(accuracy, 2) + " %")
+			+ // Accuracy
+			" | "
+			+ GenerateLetterRank(accuracy) : ""); // Letter Rank
 	}
 }

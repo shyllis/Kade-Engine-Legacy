@@ -49,7 +49,7 @@ class StoryMenuState extends MusicBeatState {
 	override function create() {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
-		
+
 		#if windows
 		DiscordClient.changePresence("In the Story Mode Menu", null);
 		#end

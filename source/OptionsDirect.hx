@@ -2,13 +2,11 @@ import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
-class OptionsDirect extends MusicBeatState
-{
-	override function create()
-	{
+class OptionsDirect extends MusicBeatState {
+	override function create() {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
-		
+
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 

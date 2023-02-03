@@ -27,7 +27,7 @@ class Main extends Sprite {
 	var fpsCounter:Overlay;
 
 	var game:FlxGame;
-	
+
 	public static function main():Void {
 		Lib.current.addChild(new Main());
 	}

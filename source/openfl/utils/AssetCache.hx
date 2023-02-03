@@ -17,8 +17,7 @@ import lime.utils.Assets as LimeAssets;
 @:fileXml('tags="haxe,release"')
 @:noDebug
 #end
-class AssetCache implements IAssetCache
-{
+class AssetCache implements IAssetCache {
 	/**
 		Whether caching is currently enabled.
 	**/
@@ -42,8 +41,7 @@ class AssetCache implements IAssetCache
 	@:noCompletion private var __enabled:Bool = true;
 
 	#if openfljs
-	@:noCompletion private static function __init__()
-	{
+	@:noCompletion private static function __init__() {
 		untyped global.Object.defineProperty(AssetCache.prototype, "enabled", {
 			get: untyped #if haxe4 js.Syntax.code #else __js__ #end ("function () { return this.get_enabled (); }"),
 			set: untyped #if haxe4 js.Syntax.code #else __js__ #end ("function (v) { return this.set_enabled (v); }")
@@ -54,8 +52,7 @@ class AssetCache implements IAssetCache
 	/**
 		Creates a new AssetCache instance.
 	**/
-	public function new()
-	{
+	public function new() {
 		bitmapData = new Map<String, BitmapData>();
 		font = new Map<String, Font>();
 		sound = new Map<String, Sound>();
@@ -73,8 +70,7 @@ class AssetCache implements IAssetCache
 		```
 		@param	prefix	A ID prefix
 	**/
-	public function clear(prefix:String = null):Void
-	{
+	public function clear(prefix:String = null):Void {
 		clearBitmapData(prefix);
 		clearFonts(prefix);
 		clearSounds(prefix);
@@ -85,16 +81,11 @@ class AssetCache implements IAssetCache
 		matches an optional prefix.
 		@param	prefix	A ID prefix
 	**/
-	public function clearBitmapData(prefix:String = null):Void
-	{
-		if (prefix == null)
-		{
+	public function clearBitmapData(prefix:String = null):Void {
+		if (prefix == null) {
 			bitmapData = new Map<String, BitmapData>();
-		}
-		else
-		{
-			for (key in getBitmapKeys(prefix))
-			{
+		} else {
+			for (key in getBitmapKeys(prefix)) {
 				removeBitmapData(key);
 			}
 		}
@@ -105,16 +96,11 @@ class AssetCache implements IAssetCache
 		matches an optional prefix.
 		@param	prefix	A ID prefix
 	**/
-	public function clearFonts(prefix:String = null):Void
-	{
-		if (prefix == null)
-		{
+	public function clearFonts(prefix:String = null):Void {
+		if (prefix == null) {
 			font = new Map<String, Font>();
-		}
-		else
-		{
-			for (key in getFontKeys(prefix))
-			{
+		} else {
+			for (key in getFontKeys(prefix)) {
 				removeFont(key);
 			}
 		}
@@ -125,16 +111,11 @@ class AssetCache implements IAssetCache
 		matches an optional prefix.
 		@param	prefix	A ID prefix
 	**/
-	public function clearSounds(prefix:String = null):Void
-	{
-		if (prefix == null)
-		{
+	public function clearSounds(prefix:String = null):Void {
+		if (prefix == null) {
 			sound = new Map<String, Sound>();
-		}
-		else
-		{
-			for (key in getSoundKeys(prefix))
-			{
+		} else {
+			for (key in getSoundKeys(prefix)) {
 				removeSound(key);
 			}
 		}
@@ -152,8 +133,7 @@ class AssetCache implements IAssetCache
 		```
 		@param	prefix	A ID prefix
 	**/
-	public function getKeys(prefix:String = null):Array<String>
-	{
+	public function getKeys(prefix:String = null):Array<String> {
 		var result:Array<String> = [];
 
 		result = result.concat(getBitmapKeys(prefix));
@@ -168,22 +148,15 @@ class AssetCache implements IAssetCache
 		matches an optional prefix.
 		@param	prefix	A ID prefix
 	**/
-	public function getBitmapKeys(prefix:String = null):Array<String>
-	{
+	public function getBitmapKeys(prefix:String = null):Array<String> {
 		var result:Array<String> = [];
-		if (prefix == null)
-		{
-			for (key in bitmapData.keys())
-			{
+		if (prefix == null) {
+			for (key in bitmapData.keys()) {
 				result.push(key);
 			}
-		}
-		else
-		{
-			for (key in bitmapData.keys())
-			{
-				if (StringTools.startsWith(key, prefix))
-				{
+		} else {
+			for (key in bitmapData.keys()) {
+				if (StringTools.startsWith(key, prefix)) {
 					result.push(key);
 				}
 			}
@@ -196,22 +169,15 @@ class AssetCache implements IAssetCache
 		matches an optional prefix.
 		@param	prefix	A ID prefix
 	**/
-	public function getFontKeys(prefix:String = null):Array<String>
-	{
+	public function getFontKeys(prefix:String = null):Array<String> {
 		var result:Array<String> = [];
-		if (prefix == null)
-		{
-			for (key in font.keys())
-			{
+		if (prefix == null) {
+			for (key in font.keys()) {
 				result.push(key);
 			}
-		}
-		else
-		{
-			for (key in font.keys())
-			{
-				if (StringTools.startsWith(key, prefix))
-				{
+		} else {
+			for (key in font.keys()) {
+				if (StringTools.startsWith(key, prefix)) {
 					result.push(key);
 				}
 			}
@@ -224,22 +190,15 @@ class AssetCache implements IAssetCache
 		matches an optional prefix.
 		@param	prefix	A ID prefix
 	**/
-	public function getSoundKeys(prefix:String = null):Array<String>
-	{
+	public function getSoundKeys(prefix:String = null):Array<String> {
 		var result:Array<String> = [];
-		if (prefix == null)
-		{
-			for (key in sound.keys())
-			{
+		if (prefix == null) {
+			for (key in sound.keys()) {
 				result.push(key);
 			}
-		}
-		else
-		{
-			for (key in sound.keys())
-			{
-				if (StringTools.startsWith(key, prefix))
-				{
+		} else {
+			for (key in sound.keys()) {
+				if (StringTools.startsWith(key, prefix)) {
 					result.push(key);
 				}
 			}
@@ -252,8 +211,7 @@ class AssetCache implements IAssetCache
 		@param	id	The ID of the cached BitmapData
 		@return	The cached BitmapData instance
 	**/
-	public function getBitmapData(id:String):BitmapData
-	{
+	public function getBitmapData(id:String):BitmapData {
 		return bitmapData.get(id);
 	}
 
@@ -262,8 +220,7 @@ class AssetCache implements IAssetCache
 		@param	id	The ID of the cached Font
 		@return	The cached Font instance
 	**/
-	public function getFont(id:String):Font
-	{
+	public function getFont(id:String):Font {
 		return font.get(id);
 	}
 
@@ -272,8 +229,7 @@ class AssetCache implements IAssetCache
 		@param	id	The ID of the cached Sound
 		@return	The cached Sound instance
 	**/
-	public function getSound(id:String):Sound
-	{
+	public function getSound(id:String):Sound {
 		return sound.get(id);
 	}
 
@@ -282,8 +238,7 @@ class AssetCache implements IAssetCache
 		@param	id	The ID of a BitmapData asset
 		@return	Whether the object has been cached
 	**/
-	public function hasBitmapData(id:String):Bool
-	{
+	public function hasBitmapData(id:String):Bool {
 		return bitmapData.exists(id);
 	}
 
@@ -292,8 +247,7 @@ class AssetCache implements IAssetCache
 		@param	id	The ID of a Font asset
 		@return	Whether the object has been cached
 	**/
-	public function hasFont(id:String):Bool
-	{
+	public function hasFont(id:String):Bool {
 		return font.exists(id);
 	}
 
@@ -302,8 +256,7 @@ class AssetCache implements IAssetCache
 		@param	id	The ID of a Sound asset
 		@return	Whether the object has been cached
 	**/
-	public function hasSound(id:String):Bool
-	{
+	public function hasSound(id:String):Bool {
 		return sound.exists(id);
 	}
 
@@ -312,8 +265,7 @@ class AssetCache implements IAssetCache
 		@param	id	The ID of a BitmapData asset
 		@return	`true` if the asset was removed, `false` if it was not in the cache
 	**/
-	public function removeBitmapData(id:String):Bool
-	{
+	public function removeBitmapData(id:String):Bool {
 		#if lime
 		LimeAssets.cache.image.remove(id);
 		#end
@@ -325,8 +277,7 @@ class AssetCache implements IAssetCache
 		@param	id	The ID of a Font asset
 		@return	`true` if the asset was removed, `false` if it was not in the cache
 	**/
-	public function removeFont(id:String):Bool
-	{
+	public function removeFont(id:String):Bool {
 		#if lime
 		LimeAssets.cache.font.remove(id);
 		#end
@@ -338,8 +289,7 @@ class AssetCache implements IAssetCache
 		@param	id	The ID of a Sound asset
 		@return	`true` if the asset was removed, `false` if it was not in the cache
 	**/
-	public function removeSound(id:String):Bool
-	{
+	public function removeSound(id:String):Bool {
 		#if lime
 		LimeAssets.cache.audio.remove(id);
 		#end
@@ -351,8 +301,7 @@ class AssetCache implements IAssetCache
 		@param	id	The ID of a BitmapData asset
 		@param	bitmapData	The matching BitmapData instance
 	**/
-	public function setBitmapData(id:String, bitmapData:BitmapData):Void
-	{
+	public function setBitmapData(id:String, bitmapData:BitmapData):Void {
 		this.bitmapData.set(id, bitmapData);
 	}
 
@@ -361,8 +310,7 @@ class AssetCache implements IAssetCache
 		@param	id	The ID of a Font asset
 		@param	bitmapData	The matching Font instance
 	**/
-	public function setFont(id:String, font:Font):Void
-	{
+	public function setFont(id:String, font:Font):Void {
 		this.font.set(id, font);
 	}
 
@@ -371,19 +319,16 @@ class AssetCache implements IAssetCache
 		@param	id	The ID of a Sound asset
 		@param	bitmapData	The matching Sound instance
 	**/
-	public function setSound(id:String, sound:Sound):Void
-	{
+	public function setSound(id:String, sound:Sound):Void {
 		this.sound.set(id, sound);
 	}
 
 	// Get & Set Methods
-	@:noCompletion private function get_enabled():Bool
-	{
+	@:noCompletion private function get_enabled():Bool {
 		return __enabled;
 	}
 
-	@:noCompletion private function set_enabled(value:Bool):Bool
-	{
+	@:noCompletion private function set_enabled(value:Bool):Bool {
 		return __enabled = value;
 	}
 }

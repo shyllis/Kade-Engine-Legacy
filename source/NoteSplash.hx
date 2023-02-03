@@ -3,10 +3,8 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
-class NoteSplash extends FlxSprite
-{
-	public function new(x:Float, y:Float, noteData:Int = 0):Void
-	{
+class NoteSplash extends FlxSprite {
+	public function new(x:Float, y:Float, noteData:Int = 0):Void {
 		super(x, y);
 
 		frames = Paths.getSparrowAtlas('noteSplashes', 'shared');
@@ -23,8 +21,7 @@ class NoteSplash extends FlxSprite
 		setupNoteSplash(x, y, noteData);
 	}
 
-	public function setupNoteSplash(x:Float, y:Float, noteData:Int = 0)
-	{
+	public function setupNoteSplash(x:Float, y:Float, noteData:Int = 0) {
 		setPosition(x, y);
 		alpha = 0.6;
 
@@ -35,8 +32,7 @@ class NoteSplash extends FlxSprite
 		offset.set(width * 0.3, height * 0.3);
 	}
 
-	override function update(elapsed:Float)
-	{
+	override function update(elapsed:Float) {
 		if (animation.curAnim.finished)
 			kill();
 

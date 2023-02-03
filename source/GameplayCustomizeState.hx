@@ -38,7 +38,7 @@ class GameplayCustomizeState extends MusicBeatState {
 	public override function create() {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
-		
+
 		#if windows
 		DiscordClient.changePresence("Customizing Gameplay", null);
 		#end
