@@ -1,7 +1,7 @@
 package;
 
 import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.util.FlxColor;
 
 using StringTools;
 
@@ -11,6 +11,7 @@ class Character extends FlxSprite {
 
 	public var isPlayer:Bool = false;
 	public var curCharacter:String = 'bf';
+	public var barColor:FlxColor;
 
 	public var holdTimer:Float = 0;
 
@@ -52,8 +53,9 @@ class Character extends FlxSprite {
 				addOffset('scared', -2, -17);
 
 				playAnim('danceRight');
+
+				barColor = 0xFFA2044B;
 			case 'dad':
-				// DAD ANIMATION LOADING CODE
 				frames = Paths.getSparrowAtlas('characters/DADDY_DEAREST', 'shared');
 				animation.addByPrefix('idle', 'Dad idle dance', 24);
 				animation.addByPrefix('singUP', 'Dad Sing Note UP', 24);
@@ -68,6 +70,8 @@ class Character extends FlxSprite {
 				addOffset("singDOWN", 0, -30);
 
 				playAnim('idle');
+
+				barColor = 0xFFaf66ce;
 			case 'bf':
 				frames = Paths.getSparrowAtlas('characters/BOYFRIEND', 'shared');
 
@@ -106,6 +110,8 @@ class Character extends FlxSprite {
 				playAnim('idle');
 
 				flipX = true;
+
+				barColor = 0xFF31b0d1;
 		}
 
 		dance();

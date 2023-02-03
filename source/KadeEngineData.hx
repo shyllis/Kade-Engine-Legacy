@@ -24,6 +24,12 @@ class KadeEngineData {
 		if (FlxG.save.data.timer == null)
 			FlxG.save.data.timer = true;
 
+		if (FlxG.save.data.GPUInfo == null)
+			FlxG.save.data.GPUInfo = false;
+
+		if (FlxG.save.data.MEMInfo == null)
+			FlxG.save.data.MEMInfo = true;
+
 		if (FlxG.save.data.fps == null)
 			FlxG.save.data.fps = false;
 

@@ -370,6 +370,50 @@ class GLRenderOption extends Option {
 	}
 }
 
+class GPUInfo extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+	}
+
+	public override function left():Bool {
+		FlxG.save.data.GPUInfo = !FlxG.save.data.GPUInfo;
+		display = updateDisplay();
+		return true;
+	}
+
+	public override function right():Bool {
+		left();
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return "GPU Info: < " + (FlxG.save.data.GPUInfo ? "Enabled" : "Disabled") + " >";
+	}
+}
+
+class MemoryInfo extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+	}
+
+	public override function left():Bool {
+		FlxG.save.data.MEMInfo = !FlxG.save.data.MEMInfo;
+		display = updateDisplay();
+		return true;
+	}
+
+	public override function right():Bool {
+		left();
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return "Memory Info: < " + (FlxG.save.data.MEMInfo ? "Enabled" : "Disabled") + " >";
+	}
+}
+
 class ResetSettings extends Option {
 	var confirm:Bool = false;
 

@@ -75,8 +75,11 @@ class Overlay extends TextField {
 		if (visible || alpha > 0) {
 			var stats:Array<String> = [];
 			stats.push('FPS: ${currentFrames}');
-			stats.push('Memory: ${getMemorySize(currentMemory)} / ${getMemorySize(currentMemoryPeak)}');
-			if (FlxG.save.data.useGL) {
+			if (FlxG.save.data.MEMInfo)
+				stats.push('Memory: ${getMemorySize(currentMemory)} / ${getMemorySize(currentMemoryPeak)}');
+			else
+				stats.remove('Memory: ${getMemorySize(currentMemory)} / ${getMemorySize(currentMemoryPeak)}');
+			if (FlxG.save.data.GPUInfo) {
 				stats.push('GL Renderer: ${getGLInfo(RENDERER)}');
 				stats.push('GL Shading Version: ${getGLInfo(SHADING_LANGUAGE_VERSION)}');
 				#if android

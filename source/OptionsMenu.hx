@@ -115,7 +115,9 @@ class OptionsMenu extends FlxSubState {
 			]),
 			new OptionCata(640, 40, "Misc", [
 				new OverlayOption("Toggle the Overlay"),
-				new GLRenderOption("Toggle the GPU Rendering")
+				new GLRenderOption("Toggle the GPU Rendering"),
+				new GPUInfo("Toggle GPU info for overlay"),
+				new MemoryInfo("Toggle Memory info for overlay")
 			]),
 			new OptionCata(935, 40, "Saves", [new ResetSettings("Resets saves.")])
 		];
