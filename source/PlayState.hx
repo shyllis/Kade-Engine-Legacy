@@ -28,10 +28,6 @@ import hxcodec.VideoSprite;
 #if windows
 import Discord.DiscordClient;
 #end
-#if windows
-import Sys;
-import sys.FileSystem;
-#end
 
 using StringTools;
 
@@ -156,9 +152,8 @@ class PlayState extends MusicBeatState {
 
 		Paths.clearStoredMemory();
 
-		if (!Assets.exists(Paths.P1voice(PlayState.SONG.song)) || !Assets.exists(Paths.P2voice(PlayState.SONG.song))) {
+		if (!Assets.exists(Paths.P1voice(PlayState.SONG.song)) || !Assets.exists(Paths.P2voice(PlayState.SONG.song)))
 			SepVocalsNull = true;
-		}
 
 		if (FlxG.save.data.fpsCap > 290)
 			(cast(Lib.current.getChildAt(0), Main)).setFPSCap(800);
@@ -441,6 +436,7 @@ class PlayState extends MusicBeatState {
 
 	function startCountdown():Void {
 		inCutscene = false;
+		canPause = false;
 
 		generateStaticArrows(0);
 		generateStaticArrows(1);
@@ -524,6 +520,7 @@ class PlayState extends MusicBeatState {
 	function startSong():Void {
 		startingSong = false;
 		songStarted = true;
+		canPause = true;
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
 

@@ -1,8 +1,7 @@
 package;
 
 import flixel.FlxSprite;
-import sys.FileSystem;
-import sys.io.File;
+import openfl.utils.Assets;
 
 class HealthIcon extends FlxSprite {
 	public var sprTracker:FlxSprite;
@@ -30,7 +29,7 @@ class HealthIcon extends FlxSprite {
 			char = char.split("-")[0];
 
 		if (char != this.character) {
-			if (FileSystem.exists(Paths.imageIcon("icons/icon-" + char))) {
+			if (Assets.exists(Paths.imageIcon("icons/icon-" + char))) {
 				if (loadGraphic(Paths.imageIcon("icons/icon-" + char)).width >= 450) {
 					loadGraphic(Paths.imageIcon("icons/icon-" + char), true, 150, 150);
 					animation.add(char, [0, 1, 2], 0, false, this.isPlayer);
