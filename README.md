@@ -44,6 +44,8 @@ Links: **[Gamebanana mod page]() ⋅ [latest stable release](https://github.com/
     - Settings menu from KE 1.8!
  - **Separated Vocals Support**
     - You can put playerVoice.ogg and enemyVoice.ogg to use separated vocals!
+ - **MP4 Videos Support**
+    - You can use MP4 videos!
  - **And Much More!**
     - We added a lot of stuff to make Kade Engine better!
 
