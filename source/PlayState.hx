@@ -938,16 +938,10 @@ class PlayState extends MusicBeatState {
 			scoreTxt.screenCenter(X);
 
 			scoreTxtChecked = true;
-		} else if (!FlxG.save.data.accuracyDisplay && !FlxG.save.data.NPSDisplay) {
+		} else {
 			scoreTxt.text = "Score: " + songScore;
 			scoreTxt.screenCenter(X);
 			scoreTxt.x += 125;
-			
-			scoreTxtChecked = true;
-		} else if (!FlxG.save.data.accuracyDisplay && FlxG.save.data.NPSDisplay) { 
-			scoreTxt.text = "NPS: " + nps + " (" + maxNPS + ") Score: " + songScore;
-			scoreTxt.screenCenter(X);
-			scoreTxt.x += 100;
 			
 			scoreTxtChecked = true;
 		}
