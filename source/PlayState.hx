@@ -889,8 +889,6 @@ class PlayState extends MusicBeatState {
 	private var paused:Bool = false;
 	var startedCountdown:Bool = false;
 	var canPause:Bool = true;
-	var nps:Int = 0;
-	var maxNPS:Int = 0;
 
 	public static var songRate = 1.5;
 
@@ -924,9 +922,6 @@ class PlayState extends MusicBeatState {
 					balls = 0;
 				balls--;
 			}
-			nps = notesHitArray.length;
-			if (nps > maxNPS)
-				maxNPS = nps;
 		}
 
 		super.update(elapsed);
