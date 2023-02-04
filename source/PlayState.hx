@@ -251,7 +251,7 @@ class PlayState extends MusicBeatState {
 					add(stageCurtains);
 				}
 		}
-		
+
 		var gfVersion:String = 'gf';
 
 		switch (SONG.gfVersion) {
@@ -285,16 +285,17 @@ class PlayState extends MusicBeatState {
 
 		Conductor.songPosition = -5000;
 
-		if(FlxG.save.data.bgNotesAlpha != 0) {
+		if (FlxG.save.data.bgNotesAlpha != 0) {
 			var bgForNotesBF:FlxSprite = new FlxSprite(80, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
 			bgForNotesBF.cameras = [camHUD];
 			bgForNotesBF.alpha = FlxG.save.data.bgNotesAlpha;
 			bgForNotesBF.screenCenter(Y);
-			if(FlxG.save.data.middleScroll) bgForNotesBF.x = 400;
+			if (FlxG.save.data.middleScroll)
+				bgForNotesBF.x = 400;
 
 			add(bgForNotesBF);
-			
-			if(!FlxG.save.data.middleScroll) {
+
+			if (!FlxG.save.data.middleScroll) {
 				var bgForNotesDad:FlxSprite = new FlxSprite(720, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
 				bgForNotesDad.cameras = [camHUD];
 				bgForNotesDad.alpha = FlxG.save.data.bgNotesAlpha;
@@ -470,7 +471,9 @@ class PlayState extends MusicBeatState {
 					ready.screenCenter();
 					add(ready);
 
-					FlxTween.tween(ready, {alpha: 0}, Conductor.crochet / 1000, {ease: FlxEase.cubeInOut, onComplete: function(twn:FlxTween) {
+					FlxTween.tween(ready, {alpha: 0}, Conductor.crochet / 1000, {
+						ease: FlxEase.cubeInOut,
+						onComplete: function(twn:FlxTween) {
 							ready.destroy();
 						}
 					});
@@ -482,7 +485,9 @@ class PlayState extends MusicBeatState {
 					set.screenCenter();
 					add(set);
 
-					FlxTween.tween(set, {alpha: 0}, Conductor.crochet / 1000, {ease: FlxEase.cubeInOut, onComplete: function(twn:FlxTween) {
+					FlxTween.tween(set, {alpha: 0}, Conductor.crochet / 1000, {
+						ease: FlxEase.cubeInOut,
+						onComplete: function(twn:FlxTween) {
 							set.destroy();
 						}
 					});
@@ -495,7 +500,9 @@ class PlayState extends MusicBeatState {
 					go.screenCenter();
 					add(go);
 
-					FlxTween.tween(go, {alpha: 0}, Conductor.crochet / 1000, {ease: FlxEase.cubeInOut, onComplete: function(twn:FlxTween) {
+					FlxTween.tween(go, {alpha: 0}, Conductor.crochet / 1000, {
+						ease: FlxEase.cubeInOut,
+						onComplete: function(twn:FlxTween) {
 							go.destroy();
 						}
 					});
@@ -929,7 +936,7 @@ class PlayState extends MusicBeatState {
 		var scoreTxtChecked:Bool = false;
 
 		if (FlxG.save.data.accuracyDisplay) {
-			scoreTxt.text = Ratings.CalculateRanking(songScore, songScoreDef, nps, maxNPS, accuracy);
+			scoreTxt.text = Ratings.CalculateRanking(songScore, songScoreDef, accuracy);
 			scoreTxt.screenCenter(X);
 
 			scoreTxtChecked = true;
@@ -937,7 +944,7 @@ class PlayState extends MusicBeatState {
 			scoreTxt.text = "Score: " + songScore;
 			scoreTxt.screenCenter(X);
 			scoreTxt.x += 125;
-			
+
 			scoreTxtChecked = true;
 		}
 
@@ -1813,12 +1820,11 @@ class PlayState extends MusicBeatState {
 		if (!boyfriend.animation.curAnim.name.startsWith("sing"))
 			boyfriend.playAnim('idle');
 
-		
 		if (curBeat % 8 == 7 && curSong == 'Bopeebo') {
 			boyfriend.playAnim('hey', true);
 			gf.playAnim('cheer', true);
 		}
-	
+
 		if (curBeat % 16 == 15 && SONG.song == 'Tutorial' && dad.curCharacter == 'gf' && curBeat > 16 && curBeat < 48) {
 			boyfriend.playAnim('hey', true);
 			dad.playAnim('cheer', true);

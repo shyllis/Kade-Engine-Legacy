@@ -110,7 +110,6 @@ class OptionsMenu extends FlxSubState {
 				new MiddleScrollOption("Put your lane in the center or on the right."),
 				new NoteSplashes("Adds splashes at sick note hit."),
 				new AccuracyOption("Display accuracy information on the info bar."),
-				new NPSOption("Display NPS information on the info bar."),
 				new NotesBGAlpha("Alpha of the BG behind your notes."),
 				new RatingCounterOption("Display note hit ratings information."),
 				new TimerOption("Display song timer.")

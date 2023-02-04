@@ -39,7 +39,7 @@ class MenuCharacter extends FlxSprite {
 			return;
 		} else {
 			visible = true;
-			
+
 			frames = Paths.getSparrowAtlas('storymenu/menucharacters/' + character);
 			var idleAnim:String = null;
 			switch (character) {
@@ -50,19 +50,19 @@ class MenuCharacter extends FlxSprite {
 				case 'dad':
 					idleAnim = 'M Dad Idle';
 			}
-			
+
 			animation.addByPrefix('idle', idleAnim, 24);
 			var confirmAnim:String = null;
 			switch (character) {
 				case 'bf':
 					confirmAnim = 'M bf HEY';
 			}
-			if(confirmAnim != null)
+			if (confirmAnim != null)
 				animation.addByPrefix('confirm', confirmAnim, 24, false);
 			else
 				animation.addByPrefix('confirm', idleAnim, 24, false);
 		}
-		
+
 		animation.play('idle');
 
 		var setting:CharacterSetting = settings[character];

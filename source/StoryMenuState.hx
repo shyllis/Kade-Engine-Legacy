@@ -26,6 +26,7 @@ class StoryMenuState extends MusicBeatState {
 
 	public static var weekUnlocked:Array<Bool> = [true, true];
 	private static var lastDiff:String = '';
+
 	var curDifficulty:Int = 2;
 
 	var weekCharacters:Array<Dynamic> = [['', 'bf', 'gf'], ['dad', 'bf', 'gf']];
@@ -234,7 +235,8 @@ class StoryMenuState extends MusicBeatState {
 
 			PlayState.storyDifficulty = curDifficulty;
 
-			PlayState.SONG = Song.loadFromJson(StringTools.replace(PlayState.storyPlaylist[0], " ", "-").toLowerCase() + diffic, StringTools.replace(PlayState.storyPlaylist[0]," ", "-").toLowerCase());
+			PlayState.SONG = Song.loadFromJson(StringTools.replace(PlayState.storyPlaylist[0], " ", "-").toLowerCase() + diffic,
+				StringTools.replace(PlayState.storyPlaylist[0], " ", "-").toLowerCase());
 			PlayState.storyWeek = curWeek;
 			PlayState.campaignScore = 0;
 			new FlxTimer().start(1, function(tmr:FlxTimer) {
@@ -244,6 +246,7 @@ class StoryMenuState extends MusicBeatState {
 	}
 
 	var tweenDifficulty:FlxTween;
+
 	function changeDifficulty(change:Int = 0):Void {
 		curDifficulty += change;
 
@@ -255,7 +258,7 @@ class StoryMenuState extends MusicBeatState {
 		var diff:String = CoolUtil.difficultyArray[curDifficulty].toLowerCase();
 		var daDiff:FlxGraphic = Paths.image('storymenu/difficulties/' + diff);
 
-		if(sprDifficulty.graphic != daDiff) {
+		if (sprDifficulty.graphic != daDiff) {
 			sprDifficulty.loadGraphic(daDiff);
 
 			sprDifficulty.x = leftArrow.x + 60;
@@ -264,10 +267,13 @@ class StoryMenuState extends MusicBeatState {
 			sprDifficulty.y = leftArrow.y - 15;
 			sprDifficulty.alpha = 0;
 
-			if(tweenDifficulty != null) tweenDifficulty.cancel();
-			tweenDifficulty = FlxTween.tween(sprDifficulty, {y: leftArrow.y + 15, alpha: 1}, 0.07, {onComplete: function(twn:FlxTween) {
-				tweenDifficulty = null;
-			}});
+			if (tweenDifficulty != null)
+				tweenDifficulty.cancel();
+			tweenDifficulty = FlxTween.tween(sprDifficulty, {y: leftArrow.y + 15, alpha: 1}, 0.07, {
+				onComplete: function(twn:FlxTween) {
+					tweenDifficulty = null;
+				}
+			});
 		}
 		lastDiff = diff;
 

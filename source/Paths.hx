@@ -186,7 +186,7 @@ class Paths {
 		var returnAsset:FlxGraphic = returnGraphic(key, library, useGL ? FlxG.save.data.useGL : false);
 		return returnAsset;
 	}
-	
+
 	inline static public function imageIcon(key:String, ?library:String) {
 		return getPath('images/$key.png', IMAGE, library);
 	}
