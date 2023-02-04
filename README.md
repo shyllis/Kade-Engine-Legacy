@@ -33,7 +33,7 @@ Links: **[Gamebanana mod page]() ⋅ [latest stable release](https://github.com/
  - **GPU Render**
     - You can load sprites with GPU instead of RAM, that can boost your FPS!
  - **Optimization**
-    - Works less laggy than original Kade Engine!
+    - A lot of stuff to make the game work better!
  - **Note Splashes**
     - Note Splash when pressing sick!
  - **No Default Weeks**
