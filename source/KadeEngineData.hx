@@ -6,8 +6,8 @@ class KadeEngineData {
 		if (FlxG.save.data.middleScroll == null)
 			FlxG.save.data.middleScroll = false;
 
-		if (FlxG.save.data.downscroll == null)
-			FlxG.save.data.downscroll = false;
+		if (FlxG.save.data.bgNotesAlpha == null)
+			FlxG.save.data.bgNotesAlpha = 0;
 		
 		if (FlxG.save.data.accuracyDisplay == null)
 			FlxG.save.data.accuracyDisplay = true;

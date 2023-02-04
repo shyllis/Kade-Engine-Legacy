@@ -130,7 +130,7 @@ class AccuracyOption extends Option {
 	}
 
 	private override function updateDisplay():String {
-		return "Accuracy Display < " + (!FlxG.save.data.accuracyDisplay ? "off" : "on") + " >";
+		return "Accuracy Display < " + (!FlxG.save.data.accuracyDisplay ? "Disabled" : "Enabled") + " >";
 	}
 }
 
@@ -152,7 +152,7 @@ class NPSOption extends Option {
 	}
 
 	private override function updateDisplay():String {
-		return "NPS Display < " + (!FlxG.save.data.npsDisplay ? "off" : "on") + " >";
+		return "NPS Display < " + (!FlxG.save.data.npsDisplay ? "Disabled" : "Enabled") + " >";
 	}
 }
 
@@ -174,7 +174,7 @@ class ResetButtonOption extends Option {
 	}
 
 	private override function updateDisplay():String {
-		return "Reset Button: < " + (!FlxG.save.data.resetButton ? "off" : "on") + " >";
+		return "Reset Button: < " + (!FlxG.save.data.resetButton ? "Disabled" : "Enabled") + " >";
 	}
 }
 
@@ -197,7 +197,45 @@ class OverlayOption extends Option {
 	}
 
 	private override function updateDisplay():String {
-		return "Overlay: < " + (!FlxG.save.data.fps ? "off" : "on") + " >";
+		return "Overlay: < " + (!FlxG.save.data.fps ? "Disabled" : "Enabled") + " >";
+	}
+}
+
+class NotesBGAlpha extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+		acceptValues = true;
+	}
+
+	public override function press():Bool {
+		return false;
+	}
+
+	private override function updateDisplay():String {
+		return "Notes BG Alpha: < " + FlxG.save.data.bgNotesAlpha + " >";
+	}
+
+	override function right():Bool {
+		if (FlxG.save.data.bgNotesAlpha >= 1)
+			FlxG.save.data.bgNotesAlpha = 1;
+		else
+			FlxG.save.data.bgNotesAlpha = FlxG.save.data.bgNotesAlpha + 0.1;
+
+		return true;
+	}
+
+	override function left():Bool {
+		if (FlxG.save.data.bgNotesAlpha <= 0)
+			FlxG.save.data.bgNotesAlpha = 0;
+		else
+			FlxG.save.data.bgNotesAlpha = FlxG.save.data.bgNotesAlpha - 0.1;
+
+		return true;
+	}
+
+	override function getValue():String {
+		return updateDisplay();
 	}
 }
 
@@ -278,7 +316,7 @@ class NoteSplashes extends Option {
 	}
 
 	private override function updateDisplay():String {
-		return "Note Splashes < " + (FlxG.save.data.noteSplashes ? "on" : "off") + " >";
+		return "Note Splashes < " + (FlxG.save.data.noteSplashes ? "Enabled" : "Disabled") + " >";
 	}
 }
 
@@ -300,7 +338,7 @@ class RatingCounterOption extends Option {
 	}
 
 	private override function updateDisplay():String {
-		return "Rating Counter < " + (FlxG.save.data.ratingCounter ? "on" : "off") + " >";
+		return "Rating Counter < " + (FlxG.save.data.ratingCounter ? "Enabled" : "Disabled") + " >";
 	}
 }
 
@@ -322,7 +360,7 @@ class TimerOption extends Option {
 	}
 
 	private override function updateDisplay():String {
-		return "Song Timer < " + (FlxG.save.data.timer ? "on" : "off") + " >";
+		return "Song Timer < " + (FlxG.save.data.timer ? "Enabled" : "Disabled") + " >";
 	}
 }
 
@@ -345,7 +383,7 @@ class BotPlay extends Option {
 	}
 
 	private override function updateDisplay():String
-		return "BotPlay: < " + (FlxG.save.data.botplay ? "on" : "off") + " >";
+		return "BotPlay: < " + (FlxG.save.data.botplay ? "Enabled" : "Disabled") + " >";
 }
 
 class MiddleScrollOption extends Option {

@@ -285,6 +285,25 @@ class PlayState extends MusicBeatState {
 
 		Conductor.songPosition = -5000;
 
+		if(FlxG.save.data.bgNotesAlpha != 0) {
+			var bgForNotesBF:FlxSprite = new FlxSprite(80, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
+			bgForNotesBF.cameras = [camHUD];
+			bgForNotesBF.alpha = FlxG.save.data.bgNotesAlpha;
+			bgForNotesBF.screenCenter(Y);
+			if(FlxG.save.data.middleScroll) bgForNotesBF.x = 400;
+
+			add(bgForNotesBF);
+			
+			if(!FlxG.save.data.middleScroll) {
+				var bgForNotesDad:FlxSprite = new FlxSprite(720, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
+				bgForNotesDad.cameras = [camHUD];
+				bgForNotesDad.alpha = FlxG.save.data.bgNotesAlpha;
+				bgForNotesDad.screenCenter(Y);
+
+				add(bgForNotesDad);
+			}
+		}
+
 		strumLine = new FlxSprite(0, 50).makeGraphic(FlxG.width, 10);
 		strumLine.scrollFactor.set();
 
@@ -723,12 +742,15 @@ class PlayState extends MusicBeatState {
 				case 1:
 					playerStrums.add(babyArrow);
 					if (FlxG.save.data.middleScroll)
-						babyArrow.x -= FlxG.width / 4.75;
+						babyArrow.x -= (FlxG.width / 4.75);
 			}
 
 			babyArrow.animation.play('static');
 			babyArrow.x += 50;
-			babyArrow.x += ((FlxG.width / 2) * player);
+			if (FlxG.save.data.middleScroll)
+				babyArrow.x += ((FlxG.width / 2) * player);
+			else
+				babyArrow.x += ((FlxG.width / 2) * player) + 50;
 
 			cpuStrums.forEach(function(spr:FlxSprite) {
 				spr.centerOffsets();
