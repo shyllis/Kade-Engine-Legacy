@@ -18,11 +18,9 @@ class Main extends Sprite {
 	var gameHeight:Int = 720;
 	var initialState:Class<FlxState> = TitleState;
 	var zoom:Float = -1;
-	var framerate:Int = 120;
+	var framerate:Int = 60;
 	var skipSplash:Bool = true;
 	var startFullscreen:Bool = false;
-
-	public static var watermarks = true;
 
 	var fpsCounter:Overlay;
 

@@ -99,14 +99,12 @@ class Ratings {
 		return "sick";
 	}
 
-	public static function CalculateRanking(score:Int, scoreDef:Int, accuracy:Float):String {
-		return (!FlxG.save.data.botplay ? "Score:"
-			+ (Conductor.safeFrames != 10 ? score + " (" + scoreDef + ")" : "" + score)
-			+ " | Combo Breaks:"
-			+ PlayState.misses
-			+ " | Accuracy:"
-			+ (FlxG.save.data.botplay ? "N/A" : HelperFunctions.truncateFloat(accuracy, 2) + " %")
-			+ " | "
-			+ GenerateLetterRank(accuracy) : "");
+    public static function CalculateRanking(score:Int, scoreDef:Int, nps:Int, maxNPS:Int, accuracy:Float):String {
+		return 
+		(FlxG.save.data.NPSDisplay ? "NPS: " + nps + " (Max " + maxNPS + ")" + (!FlxG.save.data.botplay ? " | " : "") : "") + (!FlxG.save.data.botplay ? 
+		"Score:" + (Conductor.safeFrames != 10 ? score + " (" + scoreDef + ")" : "" + score) + 									
+		" | Misses:" + PlayState.misses + 
+		" | Accuracy:" + (FlxG.save.data.botplay ? "N/A" : HelperFunctions.truncateFloat(accuracy, 2) + " %") + 
+		" | " + GenerateLetterRank(accuracy) : "");
 	}
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-	<app title="Kade Engine Legacy" file="Kade Engine Legacy" packageName="com.kadedev.kadeenginelegacy" package="com.kadedev.kadeenginelegacy" main="Main" version="0.2.7.1" company="kadedev" />
+	<app title="Kade Engine Legacy" file="KE Legacy" packageName="com.goldie5.kadeenginelegacy" package="com.goldie5.kadeenginelegacy" main="Main" version="0.2.7.1" company="goldie5" />
+	
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
 	<app preloader="flixel.system.FlxPreloader" />
 	<set name="SWF_VERSION" value="11.8" />
@@ -36,6 +37,9 @@
 	<assets path="assets/songs"    library="songs"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/shared"   library="shared"   exclude="*.ogg" if="web"/>
 	<assets path="assets/shared"   library="shared"   exclude="*.mp3" unless="web"/>
+	
+	<!-- <assets path='mods' embed='false' /> -->
+
 	<assets path="assets/fonts" embed='true'/>
 
 	<haxelib name="flixel" />
@@ -51,5 +55,5 @@
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 
-	<icon path="icon.png" />	
+	<icon path="assets/icon.png"/>
 </project>

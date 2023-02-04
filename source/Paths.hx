@@ -85,7 +85,7 @@ class Paths {
 		currentLevel = name.toLowerCase();
 	}
 
-	static function getPath(file:String, type:AssetType, library:Null<String>) {
+	static public function getPath(file:String, type:AssetType, library:Null<String>) {
 		if (library != null)
 			return getLibraryPath(file, library);
 
@@ -151,8 +151,6 @@ class Paths {
 		switch (songLowercase) {
 			case 'dad-battle':
 				songLowercase = 'dadbattle';
-			case 'philly-nice':
-				songLowercase = 'philly';
 		}
 		return 'songs:assets/songs/${songLowercase}/Voices.$SOUND_EXT';
 	}
@@ -162,8 +160,6 @@ class Paths {
 		switch (songLowercase) {
 			case 'dad-battle':
 				songLowercase = 'dadbattle';
-			case 'philly-nice':
-				songLowercase = 'philly';
 		}
 		return 'songs:assets/songs/${songLowercase}/playerVoice.$SOUND_EXT';
 	}
@@ -173,8 +169,6 @@ class Paths {
 		switch (songLowercase) {
 			case 'dad-battle':
 				songLowercase = 'dadbattle';
-			case 'philly-nice':
-				songLowercase = 'philly';
 		}
 		return 'songs:assets/songs/${songLowercase}/enemyVoice.$SOUND_EXT';
 	}
@@ -184,8 +178,6 @@ class Paths {
 		switch (songLowercase) {
 			case 'dad-battle':
 				songLowercase = 'dadbattle';
-			case 'philly-nice':
-				songLowercase = 'philly';
 		}
 		return 'songs:assets/songs/${songLowercase}/Inst.$SOUND_EXT';
 	}
@@ -193,6 +185,10 @@ class Paths {
 	inline static public function image(key:String, ?library:String, useGL:Bool = true):FlxGraphic {
 		var returnAsset:FlxGraphic = returnGraphic(key, library, useGL ? FlxG.save.data.useGL : false);
 		return returnAsset;
+	}
+	
+	inline static public function imageIcon(key:String, ?library:String) {
+		return getPath('images/$key.png', IMAGE, library);
 	}
 
 	inline static public function font(key:String) {

@@ -134,6 +134,28 @@ class AccuracyOption extends Option {
 	}
 }
 
+class NPSOption extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+	}
+
+	public override function left():Bool {
+		FlxG.save.data.npsDisplay = !FlxG.save.data.npsDisplay;
+		display = updateDisplay();
+		return true;
+	}
+
+	public override function right():Bool {
+		left();
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return "NPS Display < " + (!FlxG.save.data.npsDisplay ? "off" : "on") + " >";
+	}
+}
+
 class ResetButtonOption extends Option {
 	public function new(desc:String) {
 		super();

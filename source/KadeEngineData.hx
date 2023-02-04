@@ -8,12 +8,12 @@ class KadeEngineData {
 
 		if (FlxG.save.data.downscroll == null)
 			FlxG.save.data.downscroll = false;
-
-		if (FlxG.save.data.dfjk == null)
-			FlxG.save.data.dfjk = false;
-
+		
 		if (FlxG.save.data.accuracyDisplay == null)
 			FlxG.save.data.accuracyDisplay = true;
+
+		if (FlxG.save.data.NPSDisplay == null)
+			FlxG.save.data.NPSDisplay = false;
 
 		if (FlxG.save.data.noteSplashes == null)
 			FlxG.save.data.noteSplashes = true;
@@ -63,11 +63,15 @@ class KadeEngineData {
 		if (FlxG.save.data.customStrumLine == null)
 			FlxG.save.data.customStrumLine = 0;
 
+		if(FlxG.save.data.volume != null)
+			FlxG.sound.volume = FlxG.save.data.volume;
+		
+		if (FlxG.save.data.mute != null)
+			FlxG.sound.muted = FlxG.save.data.mute;
+
 		Conductor.recalculateTimings();
 		PlayerSettings.player1.controls.loadKeyBinds();
 		KeyBinds.keyCheck();
-
-		Main.watermarks = FlxG.save.data.watermark;
 
 		(cast(Lib.current.getChildAt(0), Main)).setFPSCap(FlxG.save.data.fpsCap);
 	}

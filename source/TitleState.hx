@@ -67,7 +67,7 @@ class TitleState extends MusicBeatState {
 
 		super.create();
 
-		FlxG.save.bind('funkin', 'ninjamuffin99');
+		FlxG.save.bind('kadelegacy', 'goldie5');
 
 		KadeEngineData.initSave();
 
@@ -282,20 +282,13 @@ class TitleState extends MusicBeatState {
 			case 4:
 				deleteCoolText();
 			case 5:
-				if (Main.watermarks)
-					createCoolText(['Kade Engine', 'by']);
-				else
-					createCoolText(['In Partnership', 'with']);
+				createCoolText(['Kade Engine Legacy', 'by']);
 			case 7:
-				if (Main.watermarks)
-					addMoreText('KadeDeveloper');
-				else {
-					addMoreText('Newgrounds');
-					ngSpr.visible = true;
-				}
+				addMoreText('Goldie-5');
+				addMoreText('and');
+				addMoreText('Shyllis');
 			case 8:
 				deleteCoolText();
-				ngSpr.visible = false;
 			case 9:
 				createCoolText([curWacky[0]]);
 			case 11:

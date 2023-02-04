@@ -153,15 +153,11 @@ class FreeplayState extends MusicBeatState {
 			switch (songLowercase) {
 				case 'dad-battle':
 					songLowercase = 'dadbattle';
-				case 'philly-nice':
-					songLowercase = 'philly';
 			}
 			var songHighscore = StringTools.replace(songs[curSelected].songName, " ", "-");
 			switch (songHighscore) {
 				case 'Dad-Battle':
 					songHighscore = 'Dadbattle';
-				case 'Philly-Nice':
-					songHighscore = 'Philly';
 			}
 
 			trace(songLowercase);
@@ -191,8 +187,6 @@ class FreeplayState extends MusicBeatState {
 		switch (songHighscore) {
 			case 'Dad-Battle':
 				songHighscore = 'Dadbattle';
-			case 'Philly-Nice':
-				songHighscore = 'Philly';
 		}
 
 		#if !switch
@@ -201,11 +195,11 @@ class FreeplayState extends MusicBeatState {
 
 		switch (curDifficulty) {
 			case 0:
-				diffText.text = "EASY";
+				diffText.text = "< EASY >";
 			case 1:
-				diffText.text = 'NORMAL';
+				diffText.text = '< NORMAL >';
 			case 2:
-				diffText.text = "HARD";
+				diffText.text = "< HARD >";
 		}
 	}
 
@@ -236,8 +230,6 @@ class FreeplayState extends MusicBeatState {
 		switch (songHighscore) {
 			case 'Dad-Battle':
 				songHighscore = 'Dadbattle';
-			case 'Philly-Nice':
-				songHighscore = 'Philly';
 		}
 
 		#if !switch

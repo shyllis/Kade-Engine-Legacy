@@ -19,14 +19,9 @@ class CharacterSetting {
 
 class MenuCharacter extends FlxSprite {
 	private static var settings:Map<String, CharacterSetting> = [
-		'bf' => new CharacterSetting(0, -20, 1.0, true),
-		'gf' => new CharacterSetting(50, 80, 1.5, true),
-		'dad' => new CharacterSetting(-15, 130),
-		'spooky' => new CharacterSetting(20, 30),
-		'pico' => new CharacterSetting(0, 0, 1.0, true),
-		'mom' => new CharacterSetting(-30, 140, 0.85),
-		'parents-christmas' => new CharacterSetting(100, 130, 1.8),
-		'senpai' => new CharacterSetting(-40, -45, 1.4)
+		'bf' => new CharacterSetting(-25, -55, 1.1, true),
+		'gf' => new CharacterSetting(-50, -10, 1.0, true),
+		'dad' => new CharacterSetting(-125, 40, 1.0)
 	];
 
 	private var flipped:Bool = false;
@@ -34,16 +29,6 @@ class MenuCharacter extends FlxSprite {
 	public function new(x:Int, y:Int, scale:Float, flipped:Bool) {
 		super(x, y);
 		this.flipped = flipped;
-
-		antialiasing = true;
-
-		frames = Paths.getSparrowAtlas('campaign_menu_UI_characters');
-
-		animation.addByPrefix('bf', "BF idle dance white", 24);
-		animation.addByPrefix('bfConfirm', 'BF HEY!!', 24, false);
-		animation.addByPrefix('gf', "GF Dancing Beat WHITE", 24);
-		animation.addByPrefix('dad', "Dad idle dance BLACK LINE", 24);
-
 		setGraphicSize(Std.int(width * scale));
 		updateHitbox();
 	}
@@ -54,9 +39,31 @@ class MenuCharacter extends FlxSprite {
 			return;
 		} else {
 			visible = true;
+			
+			frames = Paths.getSparrowAtlas('storymenu/menucharacters/' + character);
+			var idleAnim:String = null;
+			switch (character) {
+				case 'bf':
+					idleAnim = 'M BF Idle';
+				case 'gf':
+					idleAnim = 'M GF Idle';
+				case 'dad':
+					idleAnim = 'M Dad Idle';
+			}
+			
+			animation.addByPrefix('idle', idleAnim, 24);
+			var confirmAnim:String = null;
+			switch (character) {
+				case 'bf':
+					confirmAnim = 'M bf HEY';
+			}
+			if(confirmAnim != null)
+				animation.addByPrefix('confirm', confirmAnim, 24, false);
+			else
+				animation.addByPrefix('confirm', idleAnim, 24, false);
 		}
-
-		animation.play(character);
+		
+		animation.play('idle');
 
 		var setting:CharacterSetting = settings[character];
 		offset.set(setting.x, setting.y);
