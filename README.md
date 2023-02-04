@@ -43,7 +43,7 @@ Links: **[Gamebanana mod page]() ⋅ [latest stable release](https://github.com/
  - **New Settings Menu**
     - Settings menu from KE 1.8!
  - **Separated Vocals Support**
-    - You can put playerVoice.ogg and enemyVoice.ogg to use separated vocals! P.S: If one of them/both are not exist, Voices.ogg will be used instead
+    - You can put playerVoice.ogg and enemyVoice.ogg to use separated vocals!
  - **And Much More!**
     - We added a lot of stuff to make Kade Engine better!
 
