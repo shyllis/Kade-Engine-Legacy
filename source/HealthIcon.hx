@@ -25,18 +25,13 @@ class HealthIcon extends FlxSprite {
 	}
 
 	public function changeIcon(char:String) {
-		if ("bf-pixel" != char && "bf-old" != char && "senpai-angry" != char && "senpai-pissed" != char)
+		if ("bf-old" != char)
 			char = char.split("-")[0];
 
 		if (char != this.character) {
 			if (Assets.exists(Paths.imageIcon("icons/icon-" + char))) {
-				if (loadGraphic(Paths.imageIcon("icons/icon-" + char)).width >= 450) {
-					loadGraphic(Paths.imageIcon("icons/icon-" + char), true, 150, 150);
-					animation.add(char, [0, 1, 2], 0, false, this.isPlayer);
-				} else if (loadGraphic(Paths.imageIcon("icons/icon-" + char)).width <= 300) {
-					loadGraphic(Paths.imageIcon("icons/icon-" + char), true, 150, 150);
-					animation.add(char, [0, 1], 0, false, this.isPlayer);
-				}
+				loadGraphic(Paths.imageIcon("icons/icon-" + char), true, 150, 150);
+				animation.add(char, [0, 1], 0, false, this.isPlayer);
 				animation.play(char);
 				this.character = char;
 			} else

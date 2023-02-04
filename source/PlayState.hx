@@ -180,13 +180,13 @@ class PlayState extends MusicBeatState {
 
 		iconRPC = SONG.player2;
 
-		if (isStoryMode)
+		if (isStoryMode) 
 			detailsText = "Story Mode: Week " + storyWeek;
 		else
 			detailsText = "Freeplay";
 
 		detailsPausedText = "Paused - " + detailsText;
-		DiscordClient.changePresence(detailsText
+		DiscordClient.changePresence (detailsText
 			+ " "
 			+ SONG.song
 			+ " ("
@@ -281,22 +281,22 @@ class PlayState extends MusicBeatState {
 		Conductor.songPosition = -5000;
 
 		if (FlxG.save.data.bgNotesAlpha != 0) {
-			var bgForNotesBF:FlxSprite = new FlxSprite(80, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
-			bgForNotesBF.cameras = [camHUD];
-			bgForNotesBF.alpha = FlxG.save.data.bgNotesAlpha;
-			bgForNotesBF.screenCenter(Y);
+			var notesBgBF:FlxSprite = new FlxSprite(80, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
+			notesBgBF.cameras = [camHUD];
+			notesBgBF.alpha = FlxG.save.data.bgNotesAlpha;
+			notesBgBF.screenCenter(Y);
 			if (FlxG.save.data.middleScroll)
-				bgForNotesBF.x = 400;
+				notesBgBF.x = 400;
 
-			add(bgForNotesBF);
+			add(notesBgBF);
 
 			if (!FlxG.save.data.middleScroll) {
-				var bgForNotesDad:FlxSprite = new FlxSprite(720, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
-				bgForNotesDad.cameras = [camHUD];
-				bgForNotesDad.alpha = FlxG.save.data.bgNotesAlpha;
-				bgForNotesDad.screenCenter(Y);
+				var notesBgDad:FlxSprite = new FlxSprite(720, 0).makeGraphic(490, FlxG.height, FlxColor.BLACK);
+				notesBgDad.cameras = [camHUD];
+				notesBgDad.alpha = FlxG.save.data.bgNotesAlpha;
+				notesBgDad.screenCenter(Y);
 
-				add(bgForNotesDad);
+				add(notesBgDad);
 			}
 		}
 
