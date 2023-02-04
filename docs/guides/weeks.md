@@ -10,7 +10,7 @@ Navigate to your Kade Engine Legacy source code. In the `source` folder, look fo
 
 ### Step 2. Songlist
 
-Scroll down to Line 26, or Search (Windows/Linux: `Ctrl+F`, Mac: `Cmd+F`) for "weekData". You should find an Array that looks like this:
+Scroll down to Line 25, or Search (Windows/Linux: `Ctrl+F`, Mac: `Cmd+F`) for "weekData". You should find an Array that looks like this:
 
 ---
 
@@ -95,7 +95,7 @@ var weekNames:Array<String> = [
   
 ### Step 5. Graphics
   
-Displaying a week icon for your custom week is as simple as dropping a .png into `assets/images/storymenu`. Rename the file to `week1.png`, `week2.png`, etc.
+Displaying a week icon for your custom week is as simple as dropping a .png into `assets/images/storymenu/weeks`. Rename the file to `week2.png`, `week3.png`, etc.
 
 ### Conclusion
 
