@@ -15,9 +15,6 @@ class KadeEngineData {
 		if (FlxG.save.data.accuracyDisplay == null)
 			FlxG.save.data.accuracyDisplay = true;
 
-		if (FlxG.save.data.NPSDisplay == null)
-			FlxG.save.data.NPSDisplay = false;
-
 		if (FlxG.save.data.noteSplashes == null)
 			FlxG.save.data.noteSplashes = true;
 
