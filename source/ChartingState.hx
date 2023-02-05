@@ -130,8 +130,6 @@ class ChartingState extends MusicBeatState {
 
 		addSection();
 
-		// sections = _song.notes;
-
 		updateGrid();
 
 		loadSong(_song.song);
@@ -250,7 +248,7 @@ class ChartingState extends MusicBeatState {
 			stepperVocalVol.value = vocals.volume;
 		else
 			for (vocals in [P1vocals, P2vocals])
-			stepperVocalVol.value = vocals.volume;
+				stepperVocalVol.value = vocals.volume;
 		stepperVocalVol.name = 'song_vocalvol';
 
 		var stepperVocalVolLabel = new FlxText(74, 95, 'Vocal Volume');
@@ -473,7 +471,6 @@ class ChartingState extends MusicBeatState {
 				FlxG.sound.list.add(vocals);
 		}
 
-
 		FlxG.sound.music.pause();
 		if (SepVocalsNull)
 			vocals.pause();
@@ -482,12 +479,11 @@ class ChartingState extends MusicBeatState {
 				vocals.pause();
 
 		FlxG.sound.music.onComplete = function() {
-			if (SepVocalsNull){
+			if (SepVocalsNull) {
 				vocals.pause();
 				vocals.time = 0;
-			}
-			else
-				for (vocals in [P1vocals, P2vocals]){
+			} else
+				for (vocals in [P1vocals, P2vocals]) {
 					vocals.pause();
 					vocals.time = 0;
 				}
@@ -557,7 +553,7 @@ class ChartingState extends MusicBeatState {
 					vocals.volume = nums.value;
 				else
 					for (vocals in [P1vocals, P2vocals])
-					    vocals.volume = nums.value;
+						vocals.volume = nums.value;
 			} else if (wname == 'song_instvol') {
 				if (nums.value <= 0.1)
 					nums.value = 0.1;
@@ -567,6 +563,7 @@ class ChartingState extends MusicBeatState {
 	}
 
 	var updatedSection:Bool = false;
+
 	function stepStartTime(step):Float {
 		return _song.bpm / (step / 4) / 60;
 	}
@@ -597,15 +594,6 @@ class ChartingState extends MusicBeatState {
 
 		curStep = recalculateSteps();
 
-		/*if (FlxG.keys.pressed.CONTROL && FlxG.keys.justPressed.RIGHT)
-				snap = snap * 2;
-			if (FlxG.keys.pressed.CONTROL && FlxG.keys.justPressed.LEFT)
-				snap = Math.round(snap / 2);
-			if (snap >= 192)
-				snap = 192;
-			if (snap <= 1)
-				snap = 1; */
-
 		if (FlxG.keys.justPressed.CONTROL)
 			doSnapShit = !doSnapShit;
 
@@ -627,7 +615,7 @@ class ChartingState extends MusicBeatState {
 			if (strumLine.overlaps(note) && pressArray[Math.floor(Math.abs(note.noteData))]) {
 				deleteNote(note);
 				delete = true;
-				trace('deelte note');
+				trace('delete note');
 			}
 		});
 		for (p in 0...pressArray.length) {
@@ -991,12 +979,26 @@ class ChartingState extends MusicBeatState {
 
 	function updateHeads():Void {
 		if (check_mustHitSection.checked) {
-			leftIcon.animation.play(_song.player1);
-			rightIcon.animation.play(_song.player2);
+			remove(leftIcon);
+			leftIcon = new HealthIcon(_song.player1);
+			remove(rightIcon);
+			rightIcon = new HealthIcon(_song.player2);
+			add(leftIcon);
+			add(rightIcon);
 		} else {
-			leftIcon.animation.play(_song.player2);
-			rightIcon.animation.play(_song.player1);
+			remove(leftIcon);
+			leftIcon = new HealthIcon(_song.player2);
+			remove(rightIcon);
+			rightIcon = new HealthIcon(_song.player1);
+			add(leftIcon);
+			add(rightIcon);
 		}
+		leftIcon.scrollFactor.set(1, 1);
+		rightIcon.scrollFactor.set(1, 1);
+		leftIcon.setGraphicSize(0, 45);
+		rightIcon.setGraphicSize(0, 45);
+		leftIcon.setPosition(0, -100);
+		rightIcon.setPosition(gridBG.width / 2, -100);	
 	}
 
 	function updateNoteUI():Void {

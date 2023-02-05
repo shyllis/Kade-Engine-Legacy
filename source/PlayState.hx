@@ -180,13 +180,13 @@ class PlayState extends MusicBeatState {
 
 		iconRPC = SONG.player2;
 
-		if (isStoryMode) 
+		if (isStoryMode)
 			detailsText = "Story Mode: Week " + storyWeek;
 		else
 			detailsText = "Freeplay";
 
 		detailsPausedText = "Paused - " + detailsText;
-		DiscordClient.changePresence (detailsText
+		DiscordClient.changePresence(detailsText
 			+ " "
 			+ SONG.song
 			+ " ("
