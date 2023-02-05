@@ -136,20 +136,6 @@ class ChartingState extends MusicBeatState {
 		Conductor.changeBPM(_song.bpm);
 		Conductor.mapBPMChanges(_song);
 
-		leftIcon = new HealthIcon(_song.player1);
-		rightIcon = new HealthIcon(_song.player2);
-		leftIcon.scrollFactor.set(1, 1);
-		rightIcon.scrollFactor.set(1, 1);
-
-		leftIcon.setGraphicSize(0, 45);
-		rightIcon.setGraphicSize(0, 45);
-
-		add(leftIcon);
-		add(rightIcon);
-
-		leftIcon.setPosition(0, -100);
-		rightIcon.setPosition(gridBG.width / 2, -100);
-
 		bpmTxt = new FlxText(1000, 50, 0, "", 16);
 		bpmTxt.scrollFactor.set();
 		add(bpmTxt);
@@ -689,6 +675,7 @@ class ChartingState extends MusicBeatState {
 		}
 
 		if (FlxG.keys.justPressed.ENTER) {
+			Init.Initialize();
 			lastSection = curSection;
 
 			PlayState.SONG = _song;

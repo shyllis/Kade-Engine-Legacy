@@ -912,7 +912,7 @@ class PlayState extends MusicBeatState {
 			timer.text = FlxStringUtil.formatTime(secondsTotal, false) + ' / ' + FlxStringUtil.formatTime(songLength / 1000, false);
 		}
 		if (FlxG.save.data.ratingCounter)
-			RatingCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nMisses: ${misses}';
+			RatingCounter.text = 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\n';
 		if (FlxG.save.data.botplay && FlxG.keys.justPressed.ONE)
 			camHUD.visible = !camHUD.visible;
 
@@ -1125,7 +1125,7 @@ class PlayState extends MusicBeatState {
 						daNote.x += daNote.width / 2 + 20;
 						daNote.y -= daNote.height / 2 - 50;
 						if (daNote.animation.name.endsWith('end'))
-							daNote.y -= daNote.height / 2 - 65;
+							daNote.y -= daNote.height / 2 - 67.5;
 
 						if (!FlxG.save.data.botplay) {
 							if ((!daNote.mustPress || daNote.wasGoodHit || daNote.prevNote.wasGoodHit && !daNote.canBeHit)

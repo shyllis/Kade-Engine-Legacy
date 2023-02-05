@@ -20,11 +20,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import lime.app.Application;
 import openfl.Assets;
-#if windows
-import Discord.DiscordClient;
-#end
 #if cpp
 import sys.thread.Thread;
 #end
@@ -48,40 +44,19 @@ class TitleState extends MusicBeatState {
 		Paths.clearStoredMemory();
 		Paths.clearUnusedMemory();
 
+		Init.Initialize();
 		@:privateAccess
 		{
 			trace("Loaded " + openfl.Assets.getLibrary("default").assetsLoaded + " assets (DEFAULT)");
 		}
 
-		PlayerSettings.init();
-
-		#if windows
-		DiscordClient.initialize();
-
-		Application.current.onExit.add(function(exitCode) {
-			DiscordClient.shutdown();
-		});
-		#end
-
 		curWacky = FlxG.random.getObject(getIntroTextShit());
 
 		super.create();
 
-		FlxG.save.bind('kadelegacy', 'goldie5');
-
-		KadeEngineData.initSave();
-
-		Highscore.load();
-
-		#if FREEPLAY
-		FlxG.switchState(new FreeplayState());
-		#elseif CHARTING
-		FlxG.switchState(new ChartingState());
-		#else
 		new FlxTimer().start(1, function(tmr:FlxTimer) {
 			startIntro();
 		});
-		#end
 	}
 
 	var logoBl:FlxSprite;
