@@ -21,8 +21,6 @@ class MusicBeatState extends FlxUIState {
 		return PlayerSettings.player1.controls;
 
 	override function create() {
-		(cast(Lib.current.getChildAt(0), Main)).setFPSCap(FlxG.save.data.fpsCap);
-
 		if (transIn != null)
 			trace('reg ' + transIn.region);
 
