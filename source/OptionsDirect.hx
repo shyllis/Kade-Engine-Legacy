@@ -22,4 +22,8 @@ class OptionsDirect extends MusicBeatState {
 
 		openSubState(new OptionsMenu());
 	}
+	public static function reset()
+	{
+		FlxG.resetState();
+	}
 }

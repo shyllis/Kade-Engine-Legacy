@@ -35,7 +35,6 @@ class Option {
 
 	public function onType(text:String) {}
 
-	// Returns whether the label is to be updated.
 	public function press():Bool {
 		return true;
 	}
@@ -467,10 +466,16 @@ class ResetSettings extends Option {
 			return true;
 		}
 		FlxG.save.data.downscroll = null;
-		FlxG.save.data.dfjk = null;
 		FlxG.save.data.accuracyDisplay = null;
+		FlxG.save.data.ratingCounter == null;
+		FlxG.save.data.bgNotesAlpha == null;
+		FlxG.save.data.noteSplashes == null;
+		FlxG.save.data.timer == null;
+		FlxG.save.data.GPUInfo == null;
+		FlxG.save.data.MEMInfo == null;
+		FlxG.save.data.changedHit == null;
+		FlxG.save.data.middleScroll == null;
 		FlxG.save.data.fps = null;
-		FlxG.save.data.fpsRain = null;
 		FlxG.save.data.fpsCap = null;
 		FlxG.save.data.ghost = null;
 		FlxG.save.data.resetButton = null;
@@ -480,6 +485,8 @@ class ResetSettings extends Option {
 		FlxG.save.data.rightBind = null;
 		FlxG.save.data.leftBind = null;
 		FlxG.save.data.killBind = null;
+		(cast(Lib.current.getChildAt(0), Main)).toggleFPS(FlxG.save.data.fps);
+		OptionsDirect.reset();
 
 		KadeEngineData.initSave();
 		confirm = false;
