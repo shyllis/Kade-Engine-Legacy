@@ -985,7 +985,7 @@ class ChartingState extends MusicBeatState {
 		leftIcon.setGraphicSize(0, 45);
 		rightIcon.setGraphicSize(0, 45);
 		leftIcon.setPosition(0, -100);
-		rightIcon.setPosition(gridBG.width / 2, -100);	
+		rightIcon.setPosition(gridBG.width / 2, -100);
 	}
 
 	function updateNoteUI():Void {

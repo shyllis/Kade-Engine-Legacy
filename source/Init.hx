@@ -7,12 +7,11 @@ import lime.app.Application;
 import Discord.DiscordClient;
 #end
 
-class Init
-{
-    function new(){}
-    public static function Initialize()
-    {
-        PlayerSettings.init();
+class Init {
+	function new() {}
+
+	public static function Initialize() {
+		PlayerSettings.init();
 
 		#if windows
 		DiscordClient.initialize();
@@ -22,10 +21,10 @@ class Init
 		});
 		#end
 
-        FlxG.save.bind('kadelegacy', 'goldie5');
+		FlxG.save.bind('kadelegacy', 'goldie5');
 
 		KadeEngineData.initSave();
 
 		Highscore.load();
-    }
+	}
 }
