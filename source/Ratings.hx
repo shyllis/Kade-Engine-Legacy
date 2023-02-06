@@ -102,7 +102,7 @@ class Ratings {
 	public static function CalculateRanking(score:Int, scoreDef:Int, accuracy:Float):String {
 		return (!FlxG.save.data.botplay ? "Score:"
 			+ (Conductor.safeFrames != 10 ? score + " (" + scoreDef + ")" : "" + score)
-			+ " | Misses:"
+			+ " | Combo Breaks:"
 			+ PlayState.misses
 			+ " | Accuracy:"
 			+ (FlxG.save.data.botplay ? "N/A" : HelperFunctions.truncateFloat(accuracy, 2) + " %")

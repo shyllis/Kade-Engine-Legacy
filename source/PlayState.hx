@@ -197,13 +197,14 @@ class PlayState extends MusicBeatState {
 			+ HelperFunctions.truncateFloat(accuracy, 2)
 			+ "% | Score: "
 			+ songScore
-			+ " | Misses: "
+			+ " | Combo Breaks: "
 			+ misses, iconRPC);
 		#end
 
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
-		camHUD.alpha = 0;
+		//Laggy. 
+		//camHUD.alpha = 0;
 		camHUD.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
@@ -353,7 +354,7 @@ class PlayState extends MusicBeatState {
 		healthBar.createFilledBar(dad.barColor, boyfriend.barColor);
 		add(healthBar);
 
-		RatingCounter = new FlxText(20, 0, 0, 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nMisses: ${misses}', 20);
+		RatingCounter = new FlxText(20, 0, 0, 'Sicks: ${sicks}\nGoods: ${goods}\nBads: ${bads}\nShits: ${shits}\nCombo Breaks: ${misses}', 20);
 		RatingCounter.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		RatingCounter.borderSize = 2;
 		RatingCounter.borderQuality = 2;
@@ -401,7 +402,7 @@ class PlayState extends MusicBeatState {
 
 		scoreTxt = new FlxText(FlxG.width / 2 - 235, healthBarBG.y + 35, 0, "", 20);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		scoreTxt.borderSize = 2;
+		scoreTxt.borderSize = 1;
 		scoreTxt.borderQuality = 2;
 		scoreTxt.scrollFactor.set();
 		if (!FlxG.save.data.botplay)
@@ -535,7 +536,8 @@ class PlayState extends MusicBeatState {
 				vocals.play();
 
 		songLength = FlxG.sound.music.length;
-		FlxTween.tween(camHUD, {alpha: 1}, 0.6, {ease: FlxEase.circOut});
+		//Causes Lag. Like, A good bit.
+		//FlxTween.tween(camHUD, {alpha: 1}, 0.6, {ease: FlxEase.circOut});
 
 		switch (curSong) {
 			default:
@@ -554,7 +556,7 @@ class PlayState extends MusicBeatState {
 			+ HelperFunctions.truncateFloat(accuracy, 2)
 			+ "% | Score: "
 			+ songScore
-			+ " | Misses: "
+			+ " | Combo Breaks: "
 			+ misses, iconRPC);
 		#end
 	}
@@ -790,7 +792,7 @@ class PlayState extends MusicBeatState {
 				+ HelperFunctions.truncateFloat(accuracy, 2)
 				+ "% | Score: "
 				+ songScore
-				+ " | Misses: "
+				+ " | Combo Breaks: "
 				+ misses, iconRPC);
 			#end
 			if (!startTimer.finished)
@@ -823,7 +825,7 @@ class PlayState extends MusicBeatState {
 					+ HelperFunctions.truncateFloat(accuracy, 2)
 					+ "% | Score: "
 					+ songScore
-					+ " | Misses: "
+					+ " | Combo Breaks: "
 					+ misses, iconRPC, true,
 					songLength
 					- Conductor.songPosition);
@@ -866,7 +868,7 @@ class PlayState extends MusicBeatState {
 			+ HelperFunctions.truncateFloat(accuracy, 2)
 			+ "% | Score: "
 			+ songScore
-			+ " | Misses: "
+			+ " | Combo Breaks: "
 			+ misses, iconRPC);
 		#end
 	}
@@ -1057,7 +1059,7 @@ class PlayState extends MusicBeatState {
 				+ HelperFunctions.truncateFloat(accuracy, 2)
 				+ "% | Score: "
 				+ songScore
-				+ " | Misses: "
+				+ " | Combo Breaks: "
 				+ misses, iconRPC);
 			#end
 		}
@@ -1089,7 +1091,7 @@ class PlayState extends MusicBeatState {
 					+ HelperFunctions.truncateFloat(accuracy, 2)
 					+ "% | Score: "
 					+ songScore
-					+ " | Misses: "
+					+ " | Combo Breaks: "
 					+ misses, iconRPC);
 				#end
 			}
@@ -1763,7 +1765,7 @@ class PlayState extends MusicBeatState {
 		if (FlxG.sound.music.time > Conductor.songPosition + 20 || FlxG.sound.music.time < Conductor.songPosition - 20) {
 			resyncVocals();
 		}
-		#if windowse
+		#if windows
 		songLength = FlxG.sound.music.length;
 		DiscordClient.changePresence(detailsText
 			+ " "
@@ -1776,7 +1778,7 @@ class PlayState extends MusicBeatState {
 			+ HelperFunctions.truncateFloat(accuracy, 2)
 			+ "% | Score: "
 			+ songScore
-			+ " | Misses: "
+			+ " | Combo Breaks: "
 			+ misses, iconRPC, true,
 			songLength
 			- Conductor.songPosition);

@@ -49,11 +49,26 @@
 	<haxelib name="flixel-ui" />
 	<haxelib name="faxe" if='switch'/>
 	<haxelib name="discord_rpc" if="windows"/>
-	<haxelib name="hxCodec"/>
+	<haxelib name="hxCodec" if="desktop || android" unless="web" />
 
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
+	
+	<!--Allow working memory greater than 1 Gig-->
+	<haxedef name="HXCPP_GC_BIG_BLOCKS"/>
 
-	<icon path="assets/icon.png"/>
+	<!--Self Explanitory.-->
+	<haxedef name="no-deprecation-warnings" />
+
+	<!--Allows The Game To Skip Some Code That May Cause Errors.-->	
+	<haxeflag name="--dce full" if="release" />
+	
+	<icon path="assets/icons/icon16.png" size='16'/>
+	<icon path="assets/icons/icon32.png" size='32'/>
+	<icon path="assets/icons/icon64.png" size='64'/>
+	<icon path="assets/icons/icon128.png" size='128'/>
+	<icon path="assets/icons/icon256.png" size='256'/>
+	<icon path="assets/icons/icon512.png" size='512'/>
+	<icon path="assets/icons/icon.png" />
 </project>
