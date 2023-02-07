@@ -65,10 +65,5 @@
 	<haxeflag name="--dce full" if="release" />
 	
 	<icon path="assets/icons/icon16.png" size='16'/>
-	<icon path="assets/icons/icon32.png" size='32'/>
-	<icon path="assets/icons/icon64.png" size='64'/>
-	<icon path="assets/icons/icon128.png" size='128'/>
-	<icon path="assets/icons/icon256.png" size='256'/>
-	<icon path="assets/icons/icon512.png" size='512'/>
 	<icon path="assets/icons/icon.png" />
 </project>
