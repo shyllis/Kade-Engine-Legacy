@@ -25,6 +25,8 @@ class Init {
 
 		KadeEngineData.initSave();
 
+		KeyBinds.keyCheck();
+
 		Highscore.load();
 	}
 }

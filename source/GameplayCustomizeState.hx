@@ -169,7 +169,7 @@ class GameplayCustomizeState extends MusicBeatState {
 		if (controls.BACK) {
 			FlxG.mouse.visible = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			FlxG.switchState(new OptionsDirect());
+			FlxG.switchState(new OptionsMenu());
 		}
 	}
 
@@ -181,8 +181,6 @@ class GameplayCustomizeState extends MusicBeatState {
 
 		FlxG.camera.zoom += 0.015;
 		camHUD.zoom += 0.010;
-
-		trace('beat');
 	}
 
 	private function generateStaticArrows(player:Int):Void {
@@ -217,6 +215,7 @@ class GameplayCustomizeState extends MusicBeatState {
 					babyArrow.animation.addByPrefix('pressed', 'right press', 24, false);
 					babyArrow.animation.addByPrefix('confirm', 'right confirm', 24, false);
 			}
+
 			babyArrow.updateHitbox();
 			babyArrow.scrollFactor.set();
 
@@ -226,8 +225,7 @@ class GameplayCustomizeState extends MusicBeatState {
 				playerStrums.add(babyArrow);
 
 			babyArrow.animation.play('static');
-			babyArrow.x += 50;
-			babyArrow.x += ((FlxG.width / 2) * player);
+			babyArrow.x += ((FlxG.width / 2) * player) + 100;
 
 			strumLineNotes.add(babyArrow);
 		}

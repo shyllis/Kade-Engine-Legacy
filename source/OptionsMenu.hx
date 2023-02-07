@@ -64,7 +64,7 @@ class OptionCata extends FlxSprite {
 	}
 }
 
-class OptionsMenu extends MusicBeatSubstate {
+class OptionsMenu extends MusicBeatState {
 	public static var instance:OptionsMenu;
 
 	public var background:FlxSprite;
@@ -96,13 +96,29 @@ class OptionsMenu extends MusicBeatSubstate {
 	public var descBack:FlxSprite;
 
 	override function create() {
+		Paths.clearStoredMemory();
+		Paths.clearUnusedMemory();
+
+		transIn = FlxTransitionableState.defaultTransIn;
+		transOut = FlxTransitionableState.defaultTransOut;
+
+		persistentUpdate = true;
+
+		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image("menuDesat"));
+		menuBG.color = 0xFFea71fd;
+		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
+		menuBG.updateHitbox();
+		menuBG.screenCenter();
+		menuBG.antialiasing = FlxG.save.data.antialiasing;
+		add(menuBG);
+
 		options = [
 			new OptionCata(50, 40, "Gameplay", [
 				new GhostTapOption("Toggle counting pressing a directional input when no arrow is there as a miss."),
 				new DownscrollOption("Toggle making the notes scroll down rather than up."),
 				new BotPlay("A bot plays for you!"),
 				new ResetButtonOption("Toggle pressing R to gameover."),
-				new DFJKOption(),
+				new ChangeKeyBindsOption(),
 				new CustomizeGameplay("Drag and drop gameplay modules to your prefered positions!")
 			]),
 			new OptionCata(345, 40, "Appearance", [
@@ -120,7 +136,15 @@ class OptionsMenu extends MusicBeatSubstate {
 				new FPSCapOption("Change your FPS Cap."),
 				new GLRenderOption("Loads Sprites Into VRAM On The GPU."),
 			]),
-			new OptionCata(935, 40, "Saves", [new ResetSettings("Resets saves.")])
+			new OptionCata(935, 40, "Saves", [
+				new ResetScoreOption("Reset your score on all songs and weeks. This is irreversible!"),
+				new ResetSettings("Reset ALL your settings. This is irreversible!")
+			]),
+			new OptionCata(-1, 125, "Editing Keybinds", [
+				new LeftKeybind("The left note's keybind"), new DownKeybind("The down note's keybind"), new UpKeybind("The up note's keybind"),
+				new RightKeybind("The right note's keybind"), new ResetBind("The keybind used to die instantly"), 
+				new FullscreenBind("The keybind used to fullscreen the game")
+			], true)
 		];
 
 		instance = this;
@@ -261,14 +285,13 @@ class OptionsMenu extends MusicBeatSubstate {
 		var any = false;
 		var escape = false;
 
-		accept = FlxG.keys.justPressed.ENTER || (gamepad != null ? gamepad.justPressed.A : false) || controls.ACCEPT;
-		right = FlxG.keys.justPressed.RIGHT || (gamepad != null ? gamepad.justPressed.DPAD_RIGHT : false) || controls.RIGHT_P;
-		left = FlxG.keys.justPressed.LEFT || (gamepad != null ? gamepad.justPressed.DPAD_LEFT : false) || controls.LEFT_P;
-		up = FlxG.keys.justPressed.UP || (gamepad != null ? gamepad.justPressed.DPAD_UP : false)|| controls.UP_P;
-		down = FlxG.keys.justPressed.DOWN || (gamepad != null ? gamepad.justPressed.DPAD_DOWN : false)|| controls.DOWN_P;
-
+		accept = controls.ACCEPT;
+		right = controls.RIGHT_P;
+		left = controls.LEFT_P;
+		up = controls.UP_P;
+		down = controls.DOWN_P;
+		escape = controls.BACK;
 		any = FlxG.keys.justPressed.ANY || (gamepad != null ? gamepad.justPressed.ANY : false);
-		escape = FlxG.keys.justPressed.ESCAPE || (gamepad != null ? gamepad.justPressed.B : false);
 
 		if (selectedCat != null && !isInCat) {
 			for (i in selectedCat.optionObjects.members) {
@@ -298,10 +321,10 @@ class OptionsMenu extends MusicBeatSubstate {
 					selectedCat.optionObjects.members[selectedOptionIndex].text = selectedOption.getValue();
 					selectedCatIndex++;
 
-					if (selectedCatIndex > options.length - 1)
+					if (selectedCatIndex > options.length - 2)
 						selectedCatIndex = 0;
 					if (selectedCatIndex < 0)
-						selectedCatIndex = options.length - 1;
+						selectedCatIndex = options.length - 2;
 
 					switchCat(options[selectedCatIndex]);
 				} else if (left) {
@@ -309,10 +332,10 @@ class OptionsMenu extends MusicBeatSubstate {
 					selectedCat.optionObjects.members[selectedOptionIndex].text = selectedOption.getValue();
 					selectedCatIndex--;
 
-					if (selectedCatIndex > options.length - 1)
+					if (selectedCatIndex > options.length - 2)
 						selectedCatIndex = 0;
 					if (selectedCatIndex < 0)
-						selectedCatIndex = options.length - 1;
+						selectedCatIndex = options.length - 2;
 
 					switchCat(options[selectedCatIndex]);
 				}
@@ -328,7 +351,7 @@ class OptionsMenu extends MusicBeatSubstate {
 					FlxG.switchState(new MainMenuState());
 				}
 			} else {
-				if (selectedOption != null)
+				if (selectedOption != null) {
 					if (selectedOption.acceptType) {
 						if (escape && selectedOption.waitingType) {
 							FlxG.sound.play(Paths.sound('scrollMenu'));
@@ -342,6 +365,8 @@ class OptionsMenu extends MusicBeatSubstate {
 							object.text = "> " + selectedOption.getValue();
 						}
 					}
+				}
+
 				if (selectedOption.acceptType || !selectedOption.acceptType) {
 					if (accept) {
 						var prev = selectedOptionIndex;
@@ -362,8 +387,6 @@ class OptionsMenu extends MusicBeatSubstate {
 						selectedCat.optionObjects.members[selectedOptionIndex].text = selectedOption.getValue();
 						selectedOptionIndex++;
 
-						// just kinda ignore this math lol
-
 						if (selectedOptionIndex > options[selectedCatIndex].options.length - 1) {
 							selectedOptionIndex = 0;
 						}
@@ -374,8 +397,6 @@ class OptionsMenu extends MusicBeatSubstate {
 						FlxG.sound.play(Paths.sound('scrollMenu'));
 						selectedCat.optionObjects.members[selectedOptionIndex].text = selectedOption.getValue();
 						selectedOptionIndex--;
-
-						// just kinda ignore this math lol
 
 						if (selectedOptionIndex < 0) {
 							selectedOptionIndex = options[selectedCatIndex].options.length - 1;

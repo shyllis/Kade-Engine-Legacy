@@ -11,6 +11,7 @@ import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
+import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.system.FlxSound;
@@ -49,6 +50,8 @@ class TitleState extends MusicBeatState {
 		{
 			trace("Loaded " + openfl.Assets.getLibrary("default").assetsLoaded + " assets (DEFAULT)");
 		}
+		
+		fullscreenBind = FlxKey.fromString(FlxG.save.data.fullscreenBind);
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
 
@@ -160,14 +163,14 @@ class TitleState extends MusicBeatState {
 	}
 
 	var transitioning:Bool = false;
+	var fullscreenBind:FlxKey;
 
 	override function update(elapsed:Float) {
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 
-		if (FlxG.keys.justPressed.F) {
-			FlxG.fullscreen = !FlxG.fullscreen;
-		}
+		if (FlxG.keys.anyJustPressed([fullscreenBind]))
+				FlxG.fullscreen = !FlxG.fullscreen;
 
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
 
@@ -201,7 +204,7 @@ class TitleState extends MusicBeatState {
 
 			MainMenuState.firstStart = true;
 
-			new FlxTimer().start(2, function(tmr:FlxTimer) FlxG.switchState(new MainMenuState()));
+			new FlxTimer().start(2.5, function(tmr:FlxTimer) FlxG.switchState(new MainMenuState()));
 		}
 
 		if (pressedEnter && !skippedIntro && initialized) {
@@ -257,11 +260,9 @@ class TitleState extends MusicBeatState {
 			case 4:
 				deleteCoolText();
 			case 5:
-				createCoolText(['Kade Engine Legacy', 'by']);
+				createCoolText(['Kade Engine Legacy by']);
 			case 7:
-				addMoreText('Goldie-5');
-				addMoreText('and');
-				addMoreText('Shyllis');
+				addMoreText('Goldie-5 and Shyllis');
 			case 8:
 				deleteCoolText();
 			case 9:
@@ -285,9 +286,9 @@ class TitleState extends MusicBeatState {
 
 	function skipIntro():Void {
 		if (!skippedIntro) {
+			FlxG.camera.flash(FlxColor.WHITE, 3);
+			
 			remove(ngSpr);
-
-			FlxG.camera.flash(FlxColor.WHITE, 4);
 			remove(credGroup);
 			skippedIntro = true;
 		}

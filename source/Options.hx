@@ -52,18 +52,170 @@ class Option {
 	}
 }
 
-class DFJKOption extends Option {
+class ChangeKeyBindsOption extends Option {
 	public function new() {
 		super();
+		description = "Edit your keybindings";
 	}
 
 	public override function press():Bool {
-		OptionsMenu.instance.openSubState(new KeyBindMenu());
+		OptionsMenu.instance.selectedCatIndex = 4;
+		OptionsMenu.instance.switchCat(OptionsMenu.instance.options[4], false);
 		return false;
 	}
 
 	private override function updateDisplay():String {
-		return "Key Bindings";
+		return "Edit Keybindings";
+	}
+}
+
+class UpKeybind extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+		acceptType = true;
+	}
+
+	public override function onType(text:String) {
+		if (waitingType) {
+			FlxG.save.data.upBind = text;
+			waitingType = false;
+		}
+	}
+
+	public override function press() {
+		waitingType = !waitingType;
+
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return "UP: " + (waitingType ? "> " + FlxG.save.data.upBind + " <" : FlxG.save.data.upBind) + "";
+	}
+}
+
+class DownKeybind extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+		acceptType = true;
+	}
+
+	public override function onType(text:String) {
+		if (waitingType) {
+			FlxG.save.data.downBind = text;
+			waitingType = false;
+		}
+	}
+
+	public override function press() {
+		waitingType = !waitingType;
+
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return "DOWN: " + (waitingType ? "> " + FlxG.save.data.downBind + " <" : FlxG.save.data.downBind) + "";
+	}
+}
+
+class RightKeybind extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+		acceptType = true;
+	}
+
+	public override function onType(text:String) {
+		if (waitingType) {
+			FlxG.save.data.rightBind = text;
+			waitingType = false;
+		}
+	}
+
+	public override function press() {
+		waitingType = !waitingType;
+
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return "RIGHT: " + (waitingType ? "> " + FlxG.save.data.rightBind + " <" : FlxG.save.data.rightBind) + "";
+	}
+}
+
+class LeftKeybind extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+		acceptType = true;
+	}
+
+	public override function onType(text:String) {
+		if (waitingType) {
+			FlxG.save.data.leftBind = text;
+			waitingType = false;
+		}
+	}
+
+	public override function press() {
+		waitingType = !waitingType;
+
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return "LEFT: " + (waitingType ? "> " + FlxG.save.data.leftBind + " <" : FlxG.save.data.leftBind) + "";
+	}
+}
+
+class ResetBind extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+		acceptType = true;
+	}
+
+	public override function onType(text:String) {
+		if (waitingType) {
+			FlxG.save.data.resetBind = text;
+			waitingType = false;
+		}
+	}
+
+	public override function press() {
+		waitingType = !waitingType;
+
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return "RESET: " + (waitingType ? "> " + FlxG.save.data.resetBind + " <" : FlxG.save.data.resetBind) + "";
+	}
+}
+
+class FullscreenBind extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+		acceptType = true;
+	}
+
+	public override function onType(text:String) {
+		if (waitingType) {
+			FlxG.save.data.fullscreenBind = text;
+			waitingType = false;
+		}
+	}
+
+	public override function press() {
+		waitingType = !waitingType;
+
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return "FULLSCREEN:  " + (waitingType ? "> " + FlxG.save.data.fullscreenBind + " <" : FlxG.save.data.fullscreenBind) + "";
 	}
 }
 
@@ -451,6 +603,35 @@ class MemoryInfo extends Option {
 	}
 }
 
+
+class ResetScoreOption extends Option {
+	var confirm:Bool = false;
+
+	public function new(desc:String) {
+		super();
+		description = desc;
+	}
+
+	public override function press():Bool {
+		if (!confirm) {
+			confirm = true;
+			display = updateDisplay();
+			return true;
+		}
+		FlxG.save.data.songScores = null;
+		for (key in Highscore.songScores.keys())
+			Highscore.songScores[key] = 0;
+		
+		confirm = false;
+		display = updateDisplay();
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return confirm ? "Confirm Score Reset" : "Reset Score";
+	}
+}
+
 class ResetSettings extends Option {
 	var confirm:Bool = false;
 
@@ -467,14 +648,14 @@ class ResetSettings extends Option {
 		}
 		FlxG.save.data.downscroll = null;
 		FlxG.save.data.accuracyDisplay = null;
-		FlxG.save.data.ratingCounter == null;
-		FlxG.save.data.bgNotesAlpha == null;
-		FlxG.save.data.noteSplashes == null;
-		FlxG.save.data.timer == null;
-		FlxG.save.data.GPUInfo == null;
-		FlxG.save.data.MEMInfo == null;
-		FlxG.save.data.changedHit == null;
-		FlxG.save.data.middleScroll == null;
+		FlxG.save.data.ratingCounter = null;
+		FlxG.save.data.bgNotesAlpha = null;
+		FlxG.save.data.noteSplashes = null;
+		FlxG.save.data.timer = null;
+		FlxG.save.data.GPUInfo = null;
+		FlxG.save.data.MEMInfo = null;
+		FlxG.save.data.changedHit = null;
+		FlxG.save.data.middleScroll = null;
 		FlxG.save.data.fps = null;
 		FlxG.save.data.fpsCap = null;
 		FlxG.save.data.ghost = null;
@@ -486,11 +667,10 @@ class ResetSettings extends Option {
 		FlxG.save.data.leftBind = null;
 		FlxG.save.data.killBind = null;
 		(cast(Lib.current.getChildAt(0), Main)).toggleFPS(FlxG.save.data.fps);
-		OptionsDirect.reset();
+		FlxG.resetState();
 
 		KadeEngineData.initSave();
 		confirm = false;
-		trace('All settings have been reset');
 		display = updateDisplay();
 		return true;
 	}

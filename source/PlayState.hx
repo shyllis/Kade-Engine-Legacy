@@ -8,6 +8,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
+import flixel.input.keyboard.FlxKey;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
@@ -197,7 +198,7 @@ class PlayState extends MusicBeatState {
 			+ HelperFunctions.truncateFloat(accuracy, 2)
 			+ "% | Score: "
 			+ songScore
-			+ " | Combo Breaks: "
+			+ " | Misses: "
 			+ misses, iconRPC);
 		#end
 
@@ -552,7 +553,7 @@ class PlayState extends MusicBeatState {
 			+ HelperFunctions.truncateFloat(accuracy, 2)
 			+ "% | Score: "
 			+ songScore
-			+ " | Combo Breaks: "
+			+ " | Misses: "
 			+ misses, iconRPC);
 		#end
 	}
@@ -784,7 +785,7 @@ class PlayState extends MusicBeatState {
 				+ HelperFunctions.truncateFloat(accuracy, 2)
 				+ "% | Score: "
 				+ songScore
-				+ " | Combo Breaks: "
+				+ " | Misses: "
 				+ misses, iconRPC);
 			#end
 			if (!startTimer.finished)
@@ -816,7 +817,7 @@ class PlayState extends MusicBeatState {
 					+ HelperFunctions.truncateFloat(accuracy, 2)
 					+ "% | Score: "
 					+ songScore
-					+ " | Combo Breaks: "
+					+ " | Misses: "
 					+ misses, iconRPC, true,
 					songLength
 					- Conductor.songPosition);
@@ -858,7 +859,7 @@ class PlayState extends MusicBeatState {
 			+ HelperFunctions.truncateFloat(accuracy, 2)
 			+ "% | Score: "
 			+ songScore
-			+ " | Combo Breaks: "
+			+ " | Misses: "
 			+ misses, iconRPC);
 		#end
 	}
@@ -1049,12 +1050,14 @@ class PlayState extends MusicBeatState {
 				+ HelperFunctions.truncateFloat(accuracy, 2)
 				+ "% | Score: "
 				+ songScore
-				+ " | Combo Breaks: "
+				+ " | Misses: "
 				+ misses, iconRPC);
 			#end
 		}
-		if (FlxG.save.data.resetButton) {
-			if (FlxG.keys.justPressed.R) {
+		if (!inCutscene && FlxG.save.data.resetButton) {
+			var resetBind = FlxKey.fromString(FlxG.save.data.resetBind);
+			var gpresetBind = FlxKey.fromString(FlxG.save.data.gpresetBind);
+			if ((FlxG.keys.anyJustPressed([resetBind]))) {
 				boyfriend.stunned = true;
 
 				persistentUpdate = false;
@@ -1081,7 +1084,7 @@ class PlayState extends MusicBeatState {
 					+ HelperFunctions.truncateFloat(accuracy, 2)
 					+ "% | Score: "
 					+ songScore
-					+ " | Combo Breaks: "
+					+ " | Misses: "
 					+ misses, iconRPC);
 				#end
 			}
@@ -1512,11 +1515,13 @@ class PlayState extends MusicBeatState {
 		var holdArray:Array<Bool> = [controls.LEFT, controls.DOWN, controls.UP, controls.RIGHT];
 		var pressArray:Array<Bool> = [controls.LEFT_P, controls.DOWN_P, controls.UP_P, controls.RIGHT_P];
 		var releaseArray:Array<Bool> = [controls.LEFT_R, controls.DOWN_R, controls.UP_R, controls.RIGHT_R];
+
 		if (FlxG.save.data.botplay) {
 			holdArray = [false, false, false, false];
 			pressArray = [false, false, false, false];
 			releaseArray = [false, false, false, false];
 		}
+		
 		if (holdArray.contains(true) && generatedMusic) {
 			notes.forEachAlive(function(daNote:Note) {
 				if (daNote.isSustainNote && daNote.canBeHit && daNote.mustPress && holdArray[daNote.noteData])
@@ -1767,7 +1772,7 @@ class PlayState extends MusicBeatState {
 			+ HelperFunctions.truncateFloat(accuracy, 2)
 			+ "% | Score: "
 			+ songScore
-			+ " | Combo Breaks: "
+			+ " | Misses: "
 			+ misses, iconRPC, true,
 			songLength
 			- Conductor.songPosition);
