@@ -128,6 +128,8 @@ class Note extends FlxSprite {
 				prevNote.updateHitbox();
 			}
 		}
+
+		moves = false;
 	}
 
 	override function update(elapsed:Float) {

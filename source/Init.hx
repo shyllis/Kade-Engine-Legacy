@@ -20,8 +20,8 @@ class Init {
 			DiscordClient.shutdown();
 		});
 		#end
-
-		FlxG.save.bind('kadelegacy', 'goldie5');
+		
+		FlxG.save.bind('kadelegacy' #if (flixel < "5.0.0"), 'goldie5' #end);
 
 		KadeEngineData.initSave();
 

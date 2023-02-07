@@ -64,7 +64,7 @@ class OptionCata extends FlxSprite {
 	}
 }
 
-class OptionsMenu extends FlxSubState {
+class OptionsMenu extends MusicBeatSubstate {
 	public static var instance:OptionsMenu;
 
 	public var background:FlxSprite;
@@ -101,7 +101,6 @@ class OptionsMenu extends FlxSubState {
 				new GhostTapOption("Toggle counting pressing a directional input when no arrow is there as a miss."),
 				new DownscrollOption("Toggle making the notes scroll down rather than up."),
 				new BotPlay("A bot plays for you!"),
-				new FPSCapOption("Change your FPS Cap."),
 				new ResetButtonOption("Toggle pressing R to gameover."),
 				new DFJKOption(),
 				new CustomizeGameplay("Drag and drop gameplay modules to your prefered positions!")
@@ -110,15 +109,16 @@ class OptionsMenu extends FlxSubState {
 				new MiddleScrollOption("Put your lane in the center or on the right."),
 				new NoteSplashes("Adds splashes at sick note hit."),
 				new AccuracyOption("Display accuracy information on the info bar."),
-				new NotesBGAlpha("Alpha of the BG behind your notes."),
+				new NotesBGAlpha("Alpha Of The Lane Transparency."),
 				new RatingCounterOption("Display note hit ratings information."),
 				new TimerOption("Display song timer.")
 			]),
-			new OptionCata(640, 40, "Misc", [
-				new OverlayOption("Toggle the Overlay"),
-				new GLRenderOption("Toggle the GPU Rendering"),
-				new GPUInfo("Toggle GPU info for overlay"),
-				new MemoryInfo("Toggle Memory info for overlay")
+			new OptionCata(640, 40, "Perf", [
+				new OverlayOption("Show The FPS And Other Debug Info"),
+				new GPUInfo("Shows GPU Info And System Info."),
+				new MemoryInfo("Toggle Memory info for overlay"),
+				new FPSCapOption("Change your FPS Cap."),
+				new GLRenderOption("Loads Sprites Into VRAM On The GPU."),
 			]),
 			new OptionCata(935, 40, "Saves", [new ResetSettings("Resets saves.")])
 		];
@@ -261,11 +261,11 @@ class OptionsMenu extends FlxSubState {
 		var any = false;
 		var escape = false;
 
-		accept = FlxG.keys.justPressed.ENTER || (gamepad != null ? gamepad.justPressed.A : false);
-		right = FlxG.keys.justPressed.RIGHT || (gamepad != null ? gamepad.justPressed.DPAD_RIGHT : false);
-		left = FlxG.keys.justPressed.LEFT || (gamepad != null ? gamepad.justPressed.DPAD_LEFT : false);
-		up = FlxG.keys.justPressed.UP || (gamepad != null ? gamepad.justPressed.DPAD_UP : false);
-		down = FlxG.keys.justPressed.DOWN || (gamepad != null ? gamepad.justPressed.DPAD_DOWN : false);
+		accept = FlxG.keys.justPressed.ENTER || (gamepad != null ? gamepad.justPressed.A : false) || controls.ACCEPT;
+		right = FlxG.keys.justPressed.RIGHT || (gamepad != null ? gamepad.justPressed.DPAD_RIGHT : false) || controls.RIGHT_P;
+		left = FlxG.keys.justPressed.LEFT || (gamepad != null ? gamepad.justPressed.DPAD_LEFT : false) || controls.LEFT_P;
+		up = FlxG.keys.justPressed.UP || (gamepad != null ? gamepad.justPressed.DPAD_UP : false)|| controls.UP_P;
+		down = FlxG.keys.justPressed.DOWN || (gamepad != null ? gamepad.justPressed.DPAD_DOWN : false)|| controls.DOWN_P;
 
 		any = FlxG.keys.justPressed.ANY || (gamepad != null ? gamepad.justPressed.ANY : false);
 		escape = FlxG.keys.justPressed.ESCAPE || (gamepad != null ? gamepad.justPressed.B : false);
