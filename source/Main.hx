@@ -67,15 +67,13 @@ class Main extends Sprite {
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 
-		if (game.zoom == -1.0)
-		{
+		if (game.zoom == -1.0) {
 			var ratioX:Float = stageWidth / game.width;
 			var ratioY:Float = stageHeight / game.height;
 			game.zoom = Math.min(ratioX, ratioY);
 			game.width = Math.ceil(stageWidth / game.zoom);
 			game.height = Math.ceil(stageHeight / game.zoom);
 		}
-
 		
 		#if cpp
 		Gc.enable(true);
@@ -90,8 +88,7 @@ class Main extends Sprite {
 
 		FlxGraphic.defaultPersist = false;	
 
-		FlxG.signals.preStateSwitch.add(function()
-		{
+		FlxG.signals.preStateSwitch.add(function() {
 			Paths.clearStoredMemory();
 			FlxG.bitmap.dumpCache();
 
@@ -103,8 +100,8 @@ class Main extends Sprite {
 
 			gc();
 		});
-		FlxG.signals.postStateSwitch.add(function()
-		{
+
+		FlxG.signals.postStateSwitch.add(function() {
 			Paths.clearUnusedMemory();
 			gc();
 		});
@@ -115,8 +112,7 @@ class Main extends Sprite {
 			fpsCounter.visible = FlxG.save.data.fps;
 	}
 
-	public static function gc()
-	{
+	public static function gc() {
 		#if cpp
 		Gc.run(true);
 		#elseif hl
@@ -137,13 +133,10 @@ class Main extends Sprite {
 	{
 		var framerate = Std.int(cap);
 		openfl.Lib.current.stage.frameRate = cap;
-		if (framerate > FlxG.drawFramerate)
-		{
+		if (framerate > FlxG.drawFramerate) {
 			FlxG.updateFramerate = framerate;
 			FlxG.drawFramerate = framerate;
-		}
-		else
-		{
+		} else {
 			FlxG.drawFramerate = framerate;
 			FlxG.updateFramerate = framerate;
 		}

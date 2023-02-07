@@ -36,9 +36,9 @@ class OptionCata extends FlxSprite {
 		titleObject.setFormat(Paths.font("vcr.ttf"), 35, FlxColor.WHITE, FlxTextAlign.LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		titleObject.borderSize = 3;
 
-		if (middleType) {
+		if (middleType)
 			titleObject.x = 50 + ((1180 / 2) - (titleObject.fieldWidth / 2));
-		} else
+		else
 			titleObject.x += (width / 2) - (titleObject.fieldWidth / 2);
 
 		titleObject.scrollFactor.set();

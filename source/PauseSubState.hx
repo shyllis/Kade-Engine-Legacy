@@ -36,6 +36,8 @@ class PauseSubState extends MusicBeatSubstate {
 		levelInfo.text += PlayState.SONG.song;
 		levelInfo.scrollFactor.set();
 		levelInfo.setFormat(Paths.font("vcr.ttf"), 32);
+		levelInfo.borderSize = 1;
+		levelInfo.borderQuality = 2;
 		levelInfo.updateHitbox();
 		add(levelInfo);
 
@@ -43,6 +45,8 @@ class PauseSubState extends MusicBeatSubstate {
 		levelDifficulty.text += CoolUtil.difficultyString();
 		levelDifficulty.scrollFactor.set();
 		levelDifficulty.setFormat(Paths.font('vcr.ttf'), 32);
+		levelDifficulty.borderSize = 1;
+		levelDifficulty.borderQuality = 2;
 		levelDifficulty.updateHitbox();
 		add(levelDifficulty);
 
