@@ -144,7 +144,6 @@ class OptionsMenu extends MusicBeatState {
 			new OptionCata(-1, 125, "Editing Keybinds", [
 				new LeftKeybind("The left note's keybind"), new DownKeybind("The down note's keybind"), new UpKeybind("The up note's keybind"),
 				new RightKeybind("The right note's keybind"), new ResetBind("The keybind used to die instantly"), 
-				new FullscreenBind("The keybind used to fullscreen the game")
 			], true)
 		];
 

@@ -194,31 +194,6 @@ class ResetBind extends Option {
 	}
 }
 
-class FullscreenBind extends Option {
-	public function new(desc:String) {
-		super();
-		description = desc;
-		acceptType = true;
-	}
-
-	public override function onType(text:String) {
-		if (waitingType) {
-			FlxG.save.data.fullscreenBind = text;
-			waitingType = false;
-		}
-	}
-
-	public override function press() {
-		waitingType = !waitingType;
-
-		return true;
-	}
-
-	private override function updateDisplay():String {
-		return "FULLSCREEN:  " + (waitingType ? "> " + FlxG.save.data.fullscreenBind + " <" : FlxG.save.data.fullscreenBind) + "";
-	}
-}
-
 class DownscrollOption extends Option {
 	public function new(desc:String) {
 		super();

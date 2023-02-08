@@ -12,34 +12,19 @@ import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
-import flixel.graphics.FlxGraphic;
-import openfl.utils.AssetCache;
-
-#if cpp
-import cpp.vm.Gc;	
-#end
-
-#if hl
-import hl.Gc;
-#elseif java
-import java.vm.Gc;
-#elseif neko
-import neko.vm.Gc;
-#end
-using StringTools;
 
 class Main extends Sprite {
-	var game = {
-		width: 1280,
-		height: 720,
-		initialState: TitleState,
-		zoom: -1.0,
-		framerate: 60,
-		skipSplash: true,
-		startFullscreen: false
-	};
+	var gameWidth:Int = 1280;
+	var gameHeight:Int = 720;
+	var initialState:Class<FlxState> = TitleState;
+	var zoom:Float = -1;
+	var framerate:Int = 60;
+	var skipSplash:Bool = true;
+	var startFullscreen:Bool = false;
 
 	var fpsCounter:Overlay;
+
+	var game:FlxGame;
 
 	public static function main():Void {
 		Lib.current.addChild(new Main());
@@ -67,79 +52,34 @@ class Main extends Sprite {
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 
-		if (game.zoom == -1.0) {
-			var ratioX:Float = stageWidth / game.width;
-			var ratioY:Float = stageHeight / game.height;
-			game.zoom = Math.min(ratioX, ratioY);
-			game.width = Math.ceil(stageWidth / game.zoom);
-			game.height = Math.ceil(stageHeight / game.zoom);
+		if (zoom == -1) {
+			var ratioX:Float = stageWidth / gameWidth;
+			var ratioY:Float = stageHeight / gameHeight;
+			zoom = Math.min(ratioX, ratioY);
+			gameWidth = Math.ceil(stageWidth / zoom);
+			gameHeight = Math.ceil(stageHeight / zoom);
 		}
-		
-		#if cpp
-		Gc.enable(true);
-		#end
 
 		#if !debug
-		game.initialState = TitleState;
+		initialState = TitleState;
 		#end
 
-		addChild(new FlxGame(game.width, game.height, game.initialState, #if (flixel < "5.0.0") game.zoom, #end game.framerate, game.framerate,
-			game.skipSplash, game.startFullscreen));
+		game = new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen);
 
-		FlxGraphic.defaultPersist = false;	
+		addChild(game);
 
-		FlxG.signals.preStateSwitch.add(function() {
-			Paths.clearStoredMemory();
-			FlxG.bitmap.dumpCache();
-
-			var cache = cast(Assets.cache, AssetCache);
-			for (key => font in cache.font)
-				cache.removeFont(key);
-			for (key => sound in cache.sound)
-				cache.removeSound(key);
-
-			gc();
-		});
-
-		FlxG.signals.postStateSwitch.add(function() {
-			Paths.clearUnusedMemory();
-			gc();
-		});
-
-		fpsCounter = new Overlay(10, 3, game.width, game.height);
+		fpsCounter = new Overlay(10, 3, gameWidth, gameHeight);
 		addChild(fpsCounter);
 		if (fpsCounter != null)
 			fpsCounter.visible = FlxG.save.data.fps;
-	}
-
-	public static function gc() {
-		#if cpp
-		Gc.run(true);
-		#elseif hl
-		Gc.major();
-		#elseif (java || neko)
-		Gc.run(true);
-		#else
-		openfl.system.System.gc();
-		#end
-		
 	}
 
 	public function toggleFPS(fpsEnabled:Bool):Void {
 		fpsCounter.visible = fpsEnabled;
 	}
 
-	public function setFPSCap(cap:Float)
-	{
-		var framerate = Std.int(cap);
+	public function setFPSCap(cap:Float) {
 		openfl.Lib.current.stage.frameRate = cap;
-		if (framerate > FlxG.drawFramerate) {
-			FlxG.updateFramerate = framerate;
-			FlxG.drawFramerate = framerate;
-		} else {
-			FlxG.drawFramerate = framerate;
-			FlxG.updateFramerate = framerate;
-		}
 	}
 
 	public function getFPSCap():Float {
