@@ -113,6 +113,8 @@ class PlayState extends MusicBeatState {
 
 	private var camGame:FlxCamera;
 
+	var dialog:Array<String> = [];
+
 	var notesHitArray:Array<Date> = [];
 	var currentFrames:Int = 0;
 
@@ -168,6 +170,12 @@ class PlayState extends MusicBeatState {
 		goods = 0;
 
 		misses = 0;
+        /*
+		switch (curSong.toLowerCase()) {
+			case 'bopeebo':
+				dialog = CoolUtil.coolTextFile(Paths.txt('bopeebo/bopeeboDialogue'));
+		}
+        */
 
 		#if windows
 		switch (storyDifficulty) {
@@ -277,6 +285,10 @@ class PlayState extends MusicBeatState {
 		add(gf);
 		add(dad);
 		add(boyfriend);
+
+		var dialogue:DialogueBox = new DialogueBox(false, dialog);
+		dialogue.scrollFactor.set();
+		dialogue.finishThing = startCountdown;
 
 		Conductor.songPosition = -5000;
 
@@ -418,18 +430,57 @@ class PlayState extends MusicBeatState {
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		botPlayState.cameras = [camHUD];
+		dialogue.cameras = [camHUD];
 
 		startingSong = true;
 
-		switch (curSong.toLowerCase()) {
-			default:
-				startCountdown();
+		/*
+		if (FlxG.save.data.cutscenesInFreeplay) {
+		*/
+			switch (curSong.toLowerCase()) {
+				case 'bopeebo':
+					startDialogue(dialogue);
+				default:
+					startCountdown();
+			}
+		/*
+		} 
+		else {
+			switch (curSong.toLowerCase()) {
+				default:
+					startCountdown();
+			}
 		}
+		*/
 
 		super.create();
 
 		Paths.clearUnusedMemory();
 	}
+	/*
+	function startDialogue(?dialogueBox:DialogueBox):Void {
+		var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
+		black.scrollFactor.set();
+		add(black);
+
+		new FlxTimer().start(0.3, function(tmr:FlxTimer) {
+			black.alpha -= 0.15;
+
+			if (black.alpha > 0) {
+				tmr.reset(0.3);
+			} else {
+				if (dialogueBox != null) {
+					inCutscene = true;
+
+					add(dialogueBox);
+				} else
+					startCountdown();
+
+				remove(black);
+			}
+		});
+	}
+	*/
 
 	var startTimer:FlxTimer;
 	var perfectMode:Bool = false;

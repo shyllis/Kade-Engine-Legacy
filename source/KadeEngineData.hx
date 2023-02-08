@@ -5,6 +5,9 @@ class KadeEngineData {
 	public static function initSave() {
 		if (FlxG.save.data.middleScroll == null)
 			FlxG.save.data.middleScroll = false;
+		
+		if (FlxG.save.data.cutscenesInFreeplay == null)
+			FlxG.save.data.cutscenesInFreeplay = false;
 
 		if (FlxG.save.data.downscroll == null)
 			FlxG.save.data.downscroll = false;

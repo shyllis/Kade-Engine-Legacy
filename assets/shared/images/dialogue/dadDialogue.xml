@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="dadDialogue.png">
+	<SubTexture name="Dialogue Enter0000" x="0" y="0" width="1494" height="870"/>
+	<SubTexture name="Dialogue Enter0001" x="1554" y="0" width="1494" height="870"/>
+	<SubTexture name="Dialogue Enter0002" x="1554" y="0" width="1494" height="870"/>
+	<SubTexture name="Dialogue Enter0003" x="0" y="930" width="1494" height="870"/>
+	<SubTexture name="Dialogue Enter0004" x="0" y="930" width="1494" height="870"/>
+	<SubTexture name="Dialogue Enter0005" x="1554" y="930" width="1494" height="870"/>
+	<SubTexture name="Dialogue Enter0006" x="1554" y="930" width="1494" height="870"/>
+	<SubTexture name="Dialogue Enter0007" x="1554" y="930" width="1494" height="870"/>
+	<SubTexture name="Dialogue Enter0008" x="1554" y="930" width="1494" height="870"/>
+</TextureAtlas>

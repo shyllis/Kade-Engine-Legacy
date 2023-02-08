@@ -263,6 +263,28 @@ class GhostTapOption extends Option {
 	}
 }
 
+class FreeplayCutscenesOption extends Option {
+	public function new(desc:String) {
+		super();
+		description = desc;
+	}
+
+	public override function left():Bool {
+		FlxG.save.data.cutscenesInFreeplay = !FlxG.save.data.cutscenesInFreeplay;
+		display = updateDisplay();
+		return true;
+	}
+
+	public override function right():Bool {
+		left();
+		return true;
+	}
+
+	private override function updateDisplay():String {
+		return "Freeplay Cutscenes: < " + (!FlxG.save.data.cutscenesInFreeplay ? "Disabled" : "Enabled") + " >";
+	}
+}
+
 class AccuracyOption extends Option {
 	public function new(desc:String) {
 		super();
@@ -648,6 +670,7 @@ class ResetSettings extends Option {
 		}
 		FlxG.save.data.downscroll = null;
 		FlxG.save.data.accuracyDisplay = null;
+		FlxG.save.data.cutscenesInFreeplay = null;
 		FlxG.save.data.ratingCounter = null;
 		FlxG.save.data.bgNotesAlpha = null;
 		FlxG.save.data.noteSplashes = null;

@@ -64,6 +64,6 @@
 	<!--Allows The Game To Skip Some Code That May Cause Errors.-->	
 	<haxeflag name="--dce full" if="release" />
 	
-	<icon path="assets/icons/icon16.png" size='16'/>
-	<icon path="assets/icons/icon.png" />
+	<icon path="assets/gameicons/icon16.png" size='16'/>
+	<icon path="assets/gameicons/icon.png" />
 </project>

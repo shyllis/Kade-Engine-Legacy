@@ -116,10 +116,11 @@ class OptionsMenu extends MusicBeatState {
 			new OptionCata(50, 40, "Gameplay", [
 				new GhostTapOption("Toggle counting pressing a directional input when no arrow is there as a miss."),
 				new DownscrollOption("Toggle making the notes scroll down rather than up."),
-				new BotPlay("A bot plays for you!"),
+				new FreeplayCutscenesOption("Cutscenes like videos and dialogues in Freeplay."),
 				new ResetButtonOption("Toggle pressing R to gameover."),
 				new ChangeKeyBindsOption(),
-				new CustomizeGameplay("Drag and drop gameplay modules to your prefered positions!")
+				new CustomizeGameplay("Drag and drop gameplay modules to your prefered positions!"),
+				new BotPlay("A bot plays for you! (skill issue)")
 			]),
 			new OptionCata(345, 40, "Appearance", [
 				new MiddleScrollOption("Put your lane in the center or on the right."),
