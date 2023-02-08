@@ -188,7 +188,7 @@ class ChartingState extends MusicBeatState {
 	var waveformUseP1Voices:FlxUICheckBox;
 	var waveformUseP2Voices:FlxUICheckBox;
 	function addSongUI():Void {
-		waveformUseInstrumental = new FlxUICheckBox(170, 100, null, null, "Waveform for Instrumental", 100);
+		waveformUseInstrumental = new FlxUICheckBox(200, 100, null, null, "Waveform for Instrumental", 100);
 		waveformUseInstrumental.checked = FlxG.save.data.song_waveformInst;
 		waveformUseInstrumental.callback = function()
 		{

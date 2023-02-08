@@ -55,15 +55,6 @@
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
 	
-	<!--Allow working memory greater than 1 Gig-->
-	<haxedef name="HXCPP_GC_BIG_BLOCKS"/>
-
-	<!--Self Explanitory.-->
-	<haxedef name="no-deprecation-warnings" />
-
-	<!--Allows The Game To Skip Some Code That May Cause Errors.-->	
-	<haxeflag name="--dce full" if="release" />
-	
 	<icon path="assets/gameicons/icon16.png" size='16'/>
 	<icon path="assets/gameicons/icon.png" />
 </project>
