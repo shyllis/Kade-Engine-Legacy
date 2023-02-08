@@ -54,6 +54,8 @@
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
+	<haxedef name="no-deprecation-warnings" />
+	<haxeflag name="--dce full" if="release" />
 	
 	<icon path="assets/gameicons/icon16.png" size='16'/>
 	<icon path="assets/gameicons/icon.png" />
