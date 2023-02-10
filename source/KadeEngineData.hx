@@ -75,6 +75,10 @@ class KadeEngineData {
 		Conductor.recalculateTimings();
 		PlayerSettings.player1.controls.loadKeyBinds();
 		KeyBinds.keyCheck();
+		FlxG.save.data.song_waveformInst = false;
+		FlxG.save.data.song_waveformVoices = false;
+		FlxG.save.data.song_waveformP1Voices = false;
+		FlxG.save.data.song_waveformP2Voices = false;
 
 		(cast(Lib.current.getChildAt(0), Main)).setFPSCap(FlxG.save.data.fpsCap);
 	}

@@ -381,14 +381,14 @@ class ChartingState extends MusicBeatState {
 		var tab_group_song = new FlxUI(null, UI_box);
 		tab_group_song.name = "Song";
 		tab_group_song.add(waveformUseInstrumental);
-		if (SepVocalsNull)
+		/*if (SepVocalsNull)
 			tab_group_song.add(waveformUseVoices);
 		else
 		{
-			//tab_group_song.add(waveformUseP1Voices);
-			//tab_group_song.add(waveformUseP2Voices);
+			tab_group_song.add(waveformUseP1Voices);
+			tab_group_song.add(waveformUseP2Voices);
 			trace('sep voices waveform is buggy');
-		}
+		}*/
 		tab_group_song.add(UI_songTitle);
 		tab_group_song.add(restart);
 		tab_group_song.add(check_voices);
@@ -1196,7 +1196,7 @@ class ChartingState extends MusicBeatState {
 			}
 		}
 
-		if (_song.song != "Tutorial")
+		/*if (_song.song != "Tutorial" && SepVocalsNull)
 		{
 			if (FlxG.save.data.song_waveformVoices) {
 				var sound:FlxSound = vocals;
@@ -1215,7 +1215,7 @@ class ChartingState extends MusicBeatState {
 				}
 			}
 		}
-			/*else
+			else
 			{
 				if (FlxG.save.data.song_waveformP1Voices) {
 					var sound:FlxSound = P1vocals;
