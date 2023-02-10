@@ -188,6 +188,10 @@ class ChartingState extends MusicBeatState {
 	var waveformUseP1Voices:FlxUICheckBox;
 	var waveformUseP2Voices:FlxUICheckBox;
 	function addSongUI():Void {
+		if (FlxG.save.data.song_waveformInst == null) FlxG.save.data.song_waveformInst = false;
+		if (FlxG.save.data.song_waveformVoices == null) FlxG.save.data.song_waveformVoices = false;
+		if (FlxG.save.data.song_waveformP1Voices == null) FlxG.save.data.song_waveformP1Voices = false;
+		if (FlxG.save.data.song_waveformP2Voices == null) FlxG.save.data.song_waveformP2Voices = false;
 		waveformUseInstrumental = new FlxUICheckBox(200, 100, null, null, "Waveform for Instrumental", 100);
 		waveformUseInstrumental.checked = FlxG.save.data.song_waveformInst;
 		waveformUseInstrumental.callback = function()
@@ -381,8 +385,9 @@ class ChartingState extends MusicBeatState {
 			tab_group_song.add(waveformUseVoices);
 		else
 		{
-			tab_group_song.add(waveformUseP1Voices);
-			tab_group_song.add(waveformUseP2Voices);
+			//tab_group_song.add(waveformUseP1Voices);
+			//tab_group_song.add(waveformUseP2Voices);
+			trace('sep voices waveform is buggy');
 		}
 		tab_group_song.add(UI_songTitle);
 		tab_group_song.add(restart);
@@ -439,6 +444,14 @@ class ChartingState extends MusicBeatState {
 		var tab_group_section = new FlxUI(null, UI_box);
 		tab_group_section.name = 'Section';
 
+		if (FlxG.save.data.section_wheelSection == null) FlxG.save.data.section_wheelSection = false;
+		var wheelSection = new FlxUICheckBox(150, 30, null, null, "Scroll sections with mouse wheel", 100);
+		wheelSection.checked = FlxG.save.data.section_wheelSection;
+		wheelSection.callback = function() {
+			FlxG.save.data.section_wheelSection = wheelSection.checked;
+			trace('scroll bitches');
+		}
+
 		stepperLength = new FlxUINumericStepper(10, 10, 4, 0, 0, 999, 0);
 		stepperLength.value = _song.notes[curSection].lengthInSteps;
 		stepperLength.name = "section_length";
@@ -487,6 +500,7 @@ class ChartingState extends MusicBeatState {
 		tab_group_section.add(copyButton);
 		tab_group_section.add(clearSectionButton);
 		tab_group_section.add(swapSection);
+		tab_group_section.add(wheelSection);
 
 		UI_box.addGroup(tab_group_section);
 	}
@@ -842,15 +856,25 @@ class ChartingState extends MusicBeatState {
 						vocals.pause();
 				claps.splice(0, claps.length);
 
-				var stepMs = curStep * Conductor.stepCrochet;
-
-				trace(Conductor.stepCrochet / snap);
-
-				if (doSnapShit)
-					FlxG.sound.music.time = stepMs - (FlxG.mouse.wheel * Conductor.stepCrochet / snap);
+				if (FlxG.save.data.section_wheelSection)
+				{
+					if (FlxG.mouse.wheel > 0)
+						changeSection(curSection + shiftThing);
+					else if (FlxG.mouse.wheel < 0)
+						changeSection(curSection - shiftThing);
+				}
 				else
-					FlxG.sound.music.time -= (FlxG.mouse.wheel * Conductor.stepCrochet * 0.4);
-				trace(stepMs + " + " + Conductor.stepCrochet / snap + " -> " + FlxG.sound.music.time);
+				{
+					var stepMs = curStep * Conductor.stepCrochet;
+
+					trace(Conductor.stepCrochet / snap);
+
+					if (doSnapShit)
+						FlxG.sound.music.time = stepMs - (FlxG.mouse.wheel * Conductor.stepCrochet / snap);
+					else
+						FlxG.sound.music.time -= (FlxG.mouse.wheel * Conductor.stepCrochet * 0.4);
+					trace(stepMs + " + " + Conductor.stepCrochet / snap + " -> " + FlxG.sound.music.time);
+				}
 
 				if (SepVocalsNull)
 					vocals.time = FlxG.sound.music.time;
@@ -1172,56 +1196,60 @@ class ChartingState extends MusicBeatState {
 			}
 		}
 
-		if (FlxG.save.data.song_waveformVoices && SepVocalsNull && _song.song != "Tutorial") {
-			var sound:FlxSound = vocals;
-			if (sound._sound != null && sound._sound.__buffer != null) {
-				var bytes:Bytes = sound._sound.__buffer.data.toBytes();
+		if (_song.song != "Tutorial")
+		{
+			if (FlxG.save.data.song_waveformVoices) {
+				var sound:FlxSound = vocals;
+				if (sound._sound != null && sound._sound.__buffer != null) {
+					var bytes:Bytes = sound._sound.__buffer.data.toBytes();
 
-				wavData = waveformData(
-					sound._sound.__buffer,
-					bytes,
-					st,
-					et,
-					1,
-					wavData,
-					Std.int(gridBG.height)
-				);
+					wavData = waveformData(
+						sound._sound.__buffer,
+						bytes,
+						st,
+						et,
+						1,
+						wavData,
+						Std.int(gridBG.height)
+					);
+				}
 			}
 		}
+			/*else
+			{
+				if (FlxG.save.data.song_waveformP1Voices) {
+					var sound:FlxSound = P1vocals;
+					if (sound._sound != null && sound._sound.__buffer != null) {
+						var bytes:Bytes = sound._sound.__buffer.data.toBytes();
 
-		if (FlxG.save.data.song_waveformP1Voices && !SepVocalsNull) {
-			var sound:FlxSound = P1vocals;
-			if (sound._sound != null && sound._sound.__buffer != null) {
-				var bytes:Bytes = sound._sound.__buffer.data.toBytes();
+						wavData = waveformData(
+							sound._sound.__buffer,
+							bytes,
+							st,
+							et,
+							1,
+							wavData,
+							Std.int(gridBG.height)
+						);
+					}
+				}
+				if (FlxG.save.data.song_waveformP2Voices) {
+					var sound:FlxSound = P2vocals;
+					if (sound._sound != null && sound._sound.__buffer != null) {
+						var bytes:Bytes = sound._sound.__buffer.data.toBytes();
 
-				wavData = waveformData(
-					sound._sound.__buffer,
-					bytes,
-					st,
-					et,
-					1,
-					wavData,
-					Std.int(gridBG.height)
-				);
-			}
-		}
-
-		if (FlxG.save.data.song_waveformP2Voices && !SepVocalsNull) {
-			var sound:FlxSound = P2vocals;
-			if (sound._sound != null && sound._sound.__buffer != null) {
-				var bytes:Bytes = sound._sound.__buffer.data.toBytes();
-
-				wavData = waveformData(
-					sound._sound.__buffer,
-					bytes,
-					st,
-					et,
-					1,
-					wavData,
-					Std.int(gridBG.height)
-				);
-			}
-		}
+						wavData = waveformData(
+							sound._sound.__buffer,
+							bytes,
+							st,
+							et,
+							1,
+							wavData,
+							Std.int(gridBG.height)
+						);
+					}
+				}
+			}*/
 
 		var gSize:Int = Std.int(GRID_SIZE * 8);
 		var hSize:Int = Std.int(gSize / 2);

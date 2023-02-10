@@ -130,7 +130,7 @@ class OptionsMenu extends MusicBeatState {
 				new RatingCounterOption("Display note hit ratings information."),
 				new TimerOption("Display song timer.")
 			]),
-			new OptionCata(640, 40, "Pref", [
+			new OptionCata(640, 40, "Perfomance", [
 				new OverlayOption("Show The FPS And Other Debug Info"),
 				new GPUInfo("Shows GPU Info And System Info."),
 				new MemoryInfo("Toggle Memory info for overlay"),

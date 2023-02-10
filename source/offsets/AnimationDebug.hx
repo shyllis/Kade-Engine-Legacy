@@ -60,6 +60,8 @@ class AnimationDebug extends MusicBeatState {
 
 	override function create() {
 		FlxG.mouse.visible = true;
+		if (FlxG.sound.music != null)
+			FlxG.sound.music.stop();
 
 		background = new FlxSprite(-600, -525).loadGraphic(Paths.image('stageback', 'shared'));
 		front = new FlxSprite(-650, 325).loadGraphic(Paths.image('stagefront', 'shared'));

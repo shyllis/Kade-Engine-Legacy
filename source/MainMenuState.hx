@@ -34,7 +34,7 @@ class MainMenuState extends MusicBeatState {
 
 	public static var firstStart:Bool = true;
 
-	public static var kadeEngineLegacyVer:String = "1.0";
+	public static var kadeEngineLegacyVer:String = "1.0A";
 
 	var bg:FlxSprite;
 	var magenta:FlxSprite;
