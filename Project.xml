@@ -57,6 +57,6 @@
 	<haxedef name="no-deprecation-warnings" />
 	<haxeflag name="--dce full" if="release" />
 	
-	<icon path="assets/gameicons/icon16.png" size='16'/>
-	<icon path="assets/gameicons/icon.png" />
+	<icon path="icon16.png" size='16'/>
+	<icon path="icon.png" />
 </project>

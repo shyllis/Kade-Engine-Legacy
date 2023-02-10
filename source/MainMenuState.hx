@@ -138,10 +138,6 @@ class MainMenuState extends MusicBeatState {
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
 			}
-			if (controls.BACK) {
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-				FlxG.switchState(new TitleState());
-			}
 			if (controls.ACCEPT) {
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('confirmMenu'));
