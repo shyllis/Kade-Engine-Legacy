@@ -280,7 +280,7 @@ class PlayState extends MusicBeatState {
 		}
 
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
-		if (!hidegf)
+		if (!hideGf)
 			add(gf);
 		add(dad);
 		add(boyfriend);
