@@ -150,6 +150,8 @@ class PlayState extends MusicBeatState {
 
 	var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
 
+	public var hideGf:Bool = false; // write hideGf = true is stage to remove gf !
+	
 	override public function create() {
 		instance = this;
 		FlxG.mouse.visible = false;
@@ -260,6 +262,8 @@ class PlayState extends MusicBeatState {
 
 		gf = new Character(400, 130, gfVersion);
 		gf.scrollFactor.set(0.95, 0.95);
+		if (hideGf)
+			gf.visible = false;
 
 		dad = new Character(100, 100, SONG.player2);
 
