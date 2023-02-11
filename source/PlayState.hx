@@ -262,8 +262,6 @@ class PlayState extends MusicBeatState {
 
 		gf = new Character(400, 130, gfVersion);
 		gf.scrollFactor.set(0.95, 0.95);
-		if (hideGf)
-			gf.visible = false;
 
 		dad = new Character(100, 100, SONG.player2);
 
@@ -282,7 +280,8 @@ class PlayState extends MusicBeatState {
 		}
 
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
-		add(gf);
+		if (!hidegf)
+			add(gf);
 		add(dad);
 		add(boyfriend);
 
