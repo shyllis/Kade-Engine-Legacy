@@ -1,23 +1,18 @@
 # Changelog for 1.0a
 
-## Changes/Fixes
+### Additions
+- Added Mouse wheel section scrolling checkbox in Chart Editor
+- Added Fullscreen Button in Title (Press F)
 
-### Changed hud layering.
+### Changes
+- Changed hud layering.
+- Renamed "Misc" to "Perfomance" in settings.
 
-### Fixed inst playing in AnimationDebug.
+### Bugfixes
+- Fixed inst playing in AnimationDebug.
+- Fixed hitsounds by adding SNAP.ogg back (This caused hitsounds crash)
 
-### Renamed "Misc" to "Perfomance" in settings.
-
-### Fixed hitsounds by adding SNAP.ogg back (This caused hitsounds crash)
-
-## Added
-
-### Added Mouse wheel section scrolling checkbox in Chart Editor
-
-### Added Fullscreen Button in Title (Press F)
-
-# Links:
-
+## Links
 [GitHub Release](https://github.com/Goldie5fnf/Kade-Engine-Legacy/releases/tag/1.0a)
 
 [Gamebanana](https://gamebanana.com/tools/12083)
