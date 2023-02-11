@@ -34,7 +34,7 @@ class MainMenuState extends MusicBeatState {
 
 	public static var firstStart:Bool = true;
 
-	public static var kadeEngineLegacyVer:String = "1.0";
+	public static var kadeEngineLegacyVer:String = "1.0A";
 
 	var bg:FlxSprite;
 	var magenta:FlxSprite;
@@ -137,10 +137,6 @@ class MainMenuState extends MusicBeatState {
 			if (controls.DOWN_P) {
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				changeItem(1);
-			}
-			if (controls.BACK) {
-				FlxG.sound.play(Paths.sound('cancelMenu'));
-				FlxG.switchState(new ExitState());
 			}
 			if (controls.ACCEPT) {
 				selectedSomethin = true;

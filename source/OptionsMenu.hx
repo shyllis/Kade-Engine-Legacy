@@ -116,7 +116,7 @@ class OptionsMenu extends MusicBeatState {
 			new OptionCata(50, 40, "Gameplay", [
 				new GhostTapOption("Toggle counting pressing a directional input when no arrow is there as a miss."),
 				new DownscrollOption("Toggle making the notes scroll down rather than up."),
-				new FreeplayCutscenesOption("Cutscenes like videos and dialogues in Freeplay."),
+				//new FreeplayCutscenesOption("Cutscenes like videos and dialogues in Freeplay."),
 				new ResetButtonOption("Toggle pressing R to gameover."),
 				new ChangeKeyBindsOption(),
 				new CustomizeGameplay("Drag and drop gameplay modules to your prefered positions!"),
@@ -130,7 +130,7 @@ class OptionsMenu extends MusicBeatState {
 				new RatingCounterOption("Display note hit ratings information."),
 				new TimerOption("Display song timer.")
 			]),
-			new OptionCata(640, 40, "Pref", [
+			new OptionCata(640, 40, "Perfomance", [
 				new OverlayOption("Show The FPS And Other Debug Info"),
 				new GPUInfo("Shows GPU Info And System Info."),
 				new MemoryInfo("Toggle Memory info for overlay"),
@@ -144,7 +144,6 @@ class OptionsMenu extends MusicBeatState {
 			new OptionCata(-1, 125, "Editing Keybinds", [
 				new LeftKeybind("The left note's keybind"), new DownKeybind("The down note's keybind"), new UpKeybind("The up note's keybind"),
 				new RightKeybind("The right note's keybind"), new ResetBind("The keybind used to die instantly"), 
-				new FullscreenBind("The keybind used to fullscreen the game")
 			], true)
 		];
 

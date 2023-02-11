@@ -236,12 +236,9 @@ class FreeplayState extends MusicBeatState {
 		intendedScore = Highscore.getScore(songHighscore, curDifficulty);
 		#end
 
-		/*
 		#if PRELOAD_ALL
 		FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName), 0);
 		#end
-		//Lags and loads songs into memory.
-		*/
 
 		var bullShit:Int = 0;
 
