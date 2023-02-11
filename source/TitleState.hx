@@ -50,8 +50,6 @@ class TitleState extends MusicBeatState {
 		{
 			trace("Loaded " + openfl.Assets.getLibrary("default").assetsLoaded + " assets (DEFAULT)");
 		}
-		
-		fullscreenBind = FlxKey.fromString(FlxG.save.data.fullscreenBind);
 
 		curWacky = FlxG.random.getObject(getIntroTextShit());
 
@@ -163,14 +161,13 @@ class TitleState extends MusicBeatState {
 	}
 
 	var transitioning:Bool = false;
-	var fullscreenBind:FlxKey;
 
 	override function update(elapsed:Float) {
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;
 
-		if (FlxG.keys.anyJustPressed([fullscreenBind]))
-				FlxG.fullscreen = !FlxG.fullscreen;
+		if (FlxG.keys.justPressed.F)
+			FlxG.fullscreen = !FlxG.fullscreen;
 
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
 
