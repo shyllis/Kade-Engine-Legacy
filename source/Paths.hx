@@ -143,7 +143,7 @@ class Paths {
 	}
 
 	inline static public function video(key:String) {
-		return 'assets/videos/$key.mp4';
+		return 'assets/videos/$key';
 	}
 
 	inline static public function voices(song:String) {

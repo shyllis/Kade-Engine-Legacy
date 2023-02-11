@@ -26,23 +26,17 @@
 	<section if="PRELOAD_ALL">
 		<library name="songs"    preload="true" />
 		<library name="shared"   preload="true" />
-		<library name="videos"   preload="true" />
 	</section>
 	
 	<section if="NO_PRELOAD_ALL">
 		<library name="songs"    preload="false" />
 		<library name="shared"   preload="false" />
-		<library name="videos"   preload="false" />
 	</section>
 	
 	<assets path="assets/songs"    library="songs"    exclude="*.ogg" if="web"/>
 	<assets path="assets/songs"    library="songs"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/shared"   library="shared"   exclude="*.ogg" if="web"/>
 	<assets path="assets/shared"   library="shared"   exclude="*.mp3" unless="web"/>
-	<assets path="assets/videos"   library="videos"   exclude="*.ogg" if="web"/>
-	<assets path="assets/videos"   library="videos"   exclude="*.mp3" unless="web"/>
-	
-	<!-- <assets path='mods' embed='false' /> -->
 
 	<assets path="assets/fonts" embed='true'/>
 
@@ -55,6 +49,7 @@
 	<haxelib name="discord_rpc" if="windows"/>
 	<haxelib name="hxCodec" if="desktop || android" unless="web" />
 
+	<haxedef name="HXC_DEBUG_TRACE" if="debug" />
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />

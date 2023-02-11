@@ -86,8 +86,6 @@ class ChartingState extends MusicBeatState {
 	private var lastNote:Note;
 	var claps:Array<Note> = [];
 
-	var waveformSprite:FlxSprite;
-
 	public var snapText:FlxText;
 
 	override function create() {
@@ -126,9 +124,6 @@ class ChartingState extends MusicBeatState {
 
 		gridBlackLine = new FlxSprite(gridBG.x + gridBG.width / 2).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
 		add(gridBlackLine);
-
-		waveformSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0x00FFFFFF);
-		add(waveformSprite);
 
 		curRenderedNotes = new FlxTypedGroup<Note>();
 		curRenderedSustains = new FlxTypedGroup<FlxSprite>();
@@ -183,70 +178,7 @@ class ChartingState extends MusicBeatState {
 		super.create();
 	}
 
-	var waveformUseInstrumental:FlxUICheckBox;
-	var waveformUseVoices:FlxUICheckBox;
-	var waveformUseP1Voices:FlxUICheckBox;
-	var waveformUseP2Voices:FlxUICheckBox;
 	function addSongUI():Void {
-		if (FlxG.save.data.song_waveformInst == null) FlxG.save.data.song_waveformInst = false;
-		if (FlxG.save.data.song_waveformVoices == null) FlxG.save.data.song_waveformVoices = false;
-		if (FlxG.save.data.song_waveformP1Voices == null) FlxG.save.data.song_waveformP1Voices = false;
-		if (FlxG.save.data.song_waveformP2Voices == null) FlxG.save.data.song_waveformP2Voices = false;
-		waveformUseInstrumental = new FlxUICheckBox(200, 100, null, null, "Waveform for Instrumental", 100);
-		waveformUseInstrumental.checked = FlxG.save.data.song_waveformInst;
-		waveformUseInstrumental.callback = function()
-		{
-		if (SepVocalsNull)
-		{
-			waveformUseVoices.checked = false;
-			FlxG.save.data.song_waveformVoices = false;
-		}
-		else
-		{
-			waveformUseP1Voices.checked = false;
-			FlxG.save.data.song_waveformP1Voices = false;
-			waveformUseP2Voices.checked = false;
-			FlxG.save.data.song_waveformP2Voices = false;
-		}
-			FlxG.save.data.song_waveformInst = waveformUseInstrumental.checked;
-			updateWaveform();
-		};
-
-		if (SepVocalsNull)
-		{
-			waveformUseVoices = new FlxUICheckBox(waveformUseInstrumental.x, waveformUseInstrumental.y + 50, null, null, "Waveform for Voices", 100);
-			waveformUseVoices.checked = FlxG.save.data.song_waveformVoices;
-			waveformUseVoices.callback = function()
-			{
-				waveformUseInstrumental.checked = false;
-				FlxG.save.data.song_waveformInst = false;
-				FlxG.save.data.song_waveformVoices = waveformUseVoices.checked;
-				updateWaveform();
-			};
-		}
-		else
-		{
-			waveformUseP1Voices = new FlxUICheckBox(waveformUseInstrumental.x, waveformUseInstrumental.y + 50, null, null, "Waveform for Player Voices", 100);
-			waveformUseP1Voices.checked = FlxG.save.data.song_waveformP1Voices;
-			waveformUseP1Voices.callback = function()
-			{
-				waveformUseInstrumental.checked = false;
-				FlxG.save.data.song_waveformInst = false;
-				FlxG.save.data.song_waveformP1Voices = waveformUseP1Voices.checked;
-				updateWaveform();
-			};
-
-			waveformUseP2Voices = new FlxUICheckBox(waveformUseInstrumental.x, waveformUseInstrumental.y + 100, null, null, "Waveform for Enemy Voices", 100);
-			waveformUseP2Voices.checked = FlxG.save.data.song_waveformP2Voices;
-			waveformUseP2Voices.callback = function()
-			{
-				waveformUseInstrumental.checked = false;
-				FlxG.save.data.song_waveformInst = false;
-				FlxG.save.data.song_waveformP2Voices = waveformUseP2Voices.checked;
-				updateWaveform();
-			};
-		}
-
 		var UI_songTitle = new FlxUIInputText(10, 10, 70, _song.song, 8);
 		typingShit = UI_songTitle;
 
@@ -380,15 +312,6 @@ class ChartingState extends MusicBeatState {
 
 		var tab_group_song = new FlxUI(null, UI_box);
 		tab_group_song.name = "Song";
-		tab_group_song.add(waveformUseInstrumental);
-		/*if (SepVocalsNull)
-			tab_group_song.add(waveformUseVoices);
-		else
-		{
-			tab_group_song.add(waveformUseP1Voices);
-			tab_group_song.add(waveformUseP2Voices);
-			trace('sep voices waveform is buggy');
-		}*/
 		tab_group_song.add(UI_songTitle);
 		tab_group_song.add(restart);
 		tab_group_song.add(check_voices);
@@ -1008,7 +931,6 @@ class ChartingState extends MusicBeatState {
 
 		updateGrid();
 		updateSectionUI();
-		updateWaveform();
 	}
 
 	function changeSection(sec:Int = 0, ?updateMusic:Bool = true):Void {
@@ -1039,7 +961,6 @@ class ChartingState extends MusicBeatState {
 
 			updateGrid();
 			updateSectionUI();
-			updateWaveform();
 		} else
 			trace('bro wtf I AM NULL');
 	}
@@ -1105,10 +1026,6 @@ class ChartingState extends MusicBeatState {
 		gridBlackLine = new FlxSprite(gridBG.x + gridBG.width / 2).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
 		add(gridBlackLine);
 
-		if(FlxG.save.data.song_waveformInst || FlxG.save.data.song_waveformVoices || FlxG.save.data.song_waveformP1Voices || FlxG.save.data.song_waveformP2Voices) {
-			updateWaveform();
-		}
-
 		while (curRenderedNotes.members.length > 0) {
 			curRenderedNotes.remove(curRenderedNotes.members[0], true);
 		}
@@ -1155,250 +1072,6 @@ class ChartingState extends MusicBeatState {
 				curRenderedSustains.add(sustainVis);
 			}
 		}
-	}
-
-	var waveformPrinted:Bool = true;
-	var wavData:Array<Array<Array<Float>>> = [[[0], [0]], [[0], [0]]];
-	function updateWaveform() {
-		if(waveformPrinted) {
-			waveformSprite.makeGraphic(Std.int(GRID_SIZE * 8), Std.int(gridBG.height), 0x00FFFFFF);
-			waveformSprite.pixels.fillRect(new Rectangle(0, 0, gridBG.width, gridBG.height), 0x00FFFFFF);
-		}
-		waveformPrinted = false;
-
-		if(!FlxG.save.data.song_waveformInst && !FlxG.save.data.song_waveformVoices && !FlxG.save.data.song_waveformP1Voices && !FlxG.save.data.song_waveformP2Voices) {
-			return;
-		}
-
-		wavData[0][0] = [];
-		wavData[0][1] = [];
-		wavData[1][0] = [];
-		wavData[1][1] = [];
-
-		var steps:Int = Math.round(_song.notes[curSection].lengthInSteps * 4);
-		var st:Float = sectionStartTime();
-		var et:Float = st + (Conductor.stepCrochet * steps);
-
-		if (FlxG.save.data.song_waveformInst) {
-			var sound:FlxSound = FlxG.sound.music;
-			if (sound._sound != null && sound._sound.__buffer != null) {
-				var bytes:Bytes = sound._sound.__buffer.data.toBytes();
-
-				wavData = waveformData(
-					sound._sound.__buffer,
-					bytes,
-					st,
-					et,
-					1,
-					wavData,
-					Std.int(gridBG.height)
-				);
-			}
-		}
-
-		/*if (_song.song != "Tutorial" && SepVocalsNull)
-		{
-			if (FlxG.save.data.song_waveformVoices) {
-				var sound:FlxSound = vocals;
-				if (sound._sound != null && sound._sound.__buffer != null) {
-					var bytes:Bytes = sound._sound.__buffer.data.toBytes();
-
-					wavData = waveformData(
-						sound._sound.__buffer,
-						bytes,
-						st,
-						et,
-						1,
-						wavData,
-						Std.int(gridBG.height)
-					);
-				}
-			}
-		}
-			else
-			{
-				if (FlxG.save.data.song_waveformP1Voices) {
-					var sound:FlxSound = P1vocals;
-					if (sound._sound != null && sound._sound.__buffer != null) {
-						var bytes:Bytes = sound._sound.__buffer.data.toBytes();
-
-						wavData = waveformData(
-							sound._sound.__buffer,
-							bytes,
-							st,
-							et,
-							1,
-							wavData,
-							Std.int(gridBG.height)
-						);
-					}
-				}
-				if (FlxG.save.data.song_waveformP2Voices) {
-					var sound:FlxSound = P2vocals;
-					if (sound._sound != null && sound._sound.__buffer != null) {
-						var bytes:Bytes = sound._sound.__buffer.data.toBytes();
-
-						wavData = waveformData(
-							sound._sound.__buffer,
-							bytes,
-							st,
-							et,
-							1,
-							wavData,
-							Std.int(gridBG.height)
-						);
-					}
-				}
-			}*/
-
-		var gSize:Int = Std.int(GRID_SIZE * 8);
-		var hSize:Int = Std.int(gSize / 2);
-
-		var lmin:Float = 0;
-		var lmax:Float = 0;
-
-		var rmin:Float = 0;
-		var rmax:Float = 0;
-
-		var size:Float = 1;
-
-		var leftLength:Int = (
-			wavData[0][0].length > wavData[0][1].length ? wavData[0][0].length : wavData[0][1].length
-		);
-
-		var rightLength:Int = (
-			wavData[1][0].length > wavData[1][1].length ? wavData[1][0].length : wavData[1][1].length
-		);
-
-		var length:Int = leftLength > rightLength ? leftLength : rightLength;
-
-		var index:Int;
-		for (i in 0...length) {
-			index = i;
-
-			lmin = FlxMath.bound(((index < wavData[0][0].length && index >= 0) ? wavData[0][0][index] : 0) * (gSize / 1.12), -hSize, hSize) / 2;
-			lmax = FlxMath.bound(((index < wavData[0][1].length && index >= 0) ? wavData[0][1][index] : 0) * (gSize / 1.12), -hSize, hSize) / 2;
-
-			rmin = FlxMath.bound(((index < wavData[1][0].length && index >= 0) ? wavData[1][0][index] : 0) * (gSize / 1.12), -hSize, hSize) / 2;
-			rmax = FlxMath.bound(((index < wavData[1][1].length && index >= 0) ? wavData[1][1][index] : 0) * (gSize / 1.12), -hSize, hSize) / 2;
-
-			waveformSprite.pixels.fillRect(new Rectangle(hSize - (lmin + rmin), i * size, (lmin + rmin) + (lmax + rmax), size), FlxColor.BLUE);
-		}
-
-		waveformPrinted = true;
-	}
-
-	function waveformData(buffer:AudioBuffer, bytes:Bytes, time:Float, endTime:Float, multiply:Float = 1, ?array:Array<Array<Array<Float>>>, ?steps:Float):Array<Array<Array<Float>>>
-	{
-		#if (lime_cffi && !macro)
-		if (buffer == null || buffer.data == null) return [[[0], [0]], [[0], [0]]];
-
-		var khz:Float = (buffer.sampleRate / 1000);
-		var channels:Int = buffer.channels;
-
-		var index:Int = Std.int(time * khz);
-
-		var samples:Float = ((endTime - time) * khz);
-
-		if (steps == null) steps = 1280;
-
-		var samplesPerRow:Float = samples / steps;
-		var samplesPerRowI:Int = Std.int(samplesPerRow);
-
-		var gotIndex:Int = 0;
-
-		var lmin:Float = 0;
-		var lmax:Float = 0;
-
-		var rmin:Float = 0;
-		var rmax:Float = 0;
-
-		var rows:Float = 0;
-
-		var simpleSample:Bool = true;//samples > 17200;
-		var v1:Bool = false;
-
-		if (array == null) array = [[[0], [0]], [[0], [0]]];
-
-		while (index < (bytes.length - 1)) {
-			if (index >= 0) {
-				var byte:Int = bytes.getUInt16(index * channels * 2);
-
-				if (byte > 65535 / 2) byte -= 65535;
-
-				var sample:Float = (byte / 65535);
-
-				if (sample > 0) {
-					if (sample > lmax) lmax = sample;
-				} else if (sample < 0) {
-					if (sample < lmin) lmin = sample;
-				}
-
-				if (channels >= 2) {
-					byte = bytes.getUInt16((index * channels * 2) + 2);
-
-					if (byte > 65535 / 2) byte -= 65535;
-
-					sample = (byte / 65535);
-
-					if (sample > 0) {
-						if (sample > rmax) rmax = sample;
-					} else if (sample < 0) {
-						if (sample < rmin) rmin = sample;
-					}
-				}
-			}
-
-			v1 = samplesPerRowI > 0 ? (index % samplesPerRowI == 0) : false;
-			while (simpleSample ? v1 : rows >= samplesPerRow) {
-				v1 = false;
-				rows -= samplesPerRow;
-
-				gotIndex++;
-
-				var lRMin:Float = Math.abs(lmin) * multiply;
-				var lRMax:Float = lmax * multiply;
-
-				var rRMin:Float = Math.abs(rmin) * multiply;
-				var rRMax:Float = rmax * multiply;
-
-				if (gotIndex > array[0][0].length) array[0][0].push(lRMin);
-					else array[0][0][gotIndex - 1] = array[0][0][gotIndex - 1] + lRMin;
-
-				if (gotIndex > array[0][1].length) array[0][1].push(lRMax);
-					else array[0][1][gotIndex - 1] = array[0][1][gotIndex - 1] + lRMax;
-
-				if (channels >= 2) {
-					if (gotIndex > array[1][0].length) array[1][0].push(rRMin);
-						else array[1][0][gotIndex - 1] = array[1][0][gotIndex - 1] + rRMin;
-
-					if (gotIndex > array[1][1].length) array[1][1].push(rRMax);
-						else array[1][1][gotIndex - 1] = array[1][1][gotIndex - 1] + rRMax;
-				}
-				else {
-					if (gotIndex > array[1][0].length) array[1][0].push(lRMin);
-						else array[1][0][gotIndex - 1] = array[1][0][gotIndex - 1] + lRMin;
-
-					if (gotIndex > array[1][1].length) array[1][1].push(lRMax);
-						else array[1][1][gotIndex - 1] = array[1][1][gotIndex - 1] + lRMax;
-				}
-
-				lmin = 0;
-				lmax = 0;
-
-				rmin = 0;
-				rmax = 0;
-			}
-
-			index++;
-			rows++;
-			if(gotIndex > steps) break;
-		}
-
-		return array;
-		#else
-		return [[[0], [0]], [[0], [0]]];
-		#end
 	}
 
 	private function addSection(lengthInSteps:Int = 16):Void {
