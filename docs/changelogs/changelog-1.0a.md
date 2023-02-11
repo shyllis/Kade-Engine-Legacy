@@ -8,13 +8,13 @@
 
 ### Renamed "Misc" to "Perfomance" in settings.
 
+### Fixed hitsounds by adding SNAP.ogg back (This caused hitsounds crash)
+
 ## Added
 
 ### Added Mouse wheel section scrolling checkbox in Chart Editor
 
 ### Added Fullscreen Button in Title (Press F)
-
-### Added SNAP.ogg back (This caused hitsounds crash)
 
 # Links:
 
