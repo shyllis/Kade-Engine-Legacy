@@ -1,4 +1,4 @@
-# Changelog for 1.0
+# Changelog for ver
 
 ### Additions
 - template
@@ -10,4 +10,4 @@
 - template
 
 ## Links
-[GitHub Release](https://github.com/Goldie5fnf/Kade-Engine-Legacy/releases/tag/1.0)
+[GitHub Release](https://github.com/Goldie5fnf/Kade-Engine-Legacy/releases/tag/ver)
