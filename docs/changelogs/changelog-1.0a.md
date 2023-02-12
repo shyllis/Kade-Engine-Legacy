@@ -13,6 +13,6 @@
 - Fixed hitsounds by adding SNAP.ogg back (This caused hitsounds crash)
 
 ## Links
-[GitHub Release](https://github.com/Goldie5fnf/Kade-Engine-Legacy/releases/tag/1.0a)
+[GitHub Release](https://github.com/Goldie5fnf/Kade-Engine-Legacy/releases/tag/1.0A)
 
 [Gamebanana](https://gamebanana.com/tools/12083)
