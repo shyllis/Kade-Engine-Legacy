@@ -150,7 +150,7 @@ class PlayState extends MusicBeatState {
 
 	var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
 
-	public var hideGf:Bool = false; // write hideGf = true is stage to remove gf !
+	public var hideGf:Bool = false; // write hideGf = true in stage to remove gf !
 	
 	override public function create() {
 		instance = this;
