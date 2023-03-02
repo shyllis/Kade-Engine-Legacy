@@ -10,7 +10,7 @@
 	 - Windows: install from the [git-scm](https://git-scm.com/downloads) website.
 	 - Linux: install the `git` package: `sudo apt install git` (ubuntu), `sudo pacman -S git` (arch), etc... (you probably already have it)
  3. So, you installed stuff. Now you need to install all the the necessary libraries:
-	 - `haxelib install lime 7.9.0`
+	 - `haxelib install lime`
 	 - `haxelib install openfl`
 	 - `haxelib install flixel`
 	 - `haxelib run lime setup`
