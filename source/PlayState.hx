@@ -1065,7 +1065,7 @@ class PlayState extends MusicBeatState {
 		}
 		if (!inCutscene && FlxG.save.data.resetButton) {
 			var resetBind = FlxKey.fromString(FlxG.save.data.resetBind);
-			var gpresetBind = FlxKey.fromString(FlxG.save.data.gpresetBind);
+			
 			if ((FlxG.keys.anyJustPressed([resetBind]))) {
 				boyfriend.stunned = true;
 

@@ -15,7 +15,7 @@ class KeyBinds {
 		FlxG.save.data.downBind = "S";
 		FlxG.save.data.leftBind = "A";
 		FlxG.save.data.rightBind = "D";
-		FlxG.save.data.killBind = "R";
+		FlxG.save.data.resetBind = "R";
 		PlayerSettings.player1.controls.loadKeyBinds();
 	}
 
@@ -32,7 +32,7 @@ class KeyBinds {
 		if (FlxG.save.data.rightBind == null)
 			FlxG.save.data.rightBind = "D";
 			
-		if (FlxG.save.data.killBind == null)
-			FlxG.save.data.killBind = "R";
+		if (FlxG.save.data.resetBind == null)
+			FlxG.save.data.resetBind = "R";
 	}
 }
