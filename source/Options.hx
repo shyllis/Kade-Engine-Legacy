@@ -663,7 +663,7 @@ class ResetSettings extends Option {
 		FlxG.save.data.downBind = null;
 		FlxG.save.data.rightBind = null;
 		FlxG.save.data.leftBind = null;
-		FlxG.save.data.killBind = null;
+		FlxG.save.data.resetBind = null;
 		(cast(Lib.current.getChildAt(0), Main)).toggleFPS(FlxG.save.data.fps);
 		FlxG.resetState();
 
