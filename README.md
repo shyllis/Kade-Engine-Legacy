@@ -20,9 +20,9 @@ Links: **[Gamebanana mod page]() ⋅ [latest stable release](https://github.com/
 
 **REMEMBER**: This is a **mod**. This is not the vanilla game and should be treated as a **modification**. This is not and will never be official, so don't get confused.
 
-## How to build KEL?
+## How to mod KEL?
 
-### If you want to build Kade Engine Legacy, read [this](https://github.com/Goldie5fnf/Kade-Engine-Legacy/blob/main/docs/building.md).
+### If you want to mod Kade Engine Legacy, read [guides](https://github.com/dolpshy/Kade-Engine-Legacy/blob/main/docs/guides/index.md) (If you've used Kade Engine before, you won't need it).
 
 # Features
 
