@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-	<app title="Kade Engine Legacy" file="KE Legacy" packageName="com.goldie5.kadeenginelegacy" package="com.goldie5.kadeenginelegacy" main="Main" version="0.2.7.1" company="goldie5" />
+	<app title="Kade Engine Legacy" file="KE Legacy" packageName="com.shyllis.kadeenginelegacy" package="com.shyllis.kadeenginelegacy" main="Main" version="0.2.7.1" company="Shyllis" />
 	
 	<set name="APP_ID" value="0x0100f6c013bbc000" />
 	<app preloader="flixel.system.FlxPreloader" />
