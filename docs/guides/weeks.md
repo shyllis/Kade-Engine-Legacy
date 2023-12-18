@@ -1,7 +1,7 @@
 # Creating A Custom Week
 
 ## Requirements
-1. The ability to compile Kade Engine Legacy from the source code. All information related to building Kade Engine Legacy is listed [here.](https://github.com/Goldie5fnf/Kade-Engine-Legacy/blob/main/docs/building.md)
+1. The ability to compile Kade Engine Legacy from the source code. All information related to building Kade Engine Legacy is listed [here.](https://github.com/dolpshy/Kade-Engine-Legacy/blob/main/docs/building.md)
 2. A text editor. Some form of IDE that can support Haxe is recommended, such as Visual Studio Code.
 
 ---
