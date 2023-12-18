@@ -12,7 +12,7 @@ Navigate to your Kade Engine Legacy source code. In the `source` folder, look fo
 Choose a folder where you want to add your character assets.
 Add a .png and .xml files of your character with the same names.
 
-Add your character to the characterList.txt file located in assets/preload/data/.
+Add your character to the `characterList.txt` file located in `assets/preload/data/`.
 That should look like this:
 `
 bf
@@ -135,7 +135,7 @@ You'll get something like this: `frames = Paths.getSparrowAtlas('characters/whit
 
 After, add all the animations like that: `animation.addByPrefix('<Name Used In The Game>', '<XML name>', <FPS>, false);`, raplacing <Name Used In The Game> with the anim name used in the code (`idle`, `singLEFT`, `singUP`, `singDOWN`, `singRIGHT`, etc.) and replacing <XML name> with the name of anim in XML file (name given in Adobe Animate or Adobe Flash).
 
-We will skip setting offsets for now, so just do addOffset('<anim>');, replacing <anim> with animations you added before.
+We will skip setting offsets for now, so just do `addOffset('<anim>');`, replacing <anim> with animations you added before.
 
 Add `playAnim('idle');`.
 
