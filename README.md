@@ -30,8 +30,6 @@ Links: **[Gamebanana mod page]() ⋅ [latest stable release](https://github.com/
     - To be honest, the best version of Kade Engine.
  - **New Updated HUD**
     - Middle Scroll, New Song Position, and more with the new HUD!
- - **GPU Render**
-    - You can load sprites with GPU instead of RAM, that can boost your FPS!
  - **Optimization**
     - A lot of stuff to make the game work better!
  - **Note Splashes**
