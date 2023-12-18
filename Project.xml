@@ -47,7 +47,6 @@
 	<haxelib name="flixel-ui" />
 	<haxelib name="faxe" if='switch'/>
 	<haxelib name="discord_rpc" if="windows"/>
-	<haxelib name="hxCodec" if="desktop || android" unless="web" />
 
 	<haxedef name="HXC_DEBUG_TRACE" if="debug" />
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
