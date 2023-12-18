@@ -128,12 +128,19 @@ switch (curCharacter) {
 ---
 
 Add `case '<yourCharacter>':` after `barColor = 0xFF31b0d1;` (line 114), replacing <yourCharacter> with your characters name (!!NOTE!! Use the SAME name you used in the .txt file).
+
 After, add directory to your character `frames = Paths.getSparrowAtlas('<path>', '<library>');`, replace <path> with your characters picture and XML name and replace <library> with library you used (`shared`, `preload`, etc.).
+
 You'll get something like this: `frames = Paths.getSparrowAtlas('characters/whitty_assets', 'shared');`.
+
 After, add all the animations like that: `animation.addByPrefix('<Name Used In The Game>', '<XML name>', <FPS>, false);`, raplacing <Name Used In The Game> with the anim name used in the code (`idle`, `singLEFT`, `singUP`, `singDOWN`, `singRIGHT`, etc.) and replacing <XML name> with the name of anim in XML file (name given in Adobe Animate or Adobe Flash).
+
 We will skip setting offsets for now, so just do addOffset('<anim>');, replacing <anim> with animations you added before.
+
 Add `playAnim('idle');`.
+
 Also, add `flipX = true;` if the character should be flipped.
+
 Add health bar color by using `barColor = <HEX Color>;`, replacing <HEX Color> with your color (0xFFFFFFFF(black), 0xFF000000(white), etc.).
 
 This will look like that:
@@ -165,7 +172,9 @@ case 'whitty':
 ### Step 4. Compile the game to fix offsets
 After the game is compiled, go to Chart Editor by pressing 7 on any song and choose your character as player 2, or as player 1 if it should replace bf and press Enter.
 Press 9 to use Animation Debug Menu.
+
 Setup the character, press Crtl+S, and paste it instead of `addOffset();` lines.
+
 It'll look like that:
 
 ---
