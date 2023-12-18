@@ -10,14 +10,16 @@
 	 - Windows: install from the [git-scm](https://git-scm.com/downloads) website.
 	 - Linux: install the `git` package: `sudo apt install git` (ubuntu), `sudo pacman -S git` (arch), etc... (you probably already have it)
  3. So, you installed stuff. Now you need to install all the the necessary libraries:
-	 - `haxelib install lime`
-	 - `haxelib install openfl`
-	 - `haxelib install flixel`
-	 - `haxelib install flixel-tools`
-	 - `haxelib install flixel-addons`
-	 - `haxelib install flixel-ui`
+	 - `haxelib install lime 8.0.1`
+	 - `haxelib install openfl 9.2.0`
+	 - `haxelib install flixel 5.2.2`
+	 - `haxelib install flixel-tools 1.5.1`
+	 - `haxelib install flixel-addons 2.11.0`
+	 - `haxelib install flixel-ui 2.3.3`
 	 - `haxelib install hxCodec`
 	 - `haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc`
+
+If you have these libraries installed, you can change their version with haxelib set <library> <version>.
 
 ### Windows-only dependencies (only for building *to* Windows. Building html5 on Windows does not require this)
 If you are planning to build for Windows, you also need to install **Visual Studio**.
