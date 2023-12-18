@@ -23,6 +23,9 @@ whitty
 
 Add your icons in the directory `YourMod/assets/preload/images/icons/` with the name `icon-<char>.png`, replacing <char> with your character name (!!NOTE!! Use the SAME name you used in the .txt file).
 It should look like this: `icon-whitty.png`
+
+To add a week character, add it to 'assets/preload/images/storymenu/menucharacters/'.
+It should look like this: `whitty.png` and `whitty.xml`
   
 ### Step 3. Adding Your Character
 Scroll down to Line 26, or Search (Windows/Linux: `Ctrl+F`, Mac: `Cmd+F`) for "switch (curCharacter)". You should find a switch that looks like this:
@@ -325,6 +328,76 @@ if (generatedMusic && PlayState.SONG.notes[Std.int(curStep / 16)] != null) {
 
 ---
 
+### Step 6. Adding a Week Character
+To add the character into the story menu you need to go to MenuCharacter.hx, scroll down to Line 21, or Search (Windows/Linux: `Ctrl+F`, Mac: `Cmd+F`) for "private static var settings:Map<String, CharacterSetting>". You should find a Map that looks like this:
+
+---
+
+```haxe
+private static var settings:Map<String, CharacterSetting> = [
+	'bf' => new CharacterSetting(-25, -55, 1.1, true),
+	'gf' => new CharacterSetting(-50, -10, 1.0, true),
+	'dad' => new CharacterSetting(-125, 40, 1.0)
+];
+
+```
+
+---
+
+And add your character like that:
+
+---
+
+```haxe
+private static var settings:Map<String, CharacterSetting> = [
+	'bf' => new CharacterSetting(-25, -55, 1.1, true),
+	'gf' => new CharacterSetting(-50, -10, 1.0, true),
+	'dad' => new CharacterSetting(-125, 40, 1.0), // <---- dont forget this comma
+	'whitty' => new CharacterSetting(-125, 40, 1.0, <flip>) // <--- if you need to flip your character, add `true`.
+];
+
+```
+
+---
+After, scroll down to Line 46, or Search (Windows/Linux: `Ctrl+F`, Mac: `Cmd+F`) for "switch (character)". You should find a switch that looks like this:
+
+---
+
+```haxe
+switch (character) {
+	case 'bf':
+		idleAnim = 'M BF Idle';
+	case 'gf':
+		idleAnim = 'M GF Idle';
+	case 'dad':
+		idleAnim = 'M Dad Idle';
+}
+
+```
+
+---
+
+Add a new case and add `idleAnim = '<XMLanim>';`, replacing <XMLanim> with animation name in the XML file.
+
+It will look like this:
+
+---
+
+```haxe
+switch (character) {
+	case 'bf':
+		idleAnim = 'M BF Idle';
+	case 'gf':
+		idleAnim = 'M GF Idle';
+	case 'dad':
+		idleAnim = 'M Dad Idle';
+	case 'whitty':
+		idleAnim = 'whittyIdle';
+}
+
+```
+
+---
 
 ### Conclusion
 Congratulations! If you followed all of the steps correctly, you have successfully created a new character in the game. You may use it in chart editor.
