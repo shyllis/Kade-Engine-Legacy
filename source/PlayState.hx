@@ -24,8 +24,6 @@ import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
 import flixel.util.FlxStringUtil;
 import lime.utils.Assets;
-import hxcodec.VideoHandler;
-import hxcodec.VideoSprite;
 #if windows
 import Discord.DiscordClient;
 #end
@@ -871,25 +869,6 @@ class PlayState extends MusicBeatState {
 			+ " | Misses: "
 			+ misses, iconRPC);
 		#end
-	}
-
-	function playCutscene(name:String, atEndOfSong:Bool = false) {
-		inCutscene = true;
-		FlxG.sound.music.stop();
-
-		var video:VideoHandler = new VideoHandler();
-		video.finishCallback = function() {
-			if (atEndOfSong) {
-				if (storyPlaylist.length <= 0)
-					FlxG.switchState(new StoryMenuState());
-				else {
-					SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
-					FlxG.switchState(new PlayState());
-				}
-			} else
-				startCountdown();
-		}
-		video.playVideo(Paths.video(name));
 	}
 
 	private var paused:Bool = false;
