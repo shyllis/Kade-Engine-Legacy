@@ -50,7 +50,7 @@ var weekData:Array<Dynamic> = [
  
 ### Step 3. Week Characters
 Directly below the songlist should be an Array titled `weekCharacters`. This array tells the game what characters to display in the top yellow bar when a certain week is selected.
-It's not very useful unless you followed the Characters guide (will link to it once it's actually done). If you have, though, you can insert the name of your character into the first pair of quotes in a new "week". Example:
+It's not very useful unless you followed the [Characters guide](https://github.com/dolpshy/Kade-Engine-Legacy/blob/main/docs/guides/character.md). If you have, though, you can insert the name of your character into the first pair of quotes in a new "week". Example:
 
 Example
 ---
