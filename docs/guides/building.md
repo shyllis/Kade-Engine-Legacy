@@ -1,4 +1,4 @@
-﻿# How to build Kade Engine Legacy
+# How to build Kade Engine Legacy
 
 **Note**: You should be familiar with the commandline. If not, read this [quick guide by ninjamuffin](https://ninjamuffin99.newgrounds.com/news/post/1090480).
 
@@ -16,7 +16,6 @@
 	 - `haxelib install flixel-tools 1.5.1`
 	 - `haxelib install flixel-addons 2.11.0`
 	 - `haxelib install flixel-ui 2.3.3`
-	 - `haxelib install hxCodec`
 	 - `haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc`
 
 If you have these libraries installed, you can change their version with haxelib set <library> <version>.
