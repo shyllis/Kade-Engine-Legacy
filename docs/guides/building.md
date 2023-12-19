@@ -18,7 +18,7 @@
 	 - `haxelib install flixel-ui 2.3.3`
 	 - `haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc`
 
-If you have these libraries installed, you can change their version with haxelib set <library> <version>.
+If you have these libraries installed, you can change their version with haxelib set <library> //version\\.
 
 ### Windows-only dependencies (only for building *to* Windows. Building html5 on Windows does not require this)
 If you are planning to build for Windows, you also need to install **Visual Studio**.
